@@ -14,37 +14,37 @@ public sealed class NumeralConverter : INumberSystemConverter
 
         var number = input;
 
-        var thousands = ReduceMultiple(ref number, NC.OneThousand);
-        var hasNineHundred = HasLimit(ref number, NC.OneThousand - NC.OneHundred);
-        var hasFiveHundred = HasLimit(ref number, NC.FiveHundred);
-        var hasFourHundred = HasLimit(ref number, NC.FiveHundred - NC.OneHundred);
-        var hundreds = ReduceMultiple(ref number, NC.OneHundred);
-        var hasNinety = HasLimit(ref number, NC.OneHundred - NC.Ten);
-        var hasFifty = HasLimit(ref number, NC.Fifty);
-        var hasForty = HasLimit(ref number, NC.Fifty - NC.Ten);
-        var tens = ReduceMultiple(ref number, NC.Ten);
-        var hasNine = HasLimit(ref number, NC.Ten - NC.One);
-        var hasFive = HasLimit(ref number, NC.Five);
-        var hasFour = HasLimit(ref number, NC.Five - NC.One);
-        var ones = ReduceMultiple(ref number, NC.One);
+        var thousands = GetMultiple(ref number, NC.OneThousand);
+        var hasNineHundred = HasCompund(ref number, NC.OneThousand - NC.OneHundred);
+        var hasFiveHundred = HasCompund(ref number, NC.FiveHundred);
+        var hasFourHundred = HasCompund(ref number, NC.FiveHundred - NC.OneHundred);
+        var hundreds = GetMultiple(ref number, NC.OneHundred);
+        var hasNinety = HasCompund(ref number, NC.OneHundred - NC.Ten);
+        var hasFifty = HasCompund(ref number, NC.Fifty);
+        var hasForty = HasCompund(ref number, NC.Fifty - NC.Ten);
+        var tens = GetMultiple(ref number, NC.Ten);
+        var hasNine = HasCompund(ref number, NC.Ten - NC.One);
+        var hasFive = HasCompund(ref number, NC.Five);
+        var hasFour = HasCompund(ref number, NC.Five - NC.One);
+        var ones = GetMultiple(ref number, NC.One);
 
-        var result = new StringBuilder();
+        var resultBuilder = new StringBuilder();
 
-        AddMultiple(result, thousands, $"{NC.M}");
-        AddLimit(result, hasNineHundred, $"{NC.C}{NC.M}");
-        AddLimit(result, hasFiveHundred, $"{NC.D}");
-        AddLimit(result, hasFourHundred, $"{NC.C}{NC.D}");
-        AddMultiple(result, hundreds, $"{NC.C}");
-        AddLimit(result, hasNinety, $"{NC.X}{NC.C}");
-        AddLimit(result, hasFifty, $"{NC.L}");
-        AddLimit(result, hasForty, $"{NC.X}{NC.L}");
-        AddMultiple(result, tens, $"{NC.X}");
-        AddLimit(result, hasNine, $"{NC.I}{NC.X}");
-        AddLimit(result, hasFive, $"{NC.V}");
-        AddLimit(result, hasFour, $"{NC.I}{NC.V}");
-        AddMultiple(result, ones, $"{NC.I}");
+        AddMultiple(resultBuilder, thousands, $"{NC.M}");
+        AddCompound(resultBuilder, hasNineHundred, $"{NC.C}{NC.M}");
+        AddCompound(resultBuilder, hasFiveHundred, $"{NC.D}");
+        AddCompound(resultBuilder, hasFourHundred, $"{NC.C}{NC.D}");
+        AddMultiple(resultBuilder, hundreds, $"{NC.C}");
+        AddCompound(resultBuilder, hasNinety, $"{NC.X}{NC.C}");
+        AddCompound(resultBuilder, hasFifty, $"{NC.L}");
+        AddCompound(resultBuilder, hasForty, $"{NC.X}{NC.L}");
+        AddMultiple(resultBuilder, tens, $"{NC.X}");
+        AddCompound(resultBuilder, hasNine, $"{NC.I}{NC.X}");
+        AddCompound(resultBuilder, hasFive, $"{NC.V}");
+        AddCompound(resultBuilder, hasFour, $"{NC.I}{NC.V}");
+        AddMultiple(resultBuilder, ones, $"{NC.I}");
 
-        return result.ToString();
+        return resultBuilder.ToString();
     }
 
     public uint ToUInt(string input)
@@ -68,7 +68,7 @@ public sealed class NumeralConverter : INumberSystemConverter
         return result;
     }
 
-    private static uint ReduceMultiple(ref uint number, uint segment)
+    private static uint GetMultiple(ref uint number, uint segment)
     {
         if (number >= segment)
         {
@@ -84,31 +84,35 @@ public sealed class NumeralConverter : INumberSystemConverter
         }
     }
 
-    private static bool HasLimit(ref uint number, uint segment)
+    private static bool HasCompund(ref uint number, uint segment)
     {
-        var hasLimit = number >= segment;
+        var result = number >= segment;
 
-        if (hasLimit)
+        if (result)
         {
             number -= segment;
         }
 
-        return hasLimit;
+        return result;
     }
 
-    private static void AddMultiple(StringBuilder result, uint count, string numeral)
+    private static void AddMultiple(StringBuilder resultBuilder
+        , uint count
+        , string numeral)
     {
         for (uint i = 0; i < count; i++)
         {
-            result.Append(numeral);
+            resultBuilder.Append(numeral);
         }
     }
 
-    private static void AddLimit(StringBuilder result, bool hasLimit, string numeral)
+    private static void AddCompound(StringBuilder resultBuilder
+        , bool hasCompound
+        , string numeral)
     {
-        if (hasLimit)
+        if (hasCompound)
         {
-            result.Append(numeral);
+            resultBuilder.Append(numeral);
         }
     }
 }
