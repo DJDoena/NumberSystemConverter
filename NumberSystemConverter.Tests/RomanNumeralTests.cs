@@ -75,6 +75,10 @@ public sealed class RomanNumeralTests
         => _converter.TestConvert(15, "XV");
 
     [TestMethod]
+    public void Nineteen()
+        => _converter.TestConvert(19, "XIX");
+
+    [TestMethod]
     public void Twenty()
         => _converter.TestConvert(20, "XX");
 
@@ -239,6 +243,11 @@ public sealed class RomanNumeralTests
     [ExpectedException(typeof(InvalidInputException))]
     public void DD()
         => _ = _converter.ToUInt("DD");
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidInputException))]
+    public void XIXV()
+        => _converter.TestConvert(15, "XIXV");
 
     [TestMethod]
     public void RomanToBin()
