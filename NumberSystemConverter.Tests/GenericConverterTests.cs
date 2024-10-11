@@ -1,4 +1,4 @@
-﻿namespace DoenaSoft.NumberSystemConverter;
+﻿namespace DoenaSoft.NumberSystemConverter.Tests;
 
 [TestClass]
 public sealed class GenericConverterTests
