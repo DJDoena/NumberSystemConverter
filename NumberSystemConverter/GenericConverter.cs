@@ -36,7 +36,7 @@ public static class GenericConverter
 
         if (input.Any(c => !validCharacters.Contains(c)))
         {
-            throw new InvalidInputException("Invalid character in string");
+            throw new InvalidInputException("Invalid character in input");
         }
 
         var result = 0U;

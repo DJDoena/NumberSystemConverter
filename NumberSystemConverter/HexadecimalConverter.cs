@@ -9,7 +9,7 @@ public sealed class HexadecimalConverter : BaseXConverterBase
 
     public override uint ToUInt(string input)
     {
-        if (input == null)
+        if (string.IsNullOrWhiteSpace(input))
         {
             throw new ArgumentNullException(nameof(input));
         }

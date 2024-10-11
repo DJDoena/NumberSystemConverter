@@ -37,6 +37,21 @@ public sealed class HexTests
         => _converter.TestConvert(255, "FF");
 
     [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void InputNull()
+        => _converter.ToUInt(null!);
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void InputEmpty()
+        => _converter.ToUInt(string.Empty);
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void InputWhitespace()
+        => _converter.ToUInt(" ");
+
+    [TestMethod]
     public void HexToBin()
     {
         var stringResult = (new HexadecimalConverter()).Convert("F", new BinaryConverter());

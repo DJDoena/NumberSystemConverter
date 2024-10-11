@@ -1,25 +1,26 @@
+using System.ComponentModel.DataAnnotations;
 using DoenaSoft.NumberSystemConverter.Roman;
 
 namespace DoenaSoft.NumberSystemConverter.Tests;
 
 [TestClass]
-public sealed class RomanNumeralTests
+public sealed class RomanNumeralConverterTests
 {
     private readonly NumeralConverter _converter;
 
-    public RomanNumeralTests()
+    public RomanNumeralConverterTests()
     {
         _converter = new();
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
+    [ExpectedException(typeof(InvalidInputException))]
     public void ZeroFromUInt()
         => _ = _converter.FromUInt(0);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
-    public void ZeroToUInt()
+    public void EmptyToUInt()
         => _ = _converter.ToUInt("");
 
     [TestMethod]
@@ -247,7 +248,12 @@ public sealed class RomanNumeralTests
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void XIXV()
-        => _converter.TestConvert(15, "XIXV");
+        => _ = _converter.ToUInt("XIXV");
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidInputException))]
+    public void K()
+        => _ = _converter.ToUInt("K");
 
     [TestMethod]
     public void RomanToBin()

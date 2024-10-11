@@ -9,7 +9,7 @@ public sealed class NumeralConverter : INumberSystemConverter
     {
         if (input == 0)
         {
-            throw new ArgumentException("Number must be bigger than 0", nameof(input));
+            throw new InvalidInputException("Input must be bigger than 0. Roman numerals did not have the conzept of 0.");
         }
 
         var number = input;

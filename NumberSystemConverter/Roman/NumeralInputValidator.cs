@@ -14,7 +14,7 @@ public sealed class NumeralInputValidator
     private ushort _xCount;
     private ushort _vCount;
     private ushort _iCount;
-    private int _numberIndex;
+    //private int _numberIndex;
 
     /// <summary>
     ///The code check against the following rules:
@@ -53,32 +53,31 @@ public sealed class NumeralInputValidator
             _numbers.Add(number);
         }
 
-        for (_numberIndex = 0; _numberIndex < _numbers.Count; _numberIndex++)
+        for (var numberIndex = 0; numberIndex < _numbers.Count; numberIndex++)
         {
-            var currentNumber = this.GetCurrentNumber();
+            var currentNumber = this.GetCurrentNumber(numberIndex);
 
-            if (_numberIndex < _numbers.Count - 1)
+            if (numberIndex < _numbers.Count - 1)
             {
-                if (currentNumber < this.GetNextNumber())
+                if (currentNumber < this.GetNextNumber(numberIndex))
                 {
-                    if (this.ValidateSubtraction())
-                    {
-                        continue;
-                    }
+                    this.ValidateSubtraction(ref numberIndex);
+
+                    continue;
                 }
             }
 
             if (currentNumber > _highestNumber)
             {
-                throw new InvalidInputException($"You cannot have '{input[_numberIndex]}' following '{_highestNumeral}'");
+                throw new InvalidInputException($"You cannot have '{input[numberIndex]}' following '{_highestNumeral}'");
             }
             else
             {
-                this.ValidateMaxSequentials(false);
+                this.ValidateMaxSequentials(false, numberIndex);
 
                 _highestNumber = currentNumber;
 
-                _highestNumeral = input[_numberIndex].ToString();
+                _highestNumeral = input[numberIndex].ToString();
             }
         }
 
@@ -87,71 +86,65 @@ public sealed class NumeralInputValidator
         return result;
     }
 
-    private bool ValidateSubtraction()
+    private void ValidateSubtraction(ref int numberIndex)
     {
-        this.ValidatePowerOfTenSubtraction();
+        this.ValidatePowerOfTenSubtraction(numberIndex);
 
-        var currentNumber = this.GetCurrentNumber();
+        var currentNumber = this.GetCurrentNumber(numberIndex);
 
-        var nextNumber = this.GetNextNumber();
+        var nextNumber = this.GetNextNumber(numberIndex);
 
         var substraction = (ushort)(nextNumber - currentNumber);
 
         if (substraction > _highestNumber)
         {
-            var wrongInput = $"{this.GetCurrentNumeral()}{this.GetNextNumeral()}";
+            var wrongInput = $"{this.GetCurrentNumeral(numberIndex)}{this.GetNextNumeral(numberIndex)}";
 
             throw new InvalidInputException($"You cannot have '{wrongInput}' following '{_highestNumeral}'");
         }
         else
         {
-            _highestNumeral = $"{this.GetCurrentNumeral()}{this.GetNextNumeral()}";
-
-            if (substraction > _highestNumber)
-            {
-                throw new InvalidInputException($"You cannot have '{_highestNumeral}' following '{_highestNumeral}'");
-            }
+            _highestNumeral = $"{this.GetCurrentNumeral(numberIndex)}{this.GetNextNumeral(numberIndex)}";
 
             _highestNumber = (ushort)(currentNumber - 1);
 
-            _numberIndex++;
+            numberIndex++;
 
-            this.ValidateMaxSequentials(true);
-
-            return true;
+            this.ValidateMaxSequentials(true, numberIndex);
         }
     }
 
-    private void ValidatePowerOfTenSubtraction()
+    private void ValidatePowerOfTenSubtraction(int numberIndex)
     {
 
-        if (this.ValidatePowerOfTenSubtraction(NC.I, NC.V, NC.X))
+        if (this.ValidatePowerOfTenSubtraction(NC.I, NC.V, NC.X, numberIndex))
         {
             return;
         }
-        else if (this.ValidatePowerOfTenSubtraction(NC.X, NC.L, NC.C))
+        else if (this.ValidatePowerOfTenSubtraction(NC.X, NC.L, NC.C, numberIndex))
         {
             return;
         }
-        else if (this.ValidatePowerOfTenSubtraction(NC.C, NC.D, NC.M))
+        else if (this.ValidatePowerOfTenSubtraction(NC.C, NC.D, NC.M, numberIndex))
         {
             return;
         }
         else
         {
-            throw new InvalidInputException($"You cannot substract '{this.GetCurrentNumeral()}' from '{this.GetNextNumeral()}'");
+            throw new InvalidInputException($"You cannot substract '{this.GetCurrentNumeral(numberIndex)}' from '{this.GetNextNumeral(numberIndex)}'");
         }
     }
 
     private bool ValidatePowerOfTenSubtraction(char romanCompare
         , char romanValid1
-        , char romanValid2)
+        , char romanValid2
+        , int numberIndex)
     {
-        var currentNumber = this.GetCurrentNumber();
+        var currentNumber = this.GetCurrentNumber(numberIndex);
 
         if (currentNumber == NC.GetNumber(romanCompare))
         {
-            var nextNumber = this.GetNextNumber();
+            var nextNumber = this.GetNextNumber(numberIndex);
 
             if (nextNumber != NC.GetNumber(romanValid1)
                 && nextNumber != NC.GetNumber(romanValid2))
@@ -167,7 +160,8 @@ public sealed class NumeralInputValidator
         }
     }
 
-    private void ValidateMaxSequentials(bool isSubstraction)
+    private void ValidateMaxSequentials(bool isSubstraction
+        , int numberIndex)
     {
         const ushort MaxOne = 1;
 
@@ -175,25 +169,26 @@ public sealed class NumeralInputValidator
             ? (ushort)4
             : (ushort)3;
 
-        this.ValidateMaxSequentials(ref _dCount, MaxOne, NC.FiveHundred, "one");
-        this.ValidateMaxSequentials(ref _cCount, maxCount, NC.OneHundred, "three");
-        this.ValidateMaxSequentials(ref _lCount, MaxOne, NC.Fifty, "one");
-        this.ValidateMaxSequentials(ref _xCount, maxCount, NC.Ten, "three");
-        this.ValidateMaxSequentials(ref _vCount, MaxOne, NC.Five, "one");
-        this.ValidateMaxSequentials(ref _iCount, maxCount, NC.One, "three");
+        this.ValidateMaxSequentials(ref _dCount, MaxOne, NC.FiveHundred, "one", numberIndex);
+        this.ValidateMaxSequentials(ref _cCount, maxCount, NC.OneHundred, "three", numberIndex);
+        this.ValidateMaxSequentials(ref _lCount, MaxOne, NC.Fifty, "one", numberIndex);
+        this.ValidateMaxSequentials(ref _xCount, maxCount, NC.Ten, "three", numberIndex);
+        this.ValidateMaxSequentials(ref _vCount, MaxOne, NC.Five, "one", numberIndex);
+        this.ValidateMaxSequentials(ref _iCount, maxCount, NC.One, "three", numberIndex);
     }
 
     private bool ValidateMaxSequentials(ref ushort count
         , ushort maxCount
         , ushort value
-        , string numberWord)
+        , string numberWord
+        , int numberIndex)
     {
-        if (this.GetCurrentNumber() == value)
+        if (this.GetCurrentNumber(numberIndex) == value)
         {
             count++;
             if (count > maxCount)
             {
-                throw new InvalidInputException($"You cannot have more than {numberWord} '{this.GetCurrentNumeral()}'");
+                throw new InvalidInputException($"You cannot have more than {numberWord} '{this.GetCurrentNumeral(numberIndex)}'");
             }
 
             return true;
@@ -206,43 +201,49 @@ public sealed class NumeralInputValidator
     {
         var result = new List<ushort>(_numbers!.Count);
 
-        for (_numberIndex = 0; _numberIndex < _numbers.Count; _numberIndex++)
+        for (var numberIndex = 0; numberIndex < _numbers.Count; numberIndex++)
         {
-            var currentNumber = this.GetCurrentNumber();
+            this.AddResultNumber(result, ref numberIndex);
+        }
 
-            if (_numberIndex < _numbers.Count - 1)
+        return result;
+    }
+
+    private void AddResultNumber(List<ushort> result
+        , ref int numberIndex)
+    {
+        var currentNumber = this.GetCurrentNumber(numberIndex);
+
+        if (numberIndex < _numbers!.Count - 1)
+        {
+            var nextNumber = this.GetNextNumber(numberIndex);
+
+            if (currentNumber < nextNumber)
             {
-                var nextNumber = this.GetNextNumber();
+                result.Add((ushort)(nextNumber - currentNumber));
 
-                if (currentNumber < nextNumber)
-                {
-                    result.Add((ushort)(nextNumber - currentNumber));
-
-                    _numberIndex++;
-                }
-                else
-                {
-                    result.Add(currentNumber);
-                }
+                numberIndex++;
             }
             else
             {
                 result.Add(currentNumber);
             }
         }
-
-        return result;
+        else
+        {
+            result.Add(currentNumber);
+        }
     }
 
-    private ushort GetCurrentNumber()
-        => _numbers![_numberIndex];
+    private ushort GetCurrentNumber(int numberIndex)
+        => _numbers![numberIndex];
 
-    private ushort GetNextNumber()
-        => _numbers![_numberIndex + 1];
+    private ushort GetNextNumber(int numberIndex)
+        => _numbers![numberIndex + 1];
 
-    private char GetCurrentNumeral()
-        => _numerals![_numberIndex];
+    private char GetCurrentNumeral(int numberIndex)
+        => _numerals![numberIndex];
 
-    private char GetNextNumeral()
-        => _numerals![_numberIndex + 1];
+    private char GetNextNumeral(int numberIndex)
+        => _numerals![numberIndex + 1];
 }
