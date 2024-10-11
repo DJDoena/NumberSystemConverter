@@ -39,7 +39,7 @@ public sealed class HexTests
     [TestMethod]
     public void HexToBin()
     {
-        var stringResult = GenericConverter.Convert("F", new HexadecimalConverter(), new BinaryConverter());
+        var stringResult = (new HexadecimalConverter()).Convert("F", new BinaryConverter());
 
         Assert.AreEqual("1111", stringResult);
     }

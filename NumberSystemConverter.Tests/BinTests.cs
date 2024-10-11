@@ -31,7 +31,7 @@ public sealed class BinTests
     [TestMethod]
     public void BinToHex()
     {
-        var stringResult = GenericConverter.Convert("1111", new BinaryConverter(), new HexadecimalConverter());
+        var stringResult = (new BinaryConverter()).Convert("1111", new HexadecimalConverter());
 
         Assert.AreEqual("F", stringResult);
     }
@@ -39,7 +39,7 @@ public sealed class BinTests
     [TestMethod]
     public void BinToRoman()
     {
-        var stringResult = GenericConverter.Convert("11111111", new BinaryConverter(), new Roman.NumeralConverter());
+        var stringResult = (new BinaryConverter()).Convert("11111111", new Roman.NumeralConverter());
 
         Assert.AreEqual("CCLV", stringResult);
     }

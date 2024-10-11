@@ -252,7 +252,7 @@ public sealed class RomanNumeralTests
     [TestMethod]
     public void RomanToBin()
     {
-        var stringResult = GenericConverter.Convert("CCLV", new NumeralConverter(), new BinaryConverter());
+        var stringResult = (new NumeralConverter()).Convert("CCLV", new BinaryConverter());
 
         Assert.AreEqual("11111111", stringResult);
     }

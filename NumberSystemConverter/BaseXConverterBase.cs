@@ -8,8 +8,8 @@ public abstract class BaseXConverterBase : INumberSystemConverter
         => (uint)this.ValidCharacters.Length;
 
     public virtual uint ToUInt(string input)
-        => GenericConverter.GetDecimalValue(input, this.ValidCharacters);
+        => GenericConverter.GetUInt(input, this.ValidCharacters);
 
     public string FromUInt(uint input)
-        => GenericConverter.GetStringValue(input, this.ValidCharacters);
+        => GenericConverter.GetString(input, this.ValidCharacters);
 }

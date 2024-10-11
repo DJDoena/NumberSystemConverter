@@ -20,7 +20,10 @@ public static class GenericConverter
         return result;
     }
 
-    public static uint GetDecimalValue(string input, char[] validCharacters)
+    public static string Convert(this INumberSystemConverter from, string input, INumberSystemConverter to)
+        => Convert(input, from, to);
+
+    public static uint GetUInt(string input, char[] validCharacters)
     {
         if (string.IsNullOrWhiteSpace(input))
         {
@@ -40,9 +43,9 @@ public static class GenericConverter
 
         var baseSystem = (uint)validCharacters.Length;
 
-        for (var i = 0; i < input.Length; i++)
+        for (var inputIndex = 0; inputIndex < input.Length; inputIndex++)
         {
-            var current = (uint)Array.IndexOf(validCharacters, input[i]);
+            var current = (uint)Array.IndexOf(validCharacters, input[inputIndex]);
 
             result = (result * baseSystem) + current;
         }
@@ -50,7 +53,7 @@ public static class GenericConverter
         return result;
     }
 
-    public static string GetStringValue(uint input, char[] validCharacters)
+    public static string GetString(uint input, char[] validCharacters)
     {
         if (validCharacters == null || validCharacters.Length == 0)
         {

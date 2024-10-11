@@ -100,7 +100,7 @@ public sealed class NumeralConverter : INumberSystemConverter
         , uint count
         , string numeral)
     {
-        for (uint i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
             resultBuilder.Append(numeral);
         }
