@@ -1,6 +1,6 @@
 using DoenaSoft.NumberSystemConverter.Roman;
 
-namespace DoenaSoft.NumberSystemConverter.Tests;
+namespace DoenaSoft.NumberSystemConverter.Tests.Roman;
 
 [TestClass]
 public sealed class RomanInputValidatorTests

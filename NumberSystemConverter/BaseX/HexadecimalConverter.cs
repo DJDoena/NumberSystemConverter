@@ -1,4 +1,4 @@
-﻿namespace DoenaSoft.NumberSystemConverter;
+﻿namespace DoenaSoft.NumberSystemConverter.BaseX;
 
 public sealed class HexadecimalConverter : BaseXConverterBase
 {

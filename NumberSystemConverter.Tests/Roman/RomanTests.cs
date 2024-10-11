@@ -1,6 +1,6 @@
 using DoenaSoft.NumberSystemConverter.Roman;
 
-namespace DoenaSoft.NumberSystemConverter.Tests;
+namespace DoenaSoft.NumberSystemConverter.Tests.Roman;
 
 [TestClass]
 public sealed class RomanTests
@@ -257,7 +257,7 @@ public sealed class RomanTests
     [TestMethod]
     public void RomanToBin()
     {
-        var stringResult = _converter.Convert("CCLV", new BinaryConverter());
+        var stringResult = _converter.Convert("CCLV", new NumberSystemConverter.BaseX.BinaryConverter());
 
         Assert.AreEqual("11111111", stringResult);
     }

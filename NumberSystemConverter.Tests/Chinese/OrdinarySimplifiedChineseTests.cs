@@ -1,6 +1,6 @@
 ﻿using DoenaSoft.NumberSystemConverter.Chinese;
 
-namespace DoenaSoft.NumberSystemConverter.Tests;
+namespace DoenaSoft.NumberSystemConverter.Tests.Chinese;
 
 [TestClass]
 public sealed class OrdinarySimplifiedChineseTests

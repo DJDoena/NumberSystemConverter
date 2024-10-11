@@ -1,4 +1,6 @@
-namespace DoenaSoft.NumberSystemConverter.Tests;
+using DoenaSoft.NumberSystemConverter.BaseX;
+
+namespace DoenaSoft.NumberSystemConverter.Tests.BaseX;
 
 [TestClass]
 public sealed class OctTests

@@ -1,4 +1,4 @@
-﻿namespace DoenaSoft.NumberSystemConverter;
+﻿namespace DoenaSoft.NumberSystemConverter.BaseX;
 
 public abstract class BaseXConverterBase : INumberSystemConverter
 {

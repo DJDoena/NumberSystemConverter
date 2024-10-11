@@ -1,4 +1,6 @@
-namespace DoenaSoft.NumberSystemConverter.Tests;
+using DoenaSoft.NumberSystemConverter.BaseX;
+
+namespace DoenaSoft.NumberSystemConverter.Tests.BaseX;
 
 [TestClass]
 public sealed class BinTests
@@ -39,7 +41,7 @@ public sealed class BinTests
     [TestMethod]
     public void BinToRoman()
     {
-        var stringResult = _converter.Convert("11111111", new Roman.NumeralConverter());
+        var stringResult = _converter.Convert("11111111", new NumberSystemConverter.Roman.NumeralConverter());
 
         Assert.AreEqual("CCLV", stringResult);
     }

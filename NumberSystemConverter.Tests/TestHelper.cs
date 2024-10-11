@@ -1,4 +1,4 @@
-﻿namespace DoenaSoft.NumberSystemConverter;
+﻿namespace DoenaSoft.NumberSystemConverter.Tests;
 
 internal static class TestHelper
 {
