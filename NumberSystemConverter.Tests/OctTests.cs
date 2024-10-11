@@ -17,14 +17,14 @@ public sealed class OctTests
     }
 
     [TestMethod]
-    public void Zero()
+    public void D0()
         => _converter.TestConvert(0, "0");
 
     [TestMethod]
-    public void Eight()
+    public void D8()
         => _converter.TestConvert(8, "10");
 
     [TestMethod]
-    public void TwoFiftyFive()
+    public void D255()
         => _converter.TestConvert(255, "377");
 }

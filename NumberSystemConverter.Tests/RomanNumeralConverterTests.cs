@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using DoenaSoft.NumberSystemConverter.Roman;
 
 namespace DoenaSoft.NumberSystemConverter.Tests;
@@ -15,184 +14,184 @@ public sealed class RomanNumeralConverterTests
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
-    public void ZeroFromUInt()
+    public void FromUIntZero()
         => _ = _converter.FromUInt(0);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
-    public void EmptyToUInt()
+    public void ToUIntEmpty()
         => _ = _converter.ToUInt("");
 
     [TestMethod]
-    public void One()
+    public void D1()
         => _converter.TestConvert(1, "I");
 
     [TestMethod]
-    public void Two()
+    public void D2()
         => _converter.TestConvert(2, "II");
 
     [TestMethod]
-    public void Three()
+    public void D3()
         => _converter.TestConvert(3, "III");
 
     [TestMethod]
-    public void Four()
+    public void D4()
         => _converter.TestConvert(4, "IV");
 
     [TestMethod]
-    public void Five()
+    public void D5()
         => _converter.TestConvert(5, "V");
 
     [TestMethod]
-    public void Six()
+    public void D6()
         => _converter.TestConvert(6, "VI");
 
     [TestMethod]
-    public void Seven()
+    public void D7()
         => _converter.TestConvert(7, "VII");
 
     [TestMethod]
-    public void Eight()
+    public void D8()
         => _converter.TestConvert(8, "VIII");
 
     [TestMethod]
-    public void Nine()
+    public void D9()
         => _converter.TestConvert(9, "IX");
 
     [TestMethod]
-    public void Ten()
+    public void D10()
         => _converter.TestConvert(10, "X");
 
     [TestMethod]
-    public void Eleven()
+    public void D11()
         => _converter.TestConvert(11, "XI");
 
     [TestMethod]
-    public void Fourteen()
+    public void D14()
         => _converter.TestConvert(14, "XIV");
 
     [TestMethod]
-    public void Fifteen()
+    public void D15()
         => _converter.TestConvert(15, "XV");
 
     [TestMethod]
-    public void Nineteen()
+    public void D19()
         => _converter.TestConvert(19, "XIX");
 
     [TestMethod]
-    public void Twenty()
+    public void D20()
         => _converter.TestConvert(20, "XX");
 
     [TestMethod]
-    public void TwentyFour()
+    public void D24()
         => _converter.TestConvert(24, "XXIV");
 
     [TestMethod]
-    public void Thirty()
+    public void D30()
         => _converter.TestConvert(30, "XXX");
 
     [TestMethod]
-    public void Fourty()
+    public void D40()
         => _converter.TestConvert(40, "XL");
 
     [TestMethod]
-    public void FourtyNine()
+    public void D49()
       => _converter.TestConvert(49, "XLIX");
 
     [TestMethod]
-    public void Fifty()
+    public void D50()
         => _converter.TestConvert(50, "L");
 
     [TestMethod]
-    public void Eighty()
+    public void D80()
         => _converter.TestConvert(80, "LXXX");
 
     [TestMethod]
-    public void Ninety()
+    public void D90()
         => _converter.TestConvert(90, "XC");
 
     [TestMethod]
-    public void NinetyFour()
+    public void D94()
         => _converter.TestConvert(94, "XCIV");
 
     [TestMethod]
-    public void NinetyNine()
+    public void D99()
         => _converter.TestConvert(99, "XCIX");
 
     [TestMethod]
-    public void OneHundred()
+    public void D100()
         => _converter.TestConvert(100, "C");
 
     [TestMethod]
-    public void ThreeHundredFortyFive()
-        => _converter.TestConvert(345, "CCCXLV");
-
-    [TestMethod]
-    public void FourHundred()
-        => _converter.TestConvert(400, "CD");
-
-    [TestMethod]
-    public void TwoHundredFiftyFive()
+    public void D255()
         => _converter.TestConvert(255, "CCLV");
 
     [TestMethod]
-    public void FourHundredFifty()
+    public void D345()
+        => _converter.TestConvert(345, "CCCXLV");
+
+    [TestMethod]
+    public void D400()
+        => _converter.TestConvert(400, "CD");
+
+    [TestMethod]
+    public void D450()
         => _converter.TestConvert(450, "CDL");
 
     [TestMethod]
-    public void FourHundredNinety()
+    public void D490()
         => _converter.TestConvert(490, "CDXC");
 
     [TestMethod]
-    public void FourHundredNinetyFour()
+    public void D494()
         => _converter.TestConvert(494, "CDXCIV");
 
     [TestMethod]
-    public void FourHundredNinetyNine()
+    public void D499()
         => _converter.TestConvert(499, "CDXCIX");
 
     [TestMethod]
-    public void FiveHundred()
+    public void D500()
         => _converter.TestConvert(500, "D");
 
     [TestMethod]
-    public void FiveHundredFiftyFive()
+    public void D555()
         => _converter.TestConvert(555, "DLV");
 
     [TestMethod]
-    public void EightHundred()
+    public void D800()
         => _converter.TestConvert(800, "DCCC");
 
     [TestMethod]
-    public void EightHundredEightyEight()
+    public void D888()
       => _converter.TestConvert(888, "DCCCLXXXVIII");
 
     [TestMethod]
-    public void NineHundred()
+    public void D900()
         => _converter.TestConvert(900, "CM");
 
     [TestMethod]
-    public void NineHundredNinetyFour()
+    public void D994()
         => _converter.TestConvert(994, "CMXCIV");
 
     [TestMethod]
-    public void NineHundredNinetyNine()
+    public void D999()
         => _converter.TestConvert(999, "CMXCIX");
 
     [TestMethod]
-    public void OneThousand()
+    public void D1000()
         => _converter.TestConvert(1000, "M");
 
     [TestMethod]
-    public void OneThousandOne()
+    public void D1001()
         => _converter.TestConvert(1001, "MI");
 
     [TestMethod]
-    public void OneThousandNineHundredSeventySeven()
+    public void D1977()
         => _converter.TestConvert(1977, "MCMLXXVII");
 
     [TestMethod]
-    public void TwoThrousandTwentyFour()
+    public void D2024()
         => _converter.TestConvert(2024, "MMXXIV");
 
     [TestMethod]

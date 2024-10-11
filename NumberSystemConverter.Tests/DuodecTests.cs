@@ -17,38 +17,38 @@ public sealed class DuodecTests
     }
 
     [TestMethod]
-    public void Zero()
+    public void D0()
         => _converter.TestConvert(0, "0");
 
     [TestMethod]
-    public void Ten()
+    public void D10()
         => _converter.TestConvert(10, "↊");
 
     [TestMethod]
-    public void Eleven()
+    public void D11()
         => _converter.TestConvert(11, "↋");
 
     [TestMethod]
-    public void Twelve()
+    public void D12()
         => _converter.TestConvert(12, "10");
 
     [TestMethod]
-    public void OneFortyOne()
+    public void D141()
         => _converter.TestConvert(141, "↋9");
 
     [TestMethod]
-    public void OneFortyTwo()
+    public void D142()
         => _converter.TestConvert(142, "↋↊");
 
     [TestMethod]
-    public void OneFortyThree()
+    public void D143()
         => _converter.TestConvert(143, "↋↋");
 
     [TestMethod]
-    public void OneFortyFour()
+    public void D144()
         => _converter.TestConvert(144, "100");
 
     [TestMethod]
-    public void TwoFiftyFive()
+    public void D255()
         => _converter.TestConvert(255, "193");
 }

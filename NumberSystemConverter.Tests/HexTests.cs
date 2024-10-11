@@ -17,23 +17,23 @@ public sealed class HexTests
     }
 
     [TestMethod]
-    public void Zero()
+    public void D0()
         => _converter.TestConvert(0, "0");
 
     [TestMethod]
-    public void Ten()
+    public void D10()
         => _converter.TestConvert(10, "A");
 
     [TestMethod]
-    public void Fifteen()
+    public void D15()
         => _converter.TestConvert(15, "F");
 
     [TestMethod]
-    public void Sixteen()
+    public void D16()
         => _converter.TestConvert(16, "10");
 
     [TestMethod]
-    public void TwoFiftyFive()
+    public void D255()
         => _converter.TestConvert(255, "FF");
 
     [TestMethod]

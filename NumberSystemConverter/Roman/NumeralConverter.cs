@@ -14,37 +14,39 @@ public sealed class NumeralConverter : INumberSystemConverter
 
         var number = input;
 
-        var thousands = GetMultiple(ref number, NC.OneThousand);
-        var hasNineHundred = HasCompund(ref number, NC.OneThousand - NC.OneHundred);
-        var hasFiveHundred = HasCompund(ref number, NC.FiveHundred);
-        var hasFourHundred = HasCompund(ref number, NC.FiveHundred - NC.OneHundred);
-        var hundreds = GetMultiple(ref number, NC.OneHundred);
-        var hasNinety = HasCompund(ref number, NC.OneHundred - NC.Ten);
-        var hasFifty = HasCompund(ref number, NC.Fifty);
-        var hasForty = HasCompund(ref number, NC.Fifty - NC.Ten);
-        var tens = GetMultiple(ref number, NC.Ten);
-        var hasNine = HasCompund(ref number, NC.Ten - NC.One);
-        var hasFive = HasCompund(ref number, NC.Five);
-        var hasFour = HasCompund(ref number, NC.Five - NC.One);
-        var ones = GetMultiple(ref number, NC.One);
+        var thousands = GetMultiple(ref number, NC.D1000);
+        var hasNineHundred = HasCompund(ref number, NC.D1000 - NC.D100);
+        var hasFiveHundred = HasCompund(ref number, NC.D500);
+        var hasFourHundred = HasCompund(ref number, NC.D500 - NC.D100);
+        var hundreds = GetMultiple(ref number, NC.D100);
+        var hasNinety = HasCompund(ref number, NC.D100 - NC.D10);
+        var hasFifty = HasCompund(ref number, NC.D50);
+        var hasForty = HasCompund(ref number, NC.D50 - NC.D10);
+        var tens = GetMultiple(ref number, NC.D10);
+        var hasNine = HasCompund(ref number, NC.D10 - NC.D1);
+        var hasFive = HasCompund(ref number, NC.D5);
+        var hasFour = HasCompund(ref number, NC.D5 - NC.D1);
+        var ones = GetMultiple(ref number, NC.D1);
 
         var resultBuilder = new StringBuilder();
 
-        AddMultiple(resultBuilder, thousands, $"{NC.M}");
-        AddCompound(resultBuilder, hasNineHundred, $"{NC.C}{NC.M}");
-        AddCompound(resultBuilder, hasFiveHundred, $"{NC.D}");
-        AddCompound(resultBuilder, hasFourHundred, $"{NC.C}{NC.D}");
-        AddMultiple(resultBuilder, hundreds, $"{NC.C}");
-        AddCompound(resultBuilder, hasNinety, $"{NC.X}{NC.C}");
-        AddCompound(resultBuilder, hasFifty, $"{NC.L}");
-        AddCompound(resultBuilder, hasForty, $"{NC.X}{NC.L}");
-        AddMultiple(resultBuilder, tens, $"{NC.X}");
-        AddCompound(resultBuilder, hasNine, $"{NC.I}{NC.X}");
-        AddCompound(resultBuilder, hasFive, $"{NC.V}");
-        AddCompound(resultBuilder, hasFour, $"{NC.I}{NC.V}");
-        AddMultiple(resultBuilder, ones, $"{NC.I}");
+        AddMultiple(resultBuilder, thousands, $"{NC.R1000}");
+        AddCompound(resultBuilder, hasNineHundred, $"{NC.R100}{NC.R1000}");
+        AddCompound(resultBuilder, hasFiveHundred, $"{NC.R500}");
+        AddCompound(resultBuilder, hasFourHundred, $"{NC.R100}{NC.R500}");
+        AddMultiple(resultBuilder, hundreds, $"{NC.R100}");
+        AddCompound(resultBuilder, hasNinety, $"{NC.R10}{NC.R100}");
+        AddCompound(resultBuilder, hasFifty, $"{NC.R50}");
+        AddCompound(resultBuilder, hasForty, $"{NC.R10}{NC.R50}");
+        AddMultiple(resultBuilder, tens, $"{NC.R10}");
+        AddCompound(resultBuilder, hasNine, $"{NC.R1}{NC.R10}");
+        AddCompound(resultBuilder, hasFive, $"{NC.R5}");
+        AddCompound(resultBuilder, hasFour, $"{NC.R1}{NC.R5}");
+        AddMultiple(resultBuilder, ones, $"{NC.R1}");
 
-        return resultBuilder.ToString();
+        var result = resultBuilder.ToString();
+
+        return result;
     }
 
     public uint ToUInt(string input)
@@ -68,6 +70,7 @@ public sealed class NumeralConverter : INumberSystemConverter
         return result;
     }
 
+    #region FromUInt
     private static uint GetMultiple(ref uint number, uint segment)
     {
         if (number >= segment)
@@ -115,4 +118,6 @@ public sealed class NumeralConverter : INumberSystemConverter
             resultBuilder.Append(numeral);
         }
     }
+
+    #endregion
 }

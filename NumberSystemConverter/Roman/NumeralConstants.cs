@@ -4,33 +4,33 @@ public static class NumeralConstants
 {
     private static readonly Dictionary<char, ushort>? _numerals;
 
-    public const ushort One = 1;
-    public const ushort Five = 5;
-    public const ushort Ten = 10;
-    public const ushort Fifty = 50;
-    public const ushort OneHundred = 100;
-    public const ushort FiveHundred = 500;
-    public const ushort OneThousand = 1000;
+    public const ushort D1 = 1;
+    public const ushort D5 = 5;
+    public const ushort D10 = 10;
+    public const ushort D50 = 50;
+    public const ushort D100 = 100;
+    public const ushort D500 = 500;
+    public const ushort D1000 = 1000;
 
-    public const char I = 'I';
-    public const char V = 'V';
-    public const char X = 'X';
-    public const char L = 'L';
-    public const char C = 'C';
-    public const char D = 'D';
-    public const char M = 'M';
+    public const char R1 = 'I';
+    public const char R5 = 'V';
+    public const char R10 = 'X';
+    public const char R50 = 'L';
+    public const char R100 = 'C';
+    public const char R500 = 'D';
+    public const char R1000 = 'M';
 
     static NumeralConstants()
     {
-        _numerals = new(7)
+        _numerals = new()
         {
-            { I, One },
-            { V, Five },
-            { X, Ten },
-            { L, Fifty },
-            { C, OneHundred },
-            { D, FiveHundred },
-            { M, OneThousand },
+            { R1, D1 },
+            { R5, D5 },
+            { R10, D10 },
+            { R50, D50 },
+            { R100, D100 },
+            { R500, D500 },
+            { R1000, D1000 },
         };
     }
 

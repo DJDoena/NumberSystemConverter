@@ -17,15 +17,15 @@ public sealed class BinTests
     }
 
     [TestMethod]
-    public void Zero()
+    public void D0()
         => _converter.TestConvert(0, "0");
 
     [TestMethod]
-    public void Four()
+    public void D4()
         => _converter.TestConvert(4, "100");
 
     [TestMethod]
-    public void TwoFiftyFive()
+    public void D255()
         => _converter.TestConvert(255, "11111111");
 
     [TestMethod]

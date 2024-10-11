@@ -17,14 +17,14 @@ public sealed class DecTests
     }
 
     [TestMethod]
-    public void Zero()
+    public void D0()
         => _converter.TestConvert(0, "0");
 
     [TestMethod]
-    public void NineteenNinetyNine()
+    public void D1999()
         => _converter.TestConvert(1999, "1999");
 
     [TestMethod]
-    public void TwoFiftyFive()
+    public void D255()
         => _converter.TestConvert(255, "255");
 }

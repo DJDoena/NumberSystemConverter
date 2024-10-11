@@ -37,8 +37,8 @@ public sealed class NumeralInputValidator
 
         _numbers = new(input.Length);
 
-        _highestNumber = NC.OneThousand;
-        _highestNumeral = NC.M.ToString();
+        _highestNumber = NC.D1000;
+        _highestNumeral = NC.R1000.ToString();
         _dCount = 0;
         _cCount = 0;
         _lCount = 0;
@@ -117,15 +117,15 @@ public sealed class NumeralInputValidator
     private void ValidatePowerOfTenSubtraction(int numberIndex)
     {
 
-        if (this.ValidatePowerOfTenSubtraction(NC.I, NC.V, NC.X, numberIndex))
+        if (this.ValidatePowerOfTenSubtraction(NC.R1, NC.R5, NC.R10, numberIndex))
         {
             return;
         }
-        else if (this.ValidatePowerOfTenSubtraction(NC.X, NC.L, NC.C, numberIndex))
+        else if (this.ValidatePowerOfTenSubtraction(NC.R10, NC.R50, NC.R100, numberIndex))
         {
             return;
         }
-        else if (this.ValidatePowerOfTenSubtraction(NC.C, NC.D, NC.M, numberIndex))
+        else if (this.ValidatePowerOfTenSubtraction(NC.R100, NC.R500, NC.R1000, numberIndex))
         {
             return;
         }
@@ -169,12 +169,12 @@ public sealed class NumeralInputValidator
             ? (ushort)4
             : (ushort)3;
 
-        this.ValidateMaxSequentials(ref _dCount, MaxOne, NC.FiveHundred, "one", numberIndex);
-        this.ValidateMaxSequentials(ref _cCount, maxCount, NC.OneHundred, "three", numberIndex);
-        this.ValidateMaxSequentials(ref _lCount, MaxOne, NC.Fifty, "one", numberIndex);
-        this.ValidateMaxSequentials(ref _xCount, maxCount, NC.Ten, "three", numberIndex);
-        this.ValidateMaxSequentials(ref _vCount, MaxOne, NC.Five, "one", numberIndex);
-        this.ValidateMaxSequentials(ref _iCount, maxCount, NC.One, "three", numberIndex);
+        this.ValidateMaxSequentials(ref _dCount, MaxOne, NC.D500, "one", numberIndex);
+        this.ValidateMaxSequentials(ref _cCount, maxCount, NC.D100, "three", numberIndex);
+        this.ValidateMaxSequentials(ref _lCount, MaxOne, NC.D50, "one", numberIndex);
+        this.ValidateMaxSequentials(ref _xCount, maxCount, NC.D10, "three", numberIndex);
+        this.ValidateMaxSequentials(ref _vCount, MaxOne, NC.D5, "one", numberIndex);
+        this.ValidateMaxSequentials(ref _iCount, maxCount, NC.D1, "three", numberIndex);
     }
 
     private bool ValidateMaxSequentials(ref ushort count

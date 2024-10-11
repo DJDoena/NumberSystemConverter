@@ -7,53 +7,71 @@ public sealed class GenericConverterTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void MissingConvertFrom()
     {
-        GenericConverter.Convert("0", null!, new DecimalConverter());
+        ((INumberSystemConverter)null!).Convert("0", new DecimalConverter());
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void MissingConvertTo()
     {
-        GenericConverter.Convert("0", new DecimalConverter(), null!);
+        (new DecimalConverter()).Convert("0", null!);
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputNull()
-        => GenericConverter.GetUInt(null!, ['0']);
+        => ToUInt(null!, ['0']);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputEmpty()
-        => GenericConverter.GetUInt(string.Empty, ['0']);
+        => ToUInt(string.Empty, ['0']);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputWhitespace()
-        => GenericConverter.GetUInt(" ", ['0']);
+        => ToUInt(" ", ['0']);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntCharactersNull()
-        => GenericConverter.GetUInt("0", null!);
+        => ToUInt("0", null!);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntCharactersEmpty()
-        => GenericConverter.GetUInt("0", []);
+          => ToUInt("0", []);
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void GetUIntInvalidCharacterEmpty()
-        => GenericConverter.GetUInt("A", ['B']);
+        => ToUInt("A", ['B']);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetStringCharactersNull()
-        => GenericConverter.GetString(0, null!);
+      => FromUInt(0, null!);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetStringCharactersEmpty()
-        => GenericConverter.GetString(0, []);
+        => FromUInt(0, []);
+
+    private static void ToUInt(string input
+        , char[] validCharacters)
+        => (new TestBaseXConverter(validCharacters)).ToUInt(input);
+
+    private static void FromUInt(uint input
+        , char[] validCharacters)
+        => (new TestBaseXConverter(validCharacters)).FromUInt(input);
+
+    private sealed class TestBaseXConverter : BaseXConverterBase
+    {
+        protected override char[] ValidCharacters { get; }
+
+        public TestBaseXConverter(char[] validCharacters)
+        {
+            this.ValidCharacters = validCharacters;
+        }
+    }
 }
