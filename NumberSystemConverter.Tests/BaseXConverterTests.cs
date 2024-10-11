@@ -1,22 +1,8 @@
 ﻿namespace DoenaSoft.NumberSystemConverter.Tests;
 
 [TestClass]
-public sealed class GenericConverterTests
+public sealed class BaseXConverterTests
 {
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void MissingConvertFrom()
-    {
-        ((INumberSystemConverter)null!).Convert("0", new DecimalConverter());
-    }
-
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void MissingConvertTo()
-    {
-        (new DecimalConverter()).Convert("0", null!);
-    }
-
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputNull()
@@ -44,7 +30,7 @@ public sealed class GenericConverterTests
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
-    public void GetUIntInvalidCharacterEmpty()
+    public void GetUIntInvalidCharacter()
         => ToUInt("A", ['B']);
 
     [TestMethod]
@@ -69,7 +55,7 @@ public sealed class GenericConverterTests
     {
         protected override char[] ValidCharacters { get; }
 
-        public TestBaseXConverter(char[] validCharacters)
+        internal TestBaseXConverter(char[] validCharacters)
         {
             this.ValidCharacters = validCharacters;
         }

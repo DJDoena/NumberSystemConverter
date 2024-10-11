@@ -8,8 +8,11 @@ public abstract class NumeralConverterBase : INumberSystemConverter
     {
         _numeralCharacters = numeralCharacters ?? throw new ArgumentNullException(nameof(numeralCharacters));
 
-        if (_numeralCharacters.SingleDigits == null
-            || _numeralCharacters.SingleDigits.Length != 10)
+        if (_numeralCharacters.SingleDigits == null)
+        {
+            throw new ArgumentNullException(nameof(numeralCharacters));
+        }
+        else if (_numeralCharacters.SingleDigits.Length != 10)
         {
             throw new ArgumentException("Numeral characters do not provide 10 single digit characters", nameof(numeralCharacters));
         }

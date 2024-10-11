@@ -14,6 +14,11 @@ internal sealed class FromUIntNumericalConverter
 
     public string FromUInt(uint input)
     {
+        if (input == 0)
+        {
+            return _numeralCharacters.SingleDigits[0].ToString();
+        }
+
         var resultBuilder = new StringBuilder();
 
         this.FromUInt(input, resultBuilder, 1U);
@@ -154,14 +159,7 @@ internal sealed class FromUIntNumericalConverter
         , bool bigNumber
         , bool missingPosition)
     {
-        if (number == 0U)
-        {
-            if (!bigNumber && missingPosition)
-            {
-                resultBuilder.Append(_numeralCharacters.SingleDigits[0]);
-            }
-        }
-        else
+        if (number > 0U)
         {
             if (bigNumber && missingPosition)
             {

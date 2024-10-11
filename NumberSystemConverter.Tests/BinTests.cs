@@ -18,20 +18,20 @@ public sealed class BinTests
 
     [TestMethod]
     public void D0()
-        => _converter.TestConvert(0, "0");
+        => _converter.TestFromTo(0, "0");
 
     [TestMethod]
     public void D4()
-        => _converter.TestConvert(4, "100");
+        => _converter.TestFromTo(4, "100");
 
     [TestMethod]
     public void D255()
-        => _converter.TestConvert(255, "11111111");
+        => _converter.TestFromTo(255, "11111111");
 
     [TestMethod]
     public void BinToHex()
     {
-        var stringResult = (new BinaryConverter()).Convert("1111", new HexadecimalConverter());
+        var stringResult = _converter.Convert("1111", new HexadecimalConverter());
 
         Assert.AreEqual("F", stringResult);
     }
@@ -39,7 +39,7 @@ public sealed class BinTests
     [TestMethod]
     public void BinToRoman()
     {
-        var stringResult = (new BinaryConverter()).Convert("11111111", new Roman.NumeralConverter());
+        var stringResult = _converter.Convert("11111111", new Roman.NumeralConverter());
 
         Assert.AreEqual("CCLV", stringResult);
     }

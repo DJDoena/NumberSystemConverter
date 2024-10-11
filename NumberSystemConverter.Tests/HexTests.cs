@@ -18,23 +18,23 @@ public sealed class HexTests
 
     [TestMethod]
     public void D0()
-        => _converter.TestConvert(0, "0");
+        => _converter.TestFromTo(0, "0");
 
     [TestMethod]
     public void D10()
-        => _converter.TestConvert(10, "A");
+        => _converter.TestFromTo(10, "A");
 
     [TestMethod]
     public void D15()
-        => _converter.TestConvert(15, "F");
+        => _converter.TestFromTo(15, "F");
 
     [TestMethod]
     public void D16()
-        => _converter.TestConvert(16, "10");
+        => _converter.TestFromTo(16, "10");
 
     [TestMethod]
     public void D255()
-        => _converter.TestConvert(255, "FF");
+        => _converter.TestFromTo(255, "FF");
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
@@ -54,7 +54,7 @@ public sealed class HexTests
     [TestMethod]
     public void HexToBin()
     {
-        var stringResult = (new HexadecimalConverter()).Convert("F", new BinaryConverter());
+        var stringResult = _converter.Convert("F", new BinaryConverter());
 
         Assert.AreEqual("1111", stringResult);
     }

@@ -16,15 +16,15 @@
 		<PackageProjectUrl>https://github.com/DJDoena/NumberSystemConverter</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/DJDoena/NumberSystemConverter</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>hexadecimal, duodecimal, octal, roman numerals</PackageTags>
+		<PackageTags>hexadecimal, duodecimal, octal, roman, numerals, chinese, simplified, traditional, financial</PackageTags>
 		<PackageIcon>djdsoft.png</PackageIcon>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<Description>Library to convert multiple common number systems from and to integer/string</Description>
 		<Company>Doena Soft.</Company>
 		<Authors>DJ Doena</Authors>
 		<Copyright>Copyright © Doena Soft. 2024</Copyright>
-		<Version>1.0.3-alpha.1</Version>
-		<FileVersion>1.0.3-alpha.1</FileVersion>
+		<Version>1.0.3-alpha.2</Version>
+		<FileVersion>1.0.3-alpha.2</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

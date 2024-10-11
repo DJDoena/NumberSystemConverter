@@ -18,13 +18,13 @@ public sealed class DecTests
 
     [TestMethod]
     public void D0()
-        => _converter.TestConvert(0, "0");
+        => _converter.TestFromTo(0, "0");
 
     [TestMethod]
     public void D1999()
-        => _converter.TestConvert(1999, "1999");
+        => _converter.TestFromTo(1999, "1999");
 
     [TestMethod]
     public void D255()
-        => _converter.TestConvert(255, "255");
+        => _converter.TestFromTo(255, "255");
 }

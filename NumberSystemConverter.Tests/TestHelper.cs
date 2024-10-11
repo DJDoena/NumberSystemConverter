@@ -2,34 +2,30 @@
 
 internal static class TestHelper
 {
-    public static void TestConvert(this INumberSystemConverter converter
+    internal static void TestFromTo(this INumberSystemConverter converter
         , uint intValue
         , string stringValue)
+    {
+        converter.TestTo(stringValue, intValue);
+
+        converter.TestFrom(intValue, stringValue);
+    }
+
+    internal static void TestTo(this INumberSystemConverter converter
+        , string stringValue
+        , uint intValue)
     {
         var intResult = converter.ToUInt(stringValue);
 
         Assert.AreEqual(intValue, intResult);
-
-        var stringResult = converter.FromUInt(intValue);
-
-        Assert.AreEqual(stringValue, stringResult);
     }
 
-    public static void TestConvert2(this INumberSystemConverter converter
+    internal static void TestFrom(this INumberSystemConverter converter
         , uint intValue
         , string stringValue)
     {
         var stringResult = converter.FromUInt(intValue);
 
         Assert.AreEqual(stringValue, stringResult);
-    }
-
-    public static void TestConvert3(this INumberSystemConverter converter
-        , uint intValue
-        , string stringValue)
-    {
-        var intResult = converter.ToUInt(stringValue);
-
-        Assert.AreEqual(intValue, intResult);
     }
 }

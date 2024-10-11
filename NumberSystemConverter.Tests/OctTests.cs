@@ -18,13 +18,13 @@ public sealed class OctTests
 
     [TestMethod]
     public void D0()
-        => _converter.TestConvert(0, "0");
+        => _converter.TestFromTo(0, "0");
 
     [TestMethod]
     public void D8()
-        => _converter.TestConvert(8, "10");
+        => _converter.TestFromTo(8, "10");
 
     [TestMethod]
     public void D255()
-        => _converter.TestConvert(255, "377");
+        => _converter.TestFromTo(255, "377");
 }
