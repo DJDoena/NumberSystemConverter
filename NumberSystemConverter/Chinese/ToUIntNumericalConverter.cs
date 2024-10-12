@@ -4,8 +4,9 @@ namespace DoenaSoft.NumberSystemConverter.Chinese;
 
 internal sealed class ToUIntNumericalConverter
 {
-    private const char C0A = '空';
-    private const char C0B = '洞';
+    private const char C0A = '〇';
+    private const char C0B = '空';
+    private const char C0C = '洞';
     private const char C1A = '幺';
     private const char C1B = '蜀';
     private const char C2A = '两';
@@ -32,6 +33,7 @@ internal sealed class ToUIntNumericalConverter
         {
             { C0A, 0 },
             { C0B, 0 },
+            { C0C, 0 },
             { C1A, 1 },
             { C1B, 1 },
             { C2A, 2 },
@@ -117,28 +119,28 @@ internal sealed class ToUIntNumericalConverter
 
     private uint GetTenThousandsPart(string input)
     {
-        var thousandSplit = input.Split(_numeralCharacters.C10_000);
+        var split = input.Split(_numeralCharacters.C10_000);
 
-        if (thousandSplit.Length > 2)
+        if (split.Length > 2)
         {
             throw new InvalidInputException("Input is not valid");
         }
 
         uint upperPart;
         uint lowerPart;
-        if (thousandSplit.Length == 2)
+        if (split.Length == 2)
         {
-            upperPart = this.GetThousandsPart(thousandSplit[0]);
+            upperPart = this.GetThousandsPart(split[0]);
 
-            lowerPart = thousandSplit[1].Length > 0
-                ? this.GetThousandsPart(thousandSplit[1])
+            lowerPart = split[1].Length > 0
+                ? this.GetThousandsPart(split[1])
                 : 0U;
         }
         else
         {
             upperPart = 0;
 
-            lowerPart = this.GetThousandsPart(thousandSplit[0]);
+            lowerPart = this.GetThousandsPart(split[0]);
         }
 
         var result = (upperPart * NC.D10_000) + lowerPart;
@@ -281,7 +283,7 @@ internal sealed class ToUIntNumericalConverter
     private uint GetOnesPart(string input)
     {
         var lowerPart = input.Length > 1
-            ? input.TrimStart(_numeralCharacters.SingleDigits[0], C0A, C0B)
+            ? input.TrimStart(_numeralCharacters.SingleDigits[0], C0A, C0B, C0C)
             : input;
 
         if (lowerPart.Length > 1)

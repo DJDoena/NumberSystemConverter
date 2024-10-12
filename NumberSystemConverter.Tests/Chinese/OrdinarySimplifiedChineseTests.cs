@@ -184,6 +184,15 @@ public sealed class OrdinarySimplifiedChineseTests
         => _converter.TestFromTo(4_000_000_000U, "四十亿");
 
     [TestMethod]
+    [ExpectedException(typeof(OverflowException))]
+    public void D4_294_967_296()
+        => _ = _converter.ToUInt("四十二亿九千四百九十六万七千二百九十六");
+    
+    [TestMethod]
+    public void D4_294_967_295()
+        => _converter.TestFromTo(uint.MaxValue, "四十二亿九千四百九十六万七千二百九十五");
+
+    [TestMethod]
     public void D2_222()
         => _converter.TestFromTo(2222, "二千二百二十二");
 
