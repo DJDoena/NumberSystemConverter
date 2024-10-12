@@ -226,6 +226,10 @@ public sealed class OrdinarySimplifiedChineseTests
         => _converter.TestFromTo(1_0000_0000_0000_0001, "一京零一");
 
     [TestMethod]
+    public void D1_0001_0001_0001_0001()
+        => _converter.TestFromTo(1_0001_0001_0001_0001, "一京零一兆零一亿零一万零一");
+
+    [TestMethod]
     public void D1844_6744_0737_0955_1614()
         => _converter.TestFromTo(1844_6744_0737_0955_1614, "一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十四");
 
