@@ -317,10 +317,18 @@ public sealed class OrdinarySimplifiedChineseTests
         => _ = _converter.ToUInt("一皕");
 
     [TestMethod]
-    public void OrdinaryToFinancial()
+    public void OrdinaryToFinancial1234()
     {
         var stringResult = _converter.Convert("一千二百三十四", new FinancialSimplifiedNumeralConverter());
 
         Assert.AreEqual("壹仟贰佰叁拾肆", stringResult);
+    }
+
+    [TestMethod]
+    public void OrdinaryToFinancial2024()
+    {
+        var stringResult = _converter.Convert("二千零二十四", new FinancialSimplifiedNumeralConverter());
+
+        Assert.AreEqual("贰仟零贰拾肆", stringResult);
     }
 }
