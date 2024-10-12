@@ -2,7 +2,9 @@
 
 public static class ConverterExtensions
 {
-    public static string Convert(this INumberSystemConverter from, string input, INumberSystemConverter to)
+    public static string Convert(this INumberSystemConverter from
+        , string input
+        , INumberSystemConverter to)
     {
         if (from == null)
         {

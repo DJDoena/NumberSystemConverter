@@ -1,10 +1,10 @@
 ﻿using DoenaSoft.NumberSystemConverter.Chinese;
 using DoenaSoft.NumberSystemConverter.EastAsia;
 
-namespace DoenaSoft.NumberSystemConverter.Tests.Chinese;
+namespace DoenaSoft.NumberSystemConverter.Tests.Japanese;
 
 [TestClass]
-public sealed class ChineseConverterTests
+public sealed class JapaneseConverterTests
 {
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
@@ -89,7 +89,7 @@ public sealed class ChineseConverterTests
             => '万';
 
         public char C1_0000_0000
-            => '亿';
+            => '億';
 
         public char C1_0000_0000_0000
             => '兆';

@@ -1,10 +1,12 @@
-﻿namespace DoenaSoft.NumberSystemConverter.Chinese;
+﻿using DoenaSoft.NumberSystemConverter.EastAsia;
+
+namespace DoenaSoft.NumberSystemConverter.Chinese;
 
 public abstract class NumeralConverterBase : INumberSystemConverter
 {
-    private readonly INumeralCharacters _numeralCharacters;
+    private readonly I10p4NumeralCharacters _numeralCharacters;
 
-    protected NumeralConverterBase(INumeralCharacters numeralCharacters)
+    protected NumeralConverterBase(I10p4NumeralCharacters numeralCharacters)
     {
         _numeralCharacters = numeralCharacters ?? throw new ArgumentNullException(nameof(numeralCharacters));
 
@@ -19,8 +21,8 @@ public abstract class NumeralConverterBase : INumberSystemConverter
     }
 
     public string FromULong(ulong input)
-        => (new FromUIntNumericalConverter(_numeralCharacters)).FromUInt(input);
+        => (new FromConverter(_numeralCharacters)).Convert(input);
 
     public ulong ToULong(string input)
-        => (new ToUIntNumericalConverter(_numeralCharacters)).ToUInt(input);
+        => (new ToConverter(_numeralCharacters)).Convert(input);
 }

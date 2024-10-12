@@ -1,6 +1,8 @@
-﻿namespace DoenaSoft.NumberSystemConverter.Chinese;
+﻿using DoenaSoft.NumberSystemConverter.EastAsia;
 
-public abstract class NumeralCharactersBase : INumeralCharacters
+namespace DoenaSoft.NumberSystemConverter.Chinese;
+
+public abstract class NumeralCharactersBase : I10p4NumeralCharacters
 {
     public abstract char[] SingleDigits { get; }
 

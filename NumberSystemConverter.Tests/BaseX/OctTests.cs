@@ -5,12 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.BaseX;
 [TestClass]
 public sealed class OctTests
 {
-    private readonly OctalConverter _converter;
-
-    public OctTests()
-    {
-        _converter = new();
-    }
+    private readonly OctalConverter _converter = new();
 
     [TestMethod]
     public void Base()

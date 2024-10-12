@@ -1,4 +1,4 @@
-﻿namespace DoenaSoft.NumberSystemConverter.Chinese;
+﻿namespace DoenaSoft.NumberSystemConverter.EastAsia;
 
 public sealed class NumeralConstants
 {

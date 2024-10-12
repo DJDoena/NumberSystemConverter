@@ -5,12 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Chinese;
 [TestClass]
 public sealed class OrdinarySimplifiedChineseTests
 {
-    private readonly OrdinarySimplifiedNumeralConverter _converter;
-
-    public OrdinarySimplifiedChineseTests()
-    {
-        _converter = new();
-    }
+    private readonly OrdinarySimplifiedNumeralConverter _converter = new();
 
     [TestMethod]
     public void D0()

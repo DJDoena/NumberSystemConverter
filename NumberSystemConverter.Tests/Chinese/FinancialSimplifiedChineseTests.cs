@@ -5,12 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Chinese;
 [TestClass]
 public sealed class FinancialSimplifiedChineseTests
 {
-    private readonly FinancialSimplifiedNumeralConverter _converter;
-
-    public FinancialSimplifiedChineseTests()
-    {
-        _converter = new();
-    }
+    private readonly FinancialSimplifiedNumeralConverter _converter = new();
 
     [TestMethod]
     public void D0()

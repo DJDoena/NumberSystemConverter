@@ -2,8 +2,6 @@
 
 public static class NumeralConstants
 {
-    private static readonly Dictionary<char, ushort>? _numerals;
-
     public const ushort D1 = 1;
     public const ushort D5 = 5;
     public const ushort D10 = 10;
@@ -20,19 +18,16 @@ public static class NumeralConstants
     public const char R500 = 'D';
     public const char R1000 = 'M';
 
-    static NumeralConstants()
+    private static readonly Dictionary<char, ushort>? _numerals = new()
     {
-        _numerals = new()
-        {
-            { R1, D1 },
-            { R5, D5 },
-            { R10, D10 },
-            { R50, D50 },
-            { R100, D100 },
-            { R500, D500 },
-            { R1000, D1000 },
-        };
-    }
+        { R1, D1 },
+        { R5, D5 },
+        { R10, D10 },
+        { R50, D50 },
+        { R100, D100 },
+        { R500, D500 },
+        { R1000, D1000 },
+    };
 
     public static ushort GetNumber(char numeral)
     {

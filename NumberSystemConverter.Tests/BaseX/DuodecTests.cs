@@ -5,12 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.BaseX;
 [TestClass]
 public sealed class DuodecTests
 {
-    private readonly DuodecimalConverter _converter;
-
-    public DuodecTests()
-    {
-        _converter = new();
-    }
+    private readonly DuodecimalConverter _converter = new();
 
     [TestMethod]
     public void Base()

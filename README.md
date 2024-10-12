@@ -8,6 +8,15 @@ Allows you to convert numbers from and to string representatios of the most comm
 - Duodecimal (base 12)
 - Hexadecimal (base 16)
 
-Also contains converters for Chinese Ordinary Simplified (二千零二十四 = 2024), Ordinary Traditional, Financial Simplified (贰仟零贰拾肆 = 2024), and Financial Tradtional
+Additional support for
 
-Also contains a converter for roman numerals (MMXXIV = 2024)
+- Eastern Arabic				(2024 = ٢٠٢٤)
+- Persian						(2024 = ۲۰۲۴)
+- Braille						(2024 = ⠃⠚⠃⠙)
+- Chinese
+	- Simplified (ordinary)		(2024 = 二千零二十四)
+	- Traditional (ordinary)	(2024 = 二千零二十四)
+	- Simplified (financial)	(2024 = 贰仟零贰拾肆)
+	- Traditional (financial)	(2024 = 貳仟零貳拾肆)
+- Japanese 						(2024 = 二千二十四)
+- Roman							(2024 = MMXXIV)

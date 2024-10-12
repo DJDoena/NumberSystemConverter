@@ -5,12 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.BaseX;
 [TestClass]
 public sealed class DecTests
 {
-    private readonly DecimalConverter _converter;
-
-    public DecTests()
-    {
-        _converter = new();
-    }
+    private readonly DecimalConverter _converter = new();
 
     [TestMethod]
     public void Base()

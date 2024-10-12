@@ -1,18 +1,13 @@
 ﻿using System.Text;
-using NC = DoenaSoft.NumberSystemConverter.Chinese.NumeralConstants;
+using NC = DoenaSoft.NumberSystemConverter.EastAsia.NumeralConstants;
 
-namespace DoenaSoft.NumberSystemConverter.Chinese;
+namespace DoenaSoft.NumberSystemConverter.EastAsia;
 
-internal sealed class FromUIntNumericalConverter
+internal abstract class From10p4ConverterBase(I10p4NumeralCharacters numeralCharacters)
 {
-    private readonly INumeralCharacters _numeralCharacters;
+    protected readonly I10p4NumeralCharacters _numeralCharacters = numeralCharacters;
 
-    internal FromUIntNumericalConverter(INumeralCharacters numeralCharacters)
-    {
-        _numeralCharacters = numeralCharacters;
-    }
-
-    public string FromUInt(ulong input)
+    public string Convert(ulong input)
     {
         if (input == 0)
         {
@@ -48,85 +43,7 @@ internal sealed class FromUIntNumericalConverter
         return numberSections;
     }
 
-    private string ToCharacters(ulong input)
-    {
-        var number = input;
-
-        var thousands = number / NC.D1000;
-
-        number -= thousands * NC.D1000;
-
-        var hundreds = number / NC.D100;
-
-        number -= hundreds * NC.D100;
-
-        var tens = number / NC.D10;
-
-        number -= tens * NC.D10;
-
-        var ones = number;
-
-        var zeroInserted = false;
-
-        var resultBuilder = new StringBuilder();
-
-        if (thousands > 0)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[thousands]}{_numeralCharacters.C1000}");
-        }
-        else if (hundreds > 0 || tens > 0 || ones > 0)
-        {
-            resultBuilder.Append(this.GetZero());
-
-            zeroInserted = true;
-        }
-
-        if (hundreds > 0)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[hundreds]}{_numeralCharacters.C100}");
-
-            zeroInserted = false;
-        }
-        else if (!zeroInserted && (tens > 0 || ones > 0))
-        {
-            resultBuilder.Append(this.GetZero());
-
-            zeroInserted = true;
-        }
-
-        if (tens > 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[tens]}{_numeralCharacters.C10}");
-        }
-        else if (tens == 1)
-        {
-            if (thousands > 0 || hundreds > 0)
-            {
-                resultBuilder.Append($"{_numeralCharacters.SingleDigits[tens]}{_numeralCharacters.C10}");
-            }
-            else
-            {
-                resultBuilder.Append($"{_numeralCharacters.C10}");
-            }
-        }
-        else if (!zeroInserted && ones > 0)
-        {
-            resultBuilder.Append(this.GetZero());
-        }
-
-        if (ones > 0)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
-        }
-        else if (thousands == 0 && hundreds == 0 && tens == 0)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
-        }
-
-        var result = resultBuilder.ToString();
-
-        return result;
-    }
+    protected abstract string ToCharacters(ulong input);
 
     private string GetResult(List<string> characterSections)
     {
@@ -206,6 +123,6 @@ internal sealed class FromUIntNumericalConverter
         }
     }
 
-    private string GetZero()
+    protected string GetZero()
         => _numeralCharacters.SingleDigits[0].ToString();
 }

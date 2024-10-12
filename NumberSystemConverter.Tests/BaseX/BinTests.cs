@@ -5,12 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.BaseX;
 [TestClass]
 public sealed class BinTests
 {
-    private readonly BinaryConverter _converter;
-
-    public BinTests()
-    {
-        _converter = new();
-    }
+    private readonly BinaryConverter _converter = new();
 
     [TestMethod]
     public void Base()
