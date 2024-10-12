@@ -1,6 +1,6 @@
 ﻿namespace DoenaSoft.NumberSystemConverter.Chinese;
 
-public sealed class OrdinarySimplifiedNumeralCharacters : OrdinaryNumeralCharactersBase
+public sealed class CommonSimplifiedNumeralCharacters : CommonNumeralCharactersBase
 {
     public override char C1_0000
         => '万';

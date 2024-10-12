@@ -3,10 +3,9 @@
 namespace DoenaSoft.NumberSystemConverter.Tests.Japanese;
 
 [TestClass]
-public sealed class JapaneseTests
+public sealed class CommonJapaneseTests
 {
-    private readonly NumeralConverter _converter = new();
-
+    private readonly CommonNumeralConverter _converter = new();
 
     [TestMethod]
     public void D0()
@@ -73,6 +72,10 @@ public sealed class JapaneseTests
         => _converter.TestFromTo(20, "二十");
 
     [TestMethod]
+    public void D100()
+        => _converter.TestFromTo(100, "百");
+
+    [TestMethod]
     public void D101()
         => _converter.TestFromTo(101, "百一");
 
@@ -102,11 +105,39 @@ public sealed class JapaneseTests
 
     [TestMethod]
     public void D1_0000()
-     => _converter.TestFromTo(1_0000, "一万");
+        => _converter.TestFromTo(1_0000, "一万");
 
     [TestMethod]
     public void D983_6703()
-     => _converter.TestFromTo(983_6703, "九百八十三万六千七百三");
+        => _converter.TestFromTo(983_6703, "九百八十三万六千七百三");
+
+    [TestMethod]
+    public void D1000()
+        => _converter.TestFromTo(1000, "千");
+
+    [TestMethod]
+    public void D1_0000_0000()
+        => _converter.TestFromTo(1_0000_0000, "一億");
+
+    [TestMethod]
+    public void D1_0000_0000_0000()
+        => _converter.TestFromTo(1_0000_0000_0000, "一兆");
+
+    [TestMethod]
+    public void D1_0000_0000_0001()
+        => _converter.TestFromTo(1_0000_0000_0001, "一兆一");
+
+    [TestMethod]
+    public void D1_0000_0000_0000_0000()
+        => _converter.TestFromTo(1_0000_0000_0000_0000, "一京");
+
+    [TestMethod]
+    public void D1_0000_0000_0000_0001()
+        => _converter.TestFromTo(1_0000_0000_0000_0001, "一京一");
+
+    [TestMethod]
+    public void D1_0001_0001_0001_0001()
+        => _converter.TestFromTo(1_0001_0001_0001_0001, "一京一兆一億一万一");
 
     [TestMethod]
     public void D1844_6744_0737_0955_1614()

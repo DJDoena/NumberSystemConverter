@@ -242,4 +242,46 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
             throw new OverflowException("Input is too big");
         }
     }
+
+    protected void ContainsSpecialCharacter(string input
+        , char specialCharacterToLookFor
+        , ref bool alreadyContainsSpecialCharacter
+        , ref string[] split
+        , ref char foundSpecialCharacter
+        , ref ulong characterValue)
+    {
+        var containsThisSpecialCharacter = input.Contains(specialCharacterToLookFor);
+
+        if (containsThisSpecialCharacter && alreadyContainsSpecialCharacter)
+        {
+            throw new InvalidInputException("Input is not valid");
+        }
+
+        if (containsThisSpecialCharacter)
+        {
+            if (split.Length > 1)
+            {
+                throw new InvalidInputException("Input is not valid");
+            }
+
+            var newSplit = input.Split(specialCharacterToLookFor);
+
+            if (newSplit.Length > 2)
+            {
+                throw new InvalidInputException("Input is not valid");
+            }
+            else if (!string.IsNullOrEmpty(newSplit[0]))
+            {
+                throw new InvalidInputException("Input is not valid");
+            }
+
+            alreadyContainsSpecialCharacter = containsThisSpecialCharacter;
+
+            split = newSplit;
+
+            foundSpecialCharacter = specialCharacterToLookFor;
+
+            this.TryGetAlternateCharacter(specialCharacterToLookFor, out characterValue);
+        }
+    }
 }

@@ -86,7 +86,7 @@ internal abstract class From10p4ConverterBase(I10p4NumeralCharacters numeralChar
         , string section
         , int sectionIndex)
     {
-        if (section != this.GetZero())
+        if (!string.IsNullOrEmpty(section) && section != this.GetZero())
         {
             resultBuilder.Append($"{section}{this.GetUnit(sectionIndex)}");
         }
@@ -123,6 +123,6 @@ internal abstract class From10p4ConverterBase(I10p4NumeralCharacters numeralChar
         }
     }
 
-    protected string GetZero()
+    private string GetZero()
         => _numeralCharacters.SingleDigits[0].ToString();
 }

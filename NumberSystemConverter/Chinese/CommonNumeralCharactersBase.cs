@@ -1,6 +1,6 @@
 ﻿namespace DoenaSoft.NumberSystemConverter.Chinese;
 
-public abstract class OrdinaryNumeralCharactersBase : NumeralCharactersBase
+public abstract class CommonNumeralCharactersBase : NumeralCharactersBase
 {
     public sealed override char[] SingleDigits
         => ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];

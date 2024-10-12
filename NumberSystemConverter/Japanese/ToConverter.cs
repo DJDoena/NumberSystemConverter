@@ -6,11 +6,14 @@ namespace DoenaSoft.NumberSystemConverter.Japanese;
 internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
     : To10p4ConverterBase(numeralCharacters)
 {
-    private const char C0A = '〇';
+    private const char J0A = '〇';
+
+    private const char J10000A = '萬';
 
     private static readonly Dictionary<char, ulong> _alternates = new()
     {
-        { C0A, 0 },
+        { J0A, 0 },
+        { J10000A, 1_0000 },
     };
 
     protected override (bool containsSpecialCharacter, char foundSpecialCharacterout, ulong characterValue) ContainsSpecialCharacter(string input
@@ -23,15 +26,13 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
 
         switch (factor)
         {
-            case NC.D1000:
+            case NC.D1_0000:
                 {
-                    if (string.IsNullOrEmpty(split[0]))
-                    {
-                        split[0] = _numeralCharacters.SingleDigits[1].ToString();
-                    }
+                    this.ContainsSpecialCharacter(input, J10000A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
 
                     break;
                 }
+            case NC.D1000:
             case NC.D100:
                 {
                     if (string.IsNullOrEmpty(split[0]))
@@ -50,7 +51,7 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
         => _alternates.Keys;
 
     protected override char[] GetAlternateZeroCharacters()
-        => [C0A];
+        => [J0A];
 
     protected override bool TryGetAlternateCharacter(char character, out ulong value)
         => _alternates.TryGetValue(character, out value);

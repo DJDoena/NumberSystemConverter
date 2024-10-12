@@ -2,19 +2,15 @@
 
 namespace DoenaSoft.NumberSystemConverter.Japanese;
 
-public sealed class NumeralCharacters : I10p4NumeralCharacters
+public abstract class NumeralCharacterBase : I10p4NumeralCharacters
 {
-    public char[] SingleDigits
-        => ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+    public abstract char[] SingleDigits { get; }
 
-    public char C10
-        => '十';
+    public abstract char C10 { get; }
 
-    public char C100
-        => '百';
+    public abstract char C100 { get; }
 
-    public char C1000
-        => '千';
+    public abstract char C1000 { get; }
 
     public char C1_0000
         => '万';

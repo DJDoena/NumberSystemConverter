@@ -3,9 +3,9 @@
 namespace DoenaSoft.NumberSystemConverter.Tests.Chinese;
 
 [TestClass]
-public sealed class OrdinarySimplifiedChineseTests
+public sealed class CommonSimplifiedChineseTests
 {
-    private readonly OrdinarySimplifiedNumeralConverter _converter = new();
+    private readonly CommonSimplifiedNumeralConverter _converter = new();
 
     [TestMethod]
     public void D0()
@@ -397,7 +397,7 @@ public sealed class OrdinarySimplifiedChineseTests
         => _ = _converter.ToULong("一皕");
 
     [TestMethod]
-    public void OrdinaryToFinancial1234()
+    public void CommonToFinancial1234()
     {
         var stringResult = _converter.Convert("一千二百三十四", new FinancialSimplifiedNumeralConverter());
 
@@ -405,7 +405,7 @@ public sealed class OrdinarySimplifiedChineseTests
     }
 
     [TestMethod]
-    public void OrdinaryToFinancial2024()
+    public void CommonToFinancial2024()
     {
         var stringResult = _converter.Convert("二千零二十四", new FinancialSimplifiedNumeralConverter());
 

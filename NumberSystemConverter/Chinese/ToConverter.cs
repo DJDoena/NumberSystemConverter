@@ -62,17 +62,17 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
         {
             case NC.D100:
                 {
-                    ContainsSpecialCharacter(input, C200A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C200A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
 
                     break;
                 }
             case NC.D10:
                 {
-                    ContainsSpecialCharacter(input, C10A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    ContainsSpecialCharacter(input, C20A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    ContainsSpecialCharacter(input, C20B, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    ContainsSpecialCharacter(input, C30A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    ContainsSpecialCharacter(input, C40A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C10A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C20A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C20B, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C30A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C40A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
 
                     break;
                 }
@@ -87,46 +87,4 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
 
     protected override bool TryGetAlternateCharacter(char character, out ulong value)
         => _alternates.TryGetValue(character, out value);
-
-    private static void ContainsSpecialCharacter(string input
-        , char specialCharacterToLookFor
-        , ref bool alreadyContainsSpecialCharacter
-        , ref string[] split
-        , ref char foundSpecialCharacter
-        , ref ulong characterValue)
-    {
-        var containsThisSpecialCharacter = input.Contains(specialCharacterToLookFor);
-
-        if (containsThisSpecialCharacter && alreadyContainsSpecialCharacter)
-        {
-            throw new InvalidInputException("Input is not valid");
-        }
-
-        if (containsThisSpecialCharacter)
-        {
-            if (split.Length > 1)
-            {
-                throw new InvalidInputException("Input is not valid");
-            }
-
-            var newSplit = input.Split(specialCharacterToLookFor);
-
-            if (newSplit.Length > 2)
-            {
-                throw new InvalidInputException("Input is not valid");
-            }
-            else if (!string.IsNullOrEmpty(newSplit[0]))
-            {
-                throw new InvalidInputException("Input is not valid");
-            }
-
-            alreadyContainsSpecialCharacter = containsThisSpecialCharacter;
-
-            split = newSplit;
-
-            foundSpecialCharacter = specialCharacterToLookFor;
-
-            characterValue = _alternates[specialCharacterToLookFor];
-        }
-    }
 }
