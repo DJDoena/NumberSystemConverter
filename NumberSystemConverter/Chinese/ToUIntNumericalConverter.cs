@@ -65,7 +65,7 @@ internal sealed class ToUIntNumericalConverter
         }
 
         var validCharachters = _numeralCharacters.SingleDigits
-            .Concat([_numeralCharacters.C10, _numeralCharacters.C100, _numeralCharacters.C1_000, _numeralCharacters.C10_000, _numeralCharacters.C100_000_000])
+            .Concat([_numeralCharacters.C10, _numeralCharacters.C100, _numeralCharacters.C1000, _numeralCharacters.C1_0000, _numeralCharacters.C1_0000_00000])
             .Concat(_alternates.Keys)
             .ToList();
 
@@ -81,7 +81,7 @@ internal sealed class ToUIntNumericalConverter
 
     private uint GetHundredMillionsPart(string input)
     {
-        var split = input.Split(_numeralCharacters.C100_000_000);
+        var split = input.Split(_numeralCharacters.C1_0000_00000);
 
         if (split.Length > 2)
         {
@@ -107,7 +107,7 @@ internal sealed class ToUIntNumericalConverter
 
         try
         {
-            var result = checked((upperPart * NC.D100_000_000) + lowerPart);
+            var result = checked((upperPart * NC.D1_0000_0000) + lowerPart);
 
             return result;
         }
@@ -119,7 +119,7 @@ internal sealed class ToUIntNumericalConverter
 
     private uint GetTenThousandsPart(string input)
     {
-        var split = input.Split(_numeralCharacters.C10_000);
+        var split = input.Split(_numeralCharacters.C1_0000);
 
         if (split.Length > 2)
         {
@@ -143,14 +143,14 @@ internal sealed class ToUIntNumericalConverter
             lowerPart = this.GetThousandsPart(split[0]);
         }
 
-        var result = (upperPart * NC.D10_000) + lowerPart;
+        var result = (upperPart * NC.D1_0000) + lowerPart;
 
         return result;
     }
 
     private uint GetThousandsPart(string input)
     {
-        var split = input.Split(_numeralCharacters.C1_000);
+        var split = input.Split(_numeralCharacters.C1000);
 
         if (split.Length > 2)
         {
@@ -174,7 +174,7 @@ internal sealed class ToUIntNumericalConverter
             lowerPart = this.GetHundredsPart(split[0]);
         }
 
-        var result = (upperPart * NC.D1_000) + lowerPart;
+        var result = (upperPart * NC.D1000) + lowerPart;
 
         return result;
     }

@@ -11,12 +11,12 @@ public sealed class FinancialTraditionalNumeralCharacters : INumeralCharacters
     public char C100
         => '佰';
 
-    public char C1_000
+    public char C1000
         => '仟';
 
-    public char C10_000
+    public char C1_0000
         => '萬';
 
-    public char C100_000_000
+    public char C1_0000_00000
         => '億';
 }

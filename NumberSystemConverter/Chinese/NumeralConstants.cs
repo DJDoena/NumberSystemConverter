@@ -6,9 +6,9 @@ public sealed class NumeralConstants
 
     public const uint D100 = 100U;
 
-    public const uint D1_000 = 1_000U;
+    public const uint D1000 = 1000U;
 
-    public const uint D10_000 = 10_000U;
+    public const uint D1_0000 = 1_0000U;
 
-    public const uint D100_000_000 = 100_000_000U;
+    public const uint D1_0000_0000 = 1_0000_0000U;
 }

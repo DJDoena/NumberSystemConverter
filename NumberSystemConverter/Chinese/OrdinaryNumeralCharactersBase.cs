@@ -11,10 +11,10 @@ public abstract class OrdinaryNumeralCharactersBase : INumeralCharacters
     public char C100
         => '百';
 
-    public char C1_000
+    public char C1000
         => '千';
 
-    public abstract char C10_000 { get; }
+    public abstract char C1_0000 { get; }
 
-    public abstract char C100_000_000 { get; }
+    public abstract char C1_0000_00000 { get; }
 }

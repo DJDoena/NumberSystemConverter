@@ -8,9 +8,9 @@ public interface INumeralCharacters
 
     char C100 { get; }
 
-    char C1_000 { get; }
+    char C1000 { get; }
 
-    char C10_000 { get; }
+    char C1_0000 { get; }
 
-    char C100_000_000 { get; }
+    char C1_0000_00000 { get; }
 }

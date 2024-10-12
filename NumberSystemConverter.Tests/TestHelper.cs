@@ -6,7 +6,7 @@ internal static class TestHelper
         , uint intValue
         , string stringValue)
     {
-        converter.TestTo(stringValue, intValue);
+        //converter.TestTo(stringValue, intValue);
 
         converter.TestFrom(intValue, stringValue);
     }

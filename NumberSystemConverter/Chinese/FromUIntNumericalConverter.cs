@@ -19,156 +19,193 @@ internal sealed class FromUIntNumericalConverter
             return _numeralCharacters.SingleDigits[0].ToString();
         }
 
+        var numberSections = GetNumberSections(input);
+
+        var characterSections = numberSections
+            .Select(this.ToCharacters)
+            .ToList();
+
+        var result = this.GetResult(characterSections);
+
+        return result;
+    }
+
+    private static List<uint> GetNumberSections(uint input)
+    {
+        var number = input;
+
+        var numberSections = new List<uint>();
+
+        while (number > 0)
+        {
+            var remainder = number % NC.D1_0000;
+
+            numberSections.Add(remainder);
+
+            number /= NC.D1_0000;
+        }
+
+        return numberSections;
+    }
+
+    private string ToCharacters(uint input)
+    {
+        var number = input;
+
+        var thousands = number / NC.D1000;
+
+        number -= thousands * NC.D1000;
+
+        var hundreds = number / NC.D100;
+
+        number -= hundreds * NC.D100;
+
+        var tens = number / NC.D10;
+
+        number -= tens * NC.D10;
+
+        var ones = number;
+
+        var zeroInserted = false;
+
         var resultBuilder = new StringBuilder();
 
-        this.FromUInt(input, resultBuilder, 1U);
+        if (thousands > 0)
+        {
+            resultBuilder.Append($"{_numeralCharacters.SingleDigits[thousands]}{_numeralCharacters.C1000}");
+        }
+        else if (hundreds > 0 || tens > 0 || ones > 0)
+        {
+            resultBuilder.Append(this.GetZero());
+
+            zeroInserted = true;
+        }
+
+        if (hundreds > 0)
+        {
+            resultBuilder.Append($"{_numeralCharacters.SingleDigits[hundreds]}{_numeralCharacters.C100}");
+
+            zeroInserted = false;
+        }
+        else if (!zeroInserted && (tens > 0 || ones > 0))
+        {
+            resultBuilder.Append(this.GetZero());
+
+            zeroInserted = true;
+        }
+
+        if (tens > 1)
+        {
+            resultBuilder.Append($"{_numeralCharacters.SingleDigits[tens]}{_numeralCharacters.C10}");
+        }
+        else if (tens == 1)
+        {
+            if (thousands > 0 || hundreds > 0)
+            {
+                resultBuilder.Append($"{_numeralCharacters.SingleDigits[tens]}{_numeralCharacters.C10}");
+            }
+            else
+            {
+                resultBuilder.Append($"{_numeralCharacters.C10}");
+            }
+        }
+        else if (!zeroInserted && ones > 0)
+        {
+            resultBuilder.Append(this.GetZero());
+        }
+
+        if (ones > 0)
+        {
+            resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
+        }
 
         var result = resultBuilder.ToString();
 
         return result;
     }
 
-    private void FromUInt(uint input
-        , StringBuilder resultBuilder
-        , uint previousDivider)
+
+
+    private string GetResult(List<string> characterSections)
     {
-        var number = input;
+        var zero = this.GetZero();
 
-        var bigNumber = false;
+        var resultBuilder = new StringBuilder();
 
-        var missingPosition = false;
-
-        if (number >= NC.D100_000_000)
+        int sectionIndex;
+        for (sectionIndex = 0; sectionIndex < characterSections.Count - 1; sectionIndex++)
         {
-            this.ReduceMultipe(ref number, resultBuilder, NC.D100_000_000, _numeralCharacters.C100_000_000, bigNumber, missingPosition, previousDivider);
+            var currentSection = characterSections[sectionIndex];
 
-            missingPosition = false;
-
-            bigNumber = true;
-
-            previousDivider = NC.D100_000_000;
-        }
-
-        if (number >= NC.D10_000)
-        {
-            this.ReduceMultipe(ref number, resultBuilder, NC.D10_000, _numeralCharacters.C10_000, bigNumber, missingPosition, previousDivider);
-
-            bigNumber = true;
-
-            missingPosition = false;
-
-            previousDivider = NC.D10_000;
-        }
-        else if (bigNumber)
-        {
-            missingPosition = true;
-        }
-
-        if (number >= NC.D1_000)
-        {
-            this.ReduceMultipe(ref number, resultBuilder, NC.D1_000, _numeralCharacters.C1_000, bigNumber, missingPosition, previousDivider);
-
-            bigNumber = true;
-
-            missingPosition = false;
-
-            previousDivider = NC.D1_000;
-        }
-        else if (bigNumber)
-        {
-            missingPosition = true;
-        }
-
-        if (number >= NC.D100)
-        {
-            this.ReduceMultipe(ref number, resultBuilder, NC.D100, _numeralCharacters.C100, bigNumber, missingPosition, previousDivider);
-
-            bigNumber = true;
-
-            missingPosition = false;
-
-            previousDivider = NC.D100;
-        }
-        else if (bigNumber)
-        {
-            missingPosition = true;
-        }
-
-        if (number >= NC.D10)
-        {
-            this.ReduceMultipe(ref number, resultBuilder, NC.D10, _numeralCharacters.C10, bigNumber, missingPosition, previousDivider, omitOne: true);
-
-            missingPosition = false;
-        }
-        else if (bigNumber)
-        {
-            missingPosition = true;
-        }
-
-        this.ProcessOnes(ref number, resultBuilder, bigNumber, missingPosition);
-    }
-
-    private uint ReduceMultipe(ref uint number
-        , StringBuilder resultBuilder
-        , uint divider
-        , char character
-        , bool bigNumber
-        , bool missingPosition
-        , uint previousDivider
-        , bool omitOne = false)
-    {
-        var quotient = number / divider;
-
-        var subResultBuilder = new StringBuilder();
-
-        var zeroInserted = false;
-
-
-        if (previousDivider != 1U
-            && divider == NC.D10_000
-            && quotient < NC.D100
-            && quotient > 1U)
-        {
-            resultBuilder.Append(_numeralCharacters.SingleDigits[0]);
-
-            zeroInserted = true;
-        }
-
-        if (quotient != 1U || !omitOne)
-        {
-            this.FromUInt(quotient, subResultBuilder, previousDivider);
-        }
-
-        number -= quotient * divider;
-
-        if (!zeroInserted
-            && bigNumber
-            && missingPosition)
-        {
-            resultBuilder.Append(_numeralCharacters.SingleDigits[0]);
-        }
-
-        resultBuilder.Append(subResultBuilder.ToString());
-        resultBuilder.Append(character);
-
-        return number;
-    }
-
-    private void ProcessOnes(ref uint number
-        , StringBuilder resultBuilder
-        , bool bigNumber
-        , bool missingPosition)
-    {
-        if (number > 0U)
-        {
-            if (bigNumber && missingPosition)
+            if (currentSection != zero)
             {
-                resultBuilder.Append(_numeralCharacters.SingleDigits[0]);
+                this.InsertSection(resultBuilder, currentSection, sectionIndex);
             }
+            else
+            {
+                var nextSection = characterSections[sectionIndex + 1];
 
-            resultBuilder.Append(_numeralCharacters.SingleDigits[number]);
+                if (!nextSection.StartsWith(zero))
+                {
+                    resultBuilder.Append(zero);
+                }
+            }
         }
 
-        number = 0;
+        sectionIndex = characterSections.Count - 1;
+
+        this.InsertSection(resultBuilder, characterSections[sectionIndex], sectionIndex);
+
+        if (resultBuilder.Length > 1 && resultBuilder[0] == zero[0])
+        {
+            resultBuilder.Remove(0, 1);
+        }
+
+        var result = resultBuilder.ToString();
+
+        return result;
     }
+
+    private void InsertSection(StringBuilder resultBuilder
+        , string section
+        , int sectionIndex)
+    {
+        if (!string.IsNullOrEmpty(section))
+        {
+            if (section != this.GetZero())
+            {
+                resultBuilder.Insert(0, $"{section}{this.GetUnit(sectionIndex)}");
+            }
+            else
+            {
+                resultBuilder.Insert(0, $"{section}");
+            }
+        }
+    }
+
+    private string GetUnit(int sectionIndex)
+    {
+        switch (sectionIndex)
+        {
+            case 0:
+                {
+                    return string.Empty;
+                }
+            case 1:
+                {
+                    return _numeralCharacters.C1_0000.ToString();
+                }
+            case 2:
+                {
+                    return _numeralCharacters.C1_0000_00000.ToString();
+                }
+            default:
+                {
+                    throw new NotSupportedException();
+                }
+        }
+    }
+
+    private string GetZero()
+        => _numeralCharacters.SingleDigits[0].ToString();
 }

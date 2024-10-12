@@ -81,13 +81,13 @@ public sealed class ChineseConverterTests
         public char C100
             => '百';
 
-        public char C1_000
+        public char C1000
             => '千';
 
-        public char C10_000
+        public char C1_0000
             => '万';
 
-        public char C100_000_000
+        public char C1_0000_00000
             => '亿';
 
         internal TestNumeralCharacters(char[] singleDigits)

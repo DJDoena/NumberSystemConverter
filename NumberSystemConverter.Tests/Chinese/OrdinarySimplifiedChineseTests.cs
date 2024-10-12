@@ -65,6 +65,10 @@ public sealed class OrdinarySimplifiedChineseTests
         => _converter.TestFromTo(12, "十二");
 
     [TestMethod]
+    public void D19()
+        => _converter.TestFromTo(19, "十九");
+
+    [TestMethod]
     public void D20()
         => _converter.TestFromTo(20, "二十");
 
@@ -89,119 +93,135 @@ public sealed class OrdinarySimplifiedChineseTests
         => _converter.TestFromTo(102, "一百零二");
 
     [TestMethod]
-    public void D10_000()
-        => _converter.TestFromTo(10_000, "一万");
+    public void D110()
+        => _converter.TestFromTo(110, "一百一十");
+
+    [TestMethod]
+    public void D111()
+        => _converter.TestTo("一百一十一", 111);
+
+    [TestMethod]
+    public void D1010()
+        => _converter.TestFromTo(1010, "一千零一十");
+
+    [TestMethod]
+    public void D1_0000()
+        => _converter.TestFromTo(1_0000, "一万");
 
     [TestMethod]
     public void D11_000()
         => _converter.TestFromTo(11_000, "一万一千");
 
     [TestMethod]
-    public void D18_000()
-        => _converter.TestFromTo(18_000, "一万八千");
+    public void D1_8000()
+        => _converter.TestFromTo(1_8000, "一万八千");
 
     [TestMethod]
-    public void D31_240()
-         => _converter.TestFromTo(31_240, "三万一千二百四十"); // 三万一千两百四十 ?
+    public void D3_1240()
+         => _converter.TestFromTo(3_1240, "三万一千二百四十");
 
     [TestMethod]
-    public void D34_054()
-        => _converter.TestFromTo(34_354, "三万四千三百五十四");
+    public void D3_4054()
+        => _converter.TestFromTo(3_4054, "三万四千零五十四");
 
     [TestMethod]
-    public void D34_354()
-        => _converter.TestFromTo(34_354, "三万四千三百五十四");
+    public void D3_4354()
+        => _converter.TestFromTo(3_4354, "三万四千三百五十四");
 
     [TestMethod]
-    public void D40_005()
-      => _converter.TestFromTo(40_005, "四万零五");
+    public void D4_0005()
+      => _converter.TestFromTo(4_0005, "四万零五");
 
     [TestMethod]
-    public void D40_050()
-        => _converter.TestFromTo(40_050, "四万零五十");
+    public void D4_0050()
+        => _converter.TestFromTo(4_0050, "四万零五十");
 
     [TestMethod]
-    public void D40_500()
-         => _converter.TestFromTo(40_500, "四万零五百");
+    public void D4_0500()
+         => _converter.TestFromTo(4_0500, "四万零五百");
 
     [TestMethod]
-    public void D45_000()
-         => _converter.TestFromTo(45_000, "四万五千");
+    public void D4_5000()
+         => _converter.TestFromTo(4_5000, "四万五千");
 
     [TestMethod]
-    public void D100_000_000()
-        => _converter.TestFromTo(100_000_000, "一亿");
+    public void D1_0000_0000()
+        => _converter.TestFromTo(1_0000_0000, "一亿");
 
     [TestMethod]
-    public void D5_671_890()
-        => _converter.TestFromTo(5_671_890, "五百六十七万一千八百九十");
+    public void D1_0000_0001()
+        => _converter.TestFromTo(1_0000_0001, "一亿零一");
 
     [TestMethod]
-    public void D9_564_435()
-        => _converter.TestFromTo(9_564_435, "九百五十六万四千四百三十五");
+    public void D567_1890()
+        => _converter.TestFromTo(567_1890, "五百六十七万一千八百九十");
 
     [TestMethod]
-    public void D30_456_720()
-        => _converter.TestFromTo(30_456_720, "三千零四十五万六千七百二十");
+    public void D956_4435()
+        => _converter.TestFromTo(956_4435, "九百五十六万四千四百三十五");
 
     [TestMethod]
-    public void D200_080_000()
-        => _converter.TestFromTo(200_080_000, "二亿零八万");
+    public void D3_045_6720()
+        => _converter.TestFromTo(3_045_6720, "三千零四十五万六千七百二十");
 
     [TestMethod]
-    public void D200_800_000()
-        => _converter.TestFromTo(200_800_000, "二亿零八十万"); // 两亿零八十万 ?
+    public void D2_0008_0000()
+        => _converter.TestFromTo(2_0008_0000, "二亿零八万");
 
     [TestMethod]
-    public void D201_800_000()
-        => _converter.TestFromTo(201_800_000, "二亿一百八十万");
+    public void D2_0080_0000()
+        => _converter.TestFromTo(2_0080_0000, "二亿零八十万");
 
     [TestMethod]
-    public void D2_400_360_899()
-        => _converter.TestFromTo(2_400_360_899, "二十四亿零三十六万零八百九十九"); // 二十四亿三十六万零八百九十九 ?
+    public void D2_0018_00000()
+        => _converter.TestFromTo(2_0018_00000, "二十亿零一百八十万");
 
     [TestMethod]
-    public void D200_800_000_alternate()
-        => _converter.TestTo("两亿零八十万", 200_800_000);
+    public void D24_0036_0899()
+        => _converter.TestFromTo(24_0036_0899, "二十四亿零三十六万零八百九十九");
+
+    [TestMethod]
+    public void D2_0080_0000_alternate()
+        => _converter.TestTo("两亿零八十万", 2_0080_0000);
 
     [TestMethod]
     [ExpectedException(typeof(OverflowException))]
-    public void D1_000_0000_000_000_000()
+    public void D1_0000_0000_0000_0000()
          => _ = _converter.ToUInt("一亿一亿");
 
     [TestMethod]
     [ExpectedException(typeof(OverflowException))]
-    public void D1_000_000_000_000()
+    public void D1_0000_0000_0000()
         => _ = _converter.ToUInt("一万亿");
 
     [TestMethod]
     [ExpectedException(typeof(OverflowException))]
-    public void D5_000_000_000()
+    public void D50_0000_0000()
         => _ = _converter.ToUInt("五十亿");
 
     [TestMethod]
-    public void D4_000_000_000()
-        => _converter.TestFromTo(4_000_000_000U, "四十亿");
+    public void D40_0000_0000()
+        => _converter.TestFromTo(40_0000_0000U, "四十亿");
 
     [TestMethod]
     [ExpectedException(typeof(OverflowException))]
-    public void D4_294_967_296()
+    public void D42_9496_7296()
         => _ = _converter.ToUInt("四十二亿九千四百九十六万七千二百九十六");
-    
+
     [TestMethod]
-    public void D4_294_967_295()
+    public void D42_9496_7295()
         => _converter.TestFromTo(uint.MaxValue, "四十二亿九千四百九十六万七千二百九十五");
 
     [TestMethod]
-    public void D2_222()
+    public void D2222()
         => _converter.TestFromTo(2222, "二千二百二十二");
 
     [TestMethod]
-    public void D2_222_alternate()
+    public void D2222_alternate()
         => _converter.TestTo("兩千二百二十二", 2222);
 
     [TestMethod]
-    public void D2_222_alternate2()
+    public void D2222_alternate2()
         => _converter.TestTo("兩千兩百二十二", 2222);
 
     [TestMethod]
@@ -215,7 +235,7 @@ public sealed class OrdinarySimplifiedChineseTests
         => _ = _converter.ToUInt("一百呀");
 
     [TestMethod]
-    public void D111()
+    public void D111_alternate()
         => _converter.TestTo("一百呀一", 111);
 
     [TestMethod]
@@ -264,7 +284,7 @@ public sealed class OrdinarySimplifiedChineseTests
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
-    public void D1_000_1_0000_invalid()
+    public void D1000_10000_invalid()
         => _ = _converter.ToUInt("一千一千");
 
     [TestMethod]
