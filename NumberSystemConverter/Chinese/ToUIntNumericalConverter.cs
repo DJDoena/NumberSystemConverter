@@ -4,6 +4,8 @@ namespace DoenaSoft.NumberSystemConverter.Chinese;
 
 internal sealed class ToUIntNumericalConverter
 {
+    private delegate ulong Get10pXPartCallback(string input, char character, ulong factor);
+
     private const char C0A = '〇';
     private const char C0B = '空';
     private const char C0C = '洞';
@@ -88,149 +90,112 @@ internal sealed class ToUIntNumericalConverter
             throw new OverflowException("Input is too big");
         }
 
-        var result = this.Get10p16Part(split[0]);
+        var result = this.Get10pXPart(split[0], _numeralCharacters.C1_0000_0000_0000_0000, NC.D1_0000_0000_0000_0000);
 
         return result;
     }
 
-    private ulong Get10p16Part(string input)
+    private static string[] GetSplit(string input, char splitCharacter)
     {
-        var split = GetSplit(input, _numeralCharacters.C1_0000_0000_0000_0000);
+        var split = input.Split(splitCharacter);
+
+        if (split.Length > 2)
+        {
+            throw new InvalidInputException("Input is not valid");
+        }
+
+        return split;
+    }
+
+    private ulong Get10pXPart(string input, char character, ulong factor)
+    {
+        var split = GetSplit(input, character);
+
+        var (nextFunction, nextCharacter, nextFactor) = this.GetNextFunction(factor);
 
         ulong upperPart;
         ulong lowerPart;
         if (split.Length == 2)
         {
-            upperPart = this.Get10p12Part(split[0]);
+            upperPart = nextFunction(split[0], nextCharacter, nextFactor);
 
             lowerPart = split[1].Length > 0
-                ? this.Get10p12Part(split[1])
+                ? nextFunction(split[1], nextCharacter, nextFactor)
                 : 0U;
         }
         else
         {
             upperPart = 0;
 
-            lowerPart = this.Get10p12Part(split[0]);
+            lowerPart = nextFunction(split[0], nextCharacter, nextFactor);
         }
 
-        var result = CalculateResult(upperPart, lowerPart, NC.D1_0000_0000_0000_0000);
+        var result = CalculateResult(upperPart, lowerPart, factor);
 
         return result;
     }
 
-    private ulong Get10p12Part(string input)
+    private (Get10pXPartCallback nextFunction, char nextCharacter, ulong nextFactor) GetNextFunction(ulong factor)
     {
-        var split = GetSplit(input, _numeralCharacters.C1_0000_0000_0000);
-
-        ulong upperPart;
-        ulong lowerPart;
-        if (split.Length == 2)
+        switch (factor)
         {
-            upperPart = this.Get10p8Part(split[0]);
-
-            lowerPart = split[1].Length > 0
-                ? this.Get10p8Part(split[1])
-                : 0U;
+            case NC.D1_0000_0000_0000_0000:
+                {
+                    return (this.Get10pXPart, _numeralCharacters.C1_0000_0000_0000, NC.D1_0000_0000_0000);
+                }
+            case NC.D1_0000_0000_0000:
+                {
+                    return (this.Get10pXPart, _numeralCharacters.C1_0000_0000, NC.D1_0000_0000);
+                }
+            case NC.D1_0000_0000:
+                {
+                    return (this.Get10pXPart, _numeralCharacters.C1_0000, NC.D1_0000);
+                }
+            case NC.D1_0000:
+                {
+                    return (this.Get10pXPart, _numeralCharacters.C1000, NC.D1000);
+                }
+            case NC.D1000:
+                {
+                    return (this.Get100Part, _numeralCharacters.C100, NC.D100);
+                }
+            case NC.D100:
+                {
+                    return (this.Get10Part, _numeralCharacters.C10, NC.D10);
+                }
+            default:
+                {
+                    throw new NotSupportedException();
+                }
         }
-        else
-        {
-            upperPart = 0;
-
-            lowerPart = this.Get10p8Part(split[0]);
-        }
-
-        var result = CalculateResult(upperPart, lowerPart, NC.D1_0000_0000_0000);
-
-        return result;
     }
 
-    private ulong Get10p8Part(string input)
+    private static ulong CalculateResult(ulong upperPart
+        , ulong lowerPart
+        , ulong factor)
     {
-        var split = GetSplit(input, _numeralCharacters.C1_0000_0000);
-
-        ulong upperPart;
-        ulong lowerPart;
-        if (split.Length == 2)
+        try
         {
-            upperPart = this.Get10p4Part(split[0]);
+            var result = checked((upperPart * factor) + lowerPart);
 
-            lowerPart = split[1].Length > 0
-                ? this.Get10p4Part(split[1])
-                : 0U;
+            return result;
         }
-        else
+        catch (OverflowException)
         {
-            upperPart = 0;
-
-            lowerPart = this.Get10p4Part(split[0]);
+            throw new OverflowException("Input is too big");
         }
-
-        var result = CalculateResult(upperPart, lowerPart, NC.D1_0000_0000);
-
-        return result;
     }
 
-    private ulong Get10p4Part(string input)
+    private ulong Get100Part(string input, char character, ulong factor)
     {
-        var split = GetSplit(input, _numeralCharacters.C1_0000);
-
-        ulong upperPart;
-        ulong lowerPart;
-        if (split.Length == 2)
-        {
-            upperPart = this.Get10p3Part(split[0]);
-
-            lowerPart = split[1].Length > 0
-                ? this.Get10p3Part(split[1])
-                : 0U;
-        }
-        else
-        {
-            upperPart = 0;
-
-            lowerPart = this.Get10p3Part(split[0]);
-        }
-
-        var result = CalculateResult(upperPart, lowerPart, NC.D1_0000);
-
-        return result;
-    }
-
-    private ulong Get10p3Part(string input)
-    {
-        var split = GetSplit(input, _numeralCharacters.C1000);
-
-        ulong upperPart;
-        ulong lowerPart;
-        if (split.Length == 2)
-        {
-            upperPart = this.Get10p2Part(split[0]);
-
-            lowerPart = split[1].Length > 0
-                ? this.Get10p2Part(split[1])
-                : 0U;
-        }
-        else
-        {
-            upperPart = 0;
-
-            lowerPart = this.Get10p2Part(split[0]);
-        }
-
-        var result = CalculateResult(upperPart, lowerPart, NC.D1000);
-
-        return result;
-    }
-
-    private ulong Get10p2Part(string input)
-    {
-        var split = GetSplit(input, _numeralCharacters.C100);
+        var split = GetSplit(input, character);
 
         var containsSpecialCharacter = false;
         var foundSpecialCharacter = ' ';
         var characterValue = 0UL;
         ContainsSpecialCharacter(input, C200A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+
+        var (nextFunction, nextCharacter, nextFactor) = this.GetNextFunction(factor);
 
         ulong upperPart;
         ulong lowerPart;
@@ -238,35 +203,35 @@ internal sealed class ToUIntNumericalConverter
         {
             split = input.Split(foundSpecialCharacter);
 
-            upperPart = characterValue / NC.D100;
+            upperPart = characterValue / factor;
 
             lowerPart = split[1].Length > 0
-                ? this.Get10Part(split[1])
+                ? nextFunction(split[1], nextCharacter, nextFactor)
                 : 0U;
         }
         else if (split.Length == 2)
         {
-            upperPart = this.Get10Part(split[0]);
+            upperPart = nextFunction(split[0], nextCharacter, nextFactor);
 
             lowerPart = split[1].Length > 0
-                ? this.Get10Part(split[1])
+                ? nextFunction(split[1], nextCharacter, nextFactor)
                 : 0U;
         }
         else
         {
             upperPart = 0;
 
-            lowerPart = this.Get10Part(split[0]);
+            lowerPart = nextFunction(split[0], nextCharacter, nextFactor);
         }
 
-        var result = CalculateResult(upperPart, lowerPart, NC.D100);
+        var result = CalculateResult(upperPart, lowerPart, factor);
 
         return result;
     }
 
-    private ulong Get10Part(string input)
+    private ulong Get10Part(string input, char character, ulong factor)
     {
-        var split = GetSplit(input, _numeralCharacters.C10);
+        var split = GetSplit(input, character);
 
         var containsSpecialCharacter = false;
         var foundSpecialCharacter = ' ';
@@ -276,6 +241,8 @@ internal sealed class ToUIntNumericalConverter
         ContainsSpecialCharacter(input, C20B, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
         ContainsSpecialCharacter(input, C30A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
         ContainsSpecialCharacter(input, C40A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+
+        var nextFunction = this.Get1Part;
 
         ulong upperPart;
         ulong lowerPart;
@@ -288,25 +255,25 @@ internal sealed class ToUIntNumericalConverter
                 throw new InvalidInputException("Input is not valid");
             }
 
-            upperPart = characterValue / NC.D10;
+            upperPart = characterValue / factor;
 
-            lowerPart = this.Get10Part(split[1]);
+            lowerPart = nextFunction(split[1]);
         }
         else if (split.Length == 2)
         {
             upperPart = split[0].Length > 0
-                ? this.Get1Part(split[0])
+                ? nextFunction(split[0])
                 : 1U;
 
             lowerPart = split[1].Length > 0
-                ? this.Get1Part(split[1])
+                ? nextFunction(split[1])
                 : 0U;
         }
         else
         {
             upperPart = 0;
 
-            lowerPart = this.Get1Part(split[0]);
+            lowerPart = nextFunction(split[0]);
         }
 
         var result = CalculateResult(upperPart, lowerPart, NC.D10);
@@ -379,33 +346,5 @@ internal sealed class ToUIntNumericalConverter
 
             characterValue = _alternates[specialCharacterToLookFor];
         }
-    }
-
-    private static ulong CalculateResult(ulong upperPart
-        , ulong lowerPart
-        , ulong factor)
-    {
-        try
-        {
-            var result = checked((upperPart * factor) + lowerPart);
-
-            return result;
-        }
-        catch (OverflowException)
-        {
-            throw new OverflowException("Input is too big");
-        }
-    }
-
-    private static string[] GetSplit(string input, char splitCharacter)
-    {
-        var split = input.Split(splitCharacter);
-
-        if (split.Length > 2)
-        {
-            throw new InvalidInputException("Input is not valid");
-        }
-
-        return split;
     }
 }

@@ -240,7 +240,12 @@ public sealed class OrdinarySimplifiedChineseTests
     [TestMethod]
     [ExpectedException(typeof(OverflowException))]
     public void D1844_6744_0737_0955_1616()
-         => _converter.ToULong("一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十六");
+         => _ = _converter.ToULong("一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十六");
+
+    [TestMethod]
+    [ExpectedException(typeof(OverflowException))]
+    public void D1_0000_0000_0000_0000_0000()
+        => _ = _converter.ToULong("一垓");
 
     [TestMethod]
     public void D40_0000_0000()

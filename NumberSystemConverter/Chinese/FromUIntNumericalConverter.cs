@@ -199,10 +199,6 @@ internal sealed class FromUIntNumericalConverter
                 {
                     return _numeralCharacters.C1_0000_0000_0000_0000.ToString();
                 }
-            case 5:
-                {
-                    return _numeralCharacters.C1_0000_0000_0000_0000_0000.ToString();
-                }
             default:
                 {
                     throw new NotSupportedException();
