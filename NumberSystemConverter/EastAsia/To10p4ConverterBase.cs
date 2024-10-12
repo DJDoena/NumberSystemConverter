@@ -66,9 +66,11 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
     {
         var split = GetSplit(input, character);
 
-        this.ContainsSpecialCharacter(input, factor, ref split, out var containsSpecialCharacter, out var foundSpecialCharacter, out var characterValue);
+        var (containsSpecialCharacter, foundSpecialCharacter, characterValue)
+            = this.ContainsSpecialCharacter(input, factor, ref split);
 
-        var (nextFunction, nextCharacter, nextFactor) = this.GetNextFunction(factor);
+        var (nextFunction, nextCharacter, nextFactor)
+            = this.GetNextFunction(factor);
 
         ulong upperPart;
         ulong lowerPart;
@@ -106,9 +108,11 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
     {
         var split = GetSplit(input, character);
 
-        this.ContainsSpecialCharacter(input, factor, ref split, out var containsSpecialCharacter, out var foundSpecialCharacter, out var characterValue);
+        var (containsSpecialCharacter, foundSpecialCharacter, characterValue)
+            = this.ContainsSpecialCharacter(input, factor, ref split);
 
-        var (nextFunction, nextCharacter, nextFactor) = this.GetNextFunction(factor);
+        var (nextFunction, nextCharacter, nextFactor)
+            = this.GetNextFunction(factor);
 
         ulong upperPart;
         ulong lowerPart;
@@ -180,17 +184,9 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
 
     protected abstract bool TryGetAlternateCharacter(char character, out ulong value);
 
-    protected virtual void ContainsSpecialCharacter(string input
+    protected abstract (bool containsSpecialCharacter, char foundSpecialCharacterout, ulong characterValue) ContainsSpecialCharacter(string input
         , ulong factor
-        , ref string[] split
-        , out bool containsSpecialCharacter
-        , out char foundSpecialCharacter
-        , out ulong characterValue)
-    {
-        containsSpecialCharacter = false;
-        foundSpecialCharacter = '\0';
-        characterValue = 0UL;
-    }
+        , ref string[] split);
 
     private (Get10pXPartCallback nextFunction, char nextCharacter, ulong nextFactor) GetNextFunction(ulong factor)
     {
@@ -231,7 +227,7 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
         }
     }
 
-    protected static ulong CalculateResult(ulong upperPart
+    private static ulong CalculateResult(ulong upperPart
         , ulong lowerPart
         , ulong factor)
     {

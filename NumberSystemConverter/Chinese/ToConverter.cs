@@ -50,16 +50,13 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
     protected override IEnumerable<char> GetAlternates()
         => _alternates.Keys;
 
-    protected override void ContainsSpecialCharacter(string input
+    protected override (bool containsSpecialCharacter, char foundSpecialCharacterout, ulong characterValue) ContainsSpecialCharacter(string input
         , ulong factor
-        , ref string[] split
-        , out bool containsSpecialCharacter
-        , out char foundSpecialCharacter
-        , out ulong characterValue)
+        , ref string[] split)
     {
-        containsSpecialCharacter = false;
-        foundSpecialCharacter = ' ';
-        characterValue = 0UL;
+        var containsSpecialCharacter = false;
+        var foundSpecialCharacter = '\0';
+        var characterValue = 0UL;
 
         switch (factor)
         {
@@ -81,6 +78,8 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
                 }
 
         }
+
+        return (containsSpecialCharacter, foundSpecialCharacter, characterValue);
     }
 
     protected override char[] GetAlternateZeroCharacters()
