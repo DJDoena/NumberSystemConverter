@@ -259,6 +259,11 @@ public sealed class OrdinarySimplifiedChineseTests
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
+    public void D10_20_invalid()
+        => _ = _converter.ToUInt("呀廿");
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidInputException))]
     public void D1_000_1_0000_invalid()
         => _ = _converter.ToUInt("一千一千");
 

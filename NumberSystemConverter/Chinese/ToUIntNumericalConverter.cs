@@ -306,13 +306,13 @@ internal sealed class ToUIntNumericalConverter
     }
 
     private static void ContainsSpecialCharacter(string input
-        , char searchSpecialCharacter
+        , char specialCharacterToLookFor
         , ref bool alreadyContainsSpecialCharacter
         , ref string[] split
         , ref char foundSpecialCharacter
         , ref uint characterValue)
     {
-        var containsThisSpecialCharacter = input.Contains(searchSpecialCharacter);
+        var containsThisSpecialCharacter = input.Contains(specialCharacterToLookFor);
 
         if (containsThisSpecialCharacter && alreadyContainsSpecialCharacter)
         {
@@ -326,7 +326,7 @@ internal sealed class ToUIntNumericalConverter
                 throw new InvalidInputException("Input is not valid");
             }
 
-            var newSplit = input.Split(searchSpecialCharacter);
+            var newSplit = input.Split(specialCharacterToLookFor);
 
             if (newSplit.Length > 2)
             {
@@ -341,9 +341,9 @@ internal sealed class ToUIntNumericalConverter
 
             split = newSplit;
 
-            foundSpecialCharacter = searchSpecialCharacter;
+            foundSpecialCharacter = specialCharacterToLookFor;
 
-            characterValue = _alternates[searchSpecialCharacter];
+            characterValue = _alternates[specialCharacterToLookFor];
         }
     }
 }
