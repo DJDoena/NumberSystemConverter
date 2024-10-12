@@ -5,6 +5,6 @@ public sealed class OrdinaryTraditionalNumeralCharacters : OrdinaryNumeralCharac
     public override char C1_0000
         => '萬';
 
-    public override char C1_0000_00000
+    public override char C1_0000_0000
         => '億';
 }

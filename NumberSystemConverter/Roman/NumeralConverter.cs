@@ -5,7 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Roman;
 
 public sealed class NumeralConverter : INumberSystemConverter
 {
-    public string FromUInt(uint input)
+    public string FromULong(ulong input)
     {
         if (input == 0)
         {
@@ -49,7 +49,7 @@ public sealed class NumeralConverter : INumberSystemConverter
         return result;
     }
 
-    public uint ToUInt(string input)
+    public ulong ToULong(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
         {
@@ -71,7 +71,7 @@ public sealed class NumeralConverter : INumberSystemConverter
     }
 
     #region FromUInt
-    private static uint GetMultiple(ref uint number, uint segment)
+    private static ulong GetMultiple(ref ulong number, ulong segment)
     {
         if (number >= segment)
         {
@@ -87,7 +87,7 @@ public sealed class NumeralConverter : INumberSystemConverter
         }
     }
 
-    private static bool HasCompund(ref uint number, uint segment)
+    private static bool HasCompund(ref ulong number, ulong segment)
     {
         var result = number >= segment;
 
@@ -100,10 +100,10 @@ public sealed class NumeralConverter : INumberSystemConverter
     }
 
     private static void AddMultiple(StringBuilder resultBuilder
-        , uint count
+        , ulong count
         , string numeral)
     {
-        for (var i = 0; i < count; i++)
+        for (ulong i = 0; i < count; i++)
         {
             resultBuilder.Append(numeral);
         }

@@ -48,15 +48,15 @@ public sealed class ChineseConverterTests
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void NumeralCharactersNull()
-        => (new TestChineseConverter((INumeralCharacters)null!)).ToUInt("");
+        => (new TestChineseConverter((INumeralCharacters)null!)).ToULong("");
 
     private static void ToUInt(string input
         , char[] validCharacters)
-        => (new TestChineseConverter(validCharacters)).ToUInt(input);
+        => (new TestChineseConverter(validCharacters)).ToULong(input);
 
-    private static void FromUInt(uint input
+    private static void FromUInt(ulong input
         , char[] validCharacters)
-        => (new TestChineseConverter(validCharacters)).FromUInt(input);
+        => (new TestChineseConverter(validCharacters)).FromULong(input);
 
     private sealed class TestChineseConverter : NumeralConverterBase
     {
@@ -87,8 +87,17 @@ public sealed class ChineseConverterTests
         public char C1_0000
             => '万';
 
-        public char C1_0000_00000
+        public char C1_0000_0000
             => '亿';
+
+        public char C1_0000_0000_0000
+            => '兆';
+
+        public char C1_0000_0000_0000_0000
+            => '京';
+
+        public char C1_0000_0000_0000_0000_0000
+            => '垓';
 
         internal TestNumeralCharacters(char[] singleDigits)
         {

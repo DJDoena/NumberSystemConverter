@@ -2,7 +2,7 @@
 
 public interface INumberSystemConverter
 {
-    string FromUInt(uint input);
+    string FromULong(ulong input);
 
-    uint ToUInt(string input);
+    ulong ToULong(string input);
 }

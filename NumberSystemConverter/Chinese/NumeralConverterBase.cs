@@ -18,9 +18,9 @@ public abstract class NumeralConverterBase : INumberSystemConverter
         }
     }
 
-    public string FromUInt(uint input)
+    public string FromULong(ulong input)
         => (new FromUIntNumericalConverter(_numeralCharacters)).FromUInt(input);
 
-    public uint ToUInt(string input)
+    public ulong ToULong(string input)
         => (new ToUIntNumericalConverter(_numeralCharacters)).ToUInt(input);
 }

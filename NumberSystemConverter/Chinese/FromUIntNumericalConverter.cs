@@ -12,7 +12,7 @@ internal sealed class FromUIntNumericalConverter
         _numeralCharacters = numeralCharacters;
     }
 
-    public string FromUInt(uint input)
+    public string FromUInt(ulong input)
     {
         if (input == 0)
         {
@@ -30,11 +30,11 @@ internal sealed class FromUIntNumericalConverter
         return result;
     }
 
-    private static List<uint> GetNumberSections(uint input)
+    private static List<ulong> GetNumberSections(ulong input)
     {
         var number = input;
 
-        var numberSections = new List<uint>();
+        var numberSections = new List<ulong>();
 
         while (number > 0)
         {
@@ -48,7 +48,7 @@ internal sealed class FromUIntNumericalConverter
         return numberSections;
     }
 
-    private string ToCharacters(uint input)
+    private string ToCharacters(ulong input)
     {
         var number = input;
 
@@ -189,7 +189,19 @@ internal sealed class FromUIntNumericalConverter
                 }
             case 2:
                 {
-                    return _numeralCharacters.C1_0000_00000.ToString();
+                    return _numeralCharacters.C1_0000_0000.ToString();
+                }
+            case 3:
+                {
+                    return _numeralCharacters.C1_0000_0000_0000.ToString();
+                }
+            case 4:
+                {
+                    return _numeralCharacters.C1_0000_0000_0000_0000.ToString();
+                }
+            case 5:
+                {
+                    return _numeralCharacters.C1_0000_0000_0000_0000_0000.ToString();
                 }
             default:
                 {

@@ -15,12 +15,12 @@ public sealed class RomanTests
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void FromUIntZero()
-        => _ = _converter.FromUInt(0);
+        => _ = _converter.FromULong(0);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void ToUIntEmpty()
-        => _ = _converter.ToUInt("");
+        => _ = _converter.ToULong("");
 
     [TestMethod]
     public void D1()
@@ -197,62 +197,62 @@ public sealed class RomanTests
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void IC()
-        => _ = _converter.ToUInt("IC");
+        => _ = _converter.ToULong("IC");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void IM()
-        => _ = _converter.ToUInt("IM");
+        => _ = _converter.ToULong("IM");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void IXIX()
-        => _ = _converter.ToUInt("IXIX");
+        => _ = _converter.ToULong("IXIX");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void IXX()
-        => _ = _converter.ToUInt("IXX");
+        => _ = _converter.ToULong("IXX");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void XXXX()
-        => _ = _converter.ToUInt("XXXX");
+        => _ = _converter.ToULong("XXXX");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void VX()
-        => _ = _converter.ToUInt("VX");
+        => _ = _converter.ToULong("VX");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void XLX()
-        => _ = _converter.ToUInt("XLX");
+        => _ = _converter.ToULong("XLX");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void IVI()
-        => _ = _converter.ToUInt("IVI");
+        => _ = _converter.ToULong("IVI");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void DM()
-        => _ = _converter.ToUInt("DM");
+        => _ = _converter.ToULong("DM");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void DD()
-        => _ = _converter.ToUInt("DD");
+        => _ = _converter.ToULong("DD");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void XIXV()
-        => _ = _converter.ToUInt("XIXV");
+        => _ = _converter.ToULong("XIXV");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void K()
-        => _ = _converter.ToUInt("K");
+        => _ = _converter.ToULong("K");
 
     [TestMethod]
     public void RomanToBin()

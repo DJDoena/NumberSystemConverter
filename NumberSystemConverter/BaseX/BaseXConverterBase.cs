@@ -4,10 +4,10 @@ public abstract class BaseXConverterBase : INumberSystemConverter
 {
     protected abstract char[] ValidCharacters { get; }
 
-    public uint Base
-        => (uint)this.ValidCharacters.Length;
+    public ulong Base
+        => (ulong)this.ValidCharacters.Length;
 
-    public virtual uint ToUInt(string input)
+    public virtual ulong ToULong(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
         {
@@ -23,13 +23,13 @@ public abstract class BaseXConverterBase : INumberSystemConverter
             throw new InvalidInputException("Invalid character in input");
         }
 
-        var result = 0U;
+        var result = 0UL;
 
-        var baseSystem = (uint)this.ValidCharacters.Length;
+        var baseSystem = (ulong)this.ValidCharacters.Length;
 
         for (var inputIndex = 0; inputIndex < input.Length; inputIndex++)
         {
-            var current = (uint)Array.IndexOf(this.ValidCharacters, input[inputIndex]);
+            var current = (ulong)Array.IndexOf(this.ValidCharacters, input[inputIndex]);
 
             result = (result * baseSystem) + current;
         }
@@ -37,7 +37,7 @@ public abstract class BaseXConverterBase : INumberSystemConverter
         return result;
     }
 
-    public string FromUInt(uint input)
+    public string FromULong(ulong input)
     {
         if (this.ValidCharacters == null || this.ValidCharacters.Length == 0)
         {
@@ -53,7 +53,7 @@ public abstract class BaseXConverterBase : INumberSystemConverter
 
         var result = string.Empty;
 
-        var baseSystem = (uint)this.ValidCharacters.Length;
+        var baseSystem = (ulong)this.ValidCharacters.Length;
 
         while (number > 0U)
         {

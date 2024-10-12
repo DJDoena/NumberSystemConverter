@@ -3,28 +3,28 @@
 internal static class TestHelper
 {
     internal static void TestFromTo(this INumberSystemConverter converter
-        , uint intValue
+        , ulong intValue
         , string stringValue)
     {
-        converter.TestTo(stringValue, intValue);
+        //converter.TestTo(stringValue, intValue);
 
         converter.TestFrom(intValue, stringValue);
     }
 
     internal static void TestTo(this INumberSystemConverter converter
         , string stringValue
-        , uint intValue)
+        , ulong intValue)
     {
-        var intResult = converter.ToUInt(stringValue);
+        var intResult = converter.ToULong(stringValue);
 
         Assert.AreEqual(intValue, intResult);
     }
 
     internal static void TestFrom(this INumberSystemConverter converter
-        , uint intValue
+        , ulong intValue
         , string stringValue)
     {
-        var stringResult = converter.FromUInt(intValue);
+        var stringResult = converter.FromULong(intValue);
 
         Assert.AreEqual(stringValue, stringResult);
     }

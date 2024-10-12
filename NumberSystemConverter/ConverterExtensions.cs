@@ -13,9 +13,9 @@ public static class ConverterExtensions
             throw new ArgumentNullException(nameof(to));
         }
 
-        var intValue = from.ToUInt(input);
+        var intValue = from.ToULong(input);
 
-        var result = to.FromUInt(intValue);
+        var result = to.FromULong(intValue);
 
         return result;
     }

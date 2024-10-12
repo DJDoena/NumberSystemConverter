@@ -47,11 +47,11 @@ public sealed class BaseXConverterTests
 
     private static void ToUInt(string input
         , char[] validCharacters)
-        => (new TestBaseXConverter(validCharacters)).ToUInt(input);
+        => (new TestBaseXConverter(validCharacters)).ToULong(input);
 
-    private static void FromUInt(uint input
+    private static void FromUInt(ulong input
         , char[] validCharacters)
-        => (new TestBaseXConverter(validCharacters)).FromUInt(input);
+        => (new TestBaseXConverter(validCharacters)).FromULong(input);
 
     private sealed class TestBaseXConverter : BaseXConverterBase
     {

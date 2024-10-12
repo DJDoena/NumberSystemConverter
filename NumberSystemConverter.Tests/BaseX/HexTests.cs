@@ -41,17 +41,17 @@ public sealed class HexTests
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void InputNull()
-        => _converter.ToUInt(null!);
+        => _converter.ToULong(null!);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void InputEmpty()
-        => _converter.ToUInt(string.Empty);
+        => _converter.ToULong(string.Empty);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void InputWhitespace()
-        => _converter.ToUInt(" ");
+        => _converter.ToULong(" ");
 
     [TestMethod]
     public void HexToBin()

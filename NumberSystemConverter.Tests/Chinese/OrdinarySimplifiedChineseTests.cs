@@ -205,32 +205,54 @@ public sealed class OrdinarySimplifiedChineseTests
         => _converter.TestTo("两亿零八十万", 2_0080_0000);
 
     [TestMethod]
-    [ExpectedException(typeof(OverflowException))]
-    public void D1_0000_0000_0000_0000()
-         => _ = _converter.ToUInt("一亿一亿");
+    [ExpectedException(typeof(InvalidInputException))]
+    public void D1_0000_0000_1_0000_0000()
+         => _ = _converter.ToULong("一亿一亿");
 
     [TestMethod]
-    [ExpectedException(typeof(OverflowException))]
     public void D1_0000_0000_0000()
-        => _ = _converter.ToUInt("一万亿");
+        => _converter.TestFromTo(1_0000_0000_0000, "一兆");
+
+    [TestMethod]
+    public void D1_0000_0000_0001()
+        => _converter.TestFromTo(1_0000_0000_0001, "一兆零一");
+
+    [TestMethod]
+    public void D1_0000_0000_0000_0000()
+        => _converter.TestFromTo(1_0000_0000_0000_0000, "一京");
+
+    [TestMethod]
+    public void D1_0000_0000_0000_0001()
+        => _converter.TestFromTo(1_0000_0000_0000_0001, "一京零一");
+
+    [TestMethod]
+    public void D1844_6744_0737_0955_1614()
+        => _converter.TestFromTo(1844_6744_0737_0955_1614, "一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十四");
+
+    [TestMethod]
+    public void D1844_6744_0737_0955_1615()
+         => _converter.TestFromTo(1844_6744_0737_0955_1615, "一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十五");
 
     [TestMethod]
     [ExpectedException(typeof(OverflowException))]
-    public void D50_0000_0000()
-        => _ = _converter.ToUInt("五十亿");
+    public void D1844_6744_0737_0955_1616()
+         => _converter.ToULong("一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十六");
 
     [TestMethod]
     public void D40_0000_0000()
-        => _converter.TestFromTo(40_0000_0000U, "四十亿");
-
-    [TestMethod]
-    [ExpectedException(typeof(OverflowException))]
-    public void D42_9496_7296()
-        => _ = _converter.ToUInt("四十二亿九千四百九十六万七千二百九十六");
+        => _converter.TestFromTo(40_0000_0000, "四十亿");
 
     [TestMethod]
     public void D42_9496_7295()
         => _converter.TestFromTo(uint.MaxValue, "四十二亿九千四百九十六万七千二百九十五");
+
+    [TestMethod]
+    public void D42_9496_7296()
+        => _converter.TestFromTo(42_9496_7296, "四十二亿九千四百九十六万七千二百九十六");
+
+    [TestMethod]
+    public void D50_0000_0000()
+        => _converter.TestFromTo(50_0000_0000, "五十亿");
 
     [TestMethod]
     public void D2222()
@@ -247,12 +269,12 @@ public sealed class OrdinarySimplifiedChineseTests
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D10_invalid()
-        => _ = _converter.ToUInt("呀");
+        => _ = _converter.ToULong("呀");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D110_invalid()
-        => _ = _converter.ToUInt("一百呀");
+        => _ = _converter.ToULong("一百呀");
 
     [TestMethod]
     public void D111_alternate()
@@ -261,12 +283,12 @@ public sealed class OrdinarySimplifiedChineseTests
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D40_invalid()
-        => _ = _converter.ToUInt("卌");
+        => _ = _converter.ToULong("卌");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D140_invalid()
-        => _ = _converter.ToUInt("一百卌");
+        => _ = _converter.ToULong("一百卌");
 
     [TestMethod]
     public void D141()
@@ -275,62 +297,62 @@ public sealed class OrdinarySimplifiedChineseTests
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid()
-        => _ = _converter.ToUInt("念廿");
+        => _ = _converter.ToULong("念廿");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid2()
-        => _ = _converter.ToUInt("念二十");
+        => _ = _converter.ToULong("念二十");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid3()
-        => _ = _converter.ToUInt("二十二十");
+        => _ = _converter.ToULong("二十二十");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid4()
-        => _ = _converter.ToUInt("念念");
+        => _ = _converter.ToULong("念念");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D100_100_invalid()
-        => _ = _converter.ToUInt("一百一百");
+        => _ = _converter.ToULong("一百一百");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D10_20_invalid()
-        => _ = _converter.ToUInt("呀廿");
+        => _ = _converter.ToULong("呀廿");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D1000_10000_invalid()
-        => _ = _converter.ToUInt("一千一千");
+        => _ = _converter.ToULong("一千一千");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D10_000_10_0000_invalid()
-        => _ = _converter.ToUInt("一万一万");
+        => _ = _converter.ToULong("一万一万");
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void InputNull()
-        => _ = _converter.ToUInt(null!);
+        => _ = _converter.ToULong(null!);
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void InputEmpty()
-        => _ = _converter.ToUInt("");
+        => _ = _converter.ToULong("");
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void InputWhitespace()
-        => _ = _converter.ToUInt(" ");
+        => _ = _converter.ToULong(" ");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void InputInvalid()
-        => _ = _converter.ToUInt("A");
+        => _ = _converter.ToULong("A");
 
     [TestMethod]
     public void D200_special()
@@ -343,32 +365,32 @@ public sealed class OrdinarySimplifiedChineseTests
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid()
-        => _ = _converter.ToUInt("零零");
+        => _ = _converter.ToULong("零零");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid2()
-        => _ = _converter.ToUInt("零空");
+        => _ = _converter.ToULong("零空");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid3()
-        => _ = _converter.ToUInt("一百零零一");
+        => _ = _converter.ToULong("一百零零一");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid4()
-        => _ = _converter.ToUInt("一百零空一");
+        => _ = _converter.ToULong("一百零空一");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D1_1_invalid4()
-        => _ = _converter.ToUInt("一一");
+        => _ = _converter.ToULong("一一");
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
     public void D1_200_invalid()
-        => _ = _converter.ToUInt("一皕");
+        => _ = _converter.ToULong("一皕");
 
     [TestMethod]
     public void OrdinaryToFinancial1234()
