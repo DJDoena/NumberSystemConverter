@@ -101,8 +101,17 @@ public sealed class OrdinarySimplifiedChineseTests
         => _converter.TestTo("一百一十一", 111);
 
     [TestMethod]
+    public void D1000()
+        => _converter.TestFromTo(1000, "一千");
+
+    [TestMethod]
     public void D1010()
         => _converter.TestFromTo(1010, "一千零一十");
+
+
+    [TestMethod]
+    public void D2024()
+        => _converter.TestFromTo(2024, "二千零二十四");
 
     [TestMethod]
     public void D1_0000()
