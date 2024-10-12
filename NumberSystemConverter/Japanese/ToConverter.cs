@@ -28,7 +28,7 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
         {
             case NC.D1_0000:
                 {
-                    this.ContainsSpecialCharacter(input, J10000A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, J10000A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue, specialCharacterIsUnit: true);
 
                     break;
                 }

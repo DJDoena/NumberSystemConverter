@@ -78,7 +78,9 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
         {
             split = input.Split(foundSpecialCharacter);
 
-            upperPart = characterValue / factor;
+            upperPart = !string.IsNullOrEmpty(split[0])
+                ? nextFunction(split[0], nextCharacter, nextFactor)
+                : characterValue / factor;
 
             lowerPart = split[1].Length > 0
                 ? nextFunction(split[1], nextCharacter, nextFactor)
@@ -248,7 +250,8 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
         , ref bool alreadyContainsSpecialCharacter
         , ref string[] split
         , ref char foundSpecialCharacter
-        , ref ulong characterValue)
+        , ref ulong characterValue
+        , bool specialCharacterIsUnit = false)
     {
         var containsThisSpecialCharacter = input.Contains(specialCharacterToLookFor);
 
@@ -270,7 +273,7 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
             {
                 throw new InvalidInputException("Input is not valid");
             }
-            else if (!string.IsNullOrEmpty(newSplit[0]))
+            else if (!specialCharacterIsUnit && !string.IsNullOrEmpty(newSplit[0]))
             {
                 throw new InvalidInputException("Input is not valid");
             }

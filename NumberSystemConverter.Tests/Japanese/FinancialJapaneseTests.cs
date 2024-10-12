@@ -108,6 +108,26 @@ public sealed class FinancialJapaneseTests
         => _converter.TestFromTo(1_0000, "壱万");
 
     [TestMethod]
+    public void D1_0000_alternate()
+         => _converter.TestTo("壱萬", 1_0000);
+
+    [TestMethod]
+    public void D9_0000()
+         => _converter.TestFromTo(9_0000, "九万");
+
+    [TestMethod]
+    public void D9_0000_alternate()
+         => _converter.TestTo("九萬", 9_0000);
+
+    [TestMethod]
+    public void D10_0000()
+         => _converter.TestFromTo(10_0000, "拾万");
+
+    [TestMethod]
+    public void D10_0000_alternate()
+         => _converter.TestTo("拾萬", 10_0000);
+
+    [TestMethod]
     public void D983_6703()
         => _converter.TestFromTo(983_6703, "九百八拾参万六千七百参");
 
