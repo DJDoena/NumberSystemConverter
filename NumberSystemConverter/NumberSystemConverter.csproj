@@ -23,8 +23,8 @@
 		<Company>Doena Soft.</Company>
 		<Authors>DJ Doena</Authors>
 		<Copyright>Copyright © Doena Soft. 2024</Copyright>
-		<Version>1.0.3-rc.2</Version>
-		<FileVersion>1.0.3-rc.2</FileVersion>
+		<Version>1.0.3-rc.3</Version>
+		<FileVersion>1.0.3-rc.3</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

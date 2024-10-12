@@ -108,6 +108,9 @@ public sealed class OrdinarySimplifiedChineseTests
     public void D1010()
         => _converter.TestFromTo(1010, "一千零一十");
 
+    [TestMethod]
+    public void D1234()
+        => _converter.TestFromTo(1234, "一千二百三十四");
 
     [TestMethod]
     public void D2024()
@@ -160,6 +163,14 @@ public sealed class OrdinarySimplifiedChineseTests
     [TestMethod]
     public void D1_0000_0001()
         => _converter.TestFromTo(1_0000_0001, "一亿零一");
+
+    [TestMethod]
+    public void D1_0000_0234()
+        => _converter.TestFromTo(1_0000_0234, "一亿零二百三十四");
+
+    [TestMethod]
+    public void D1_0000_1234()
+        => _converter.TestFromTo(1_0000_1234, "一亿零一千二百三十四");
 
     [TestMethod]
     public void D567_1890()

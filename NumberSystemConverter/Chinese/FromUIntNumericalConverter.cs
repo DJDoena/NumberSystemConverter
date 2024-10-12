@@ -118,13 +118,15 @@ internal sealed class FromUIntNumericalConverter
         {
             resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
         }
+        else if (thousands == 0 && hundreds == 0 && tens == 0)
+        {
+            resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
+        }
 
         var result = resultBuilder.ToString();
 
         return result;
     }
-
-
 
     private string GetResult(List<string> characterSections)
     {
@@ -132,18 +134,17 @@ internal sealed class FromUIntNumericalConverter
 
         var resultBuilder = new StringBuilder();
 
-        int sectionIndex;
-        for (sectionIndex = 0; sectionIndex < characterSections.Count - 1; sectionIndex++)
+        for (var sectionIndex = characterSections.Count - 1; sectionIndex > 0; sectionIndex--)
         {
             var currentSection = characterSections[sectionIndex];
 
             if (currentSection != zero)
             {
-                this.InsertSection(resultBuilder, currentSection, sectionIndex);
+                this.AppendSection(resultBuilder, currentSection, sectionIndex);
             }
             else
             {
-                var nextSection = characterSections[sectionIndex + 1];
+                var nextSection = characterSections[sectionIndex - 1];
 
                 if (!nextSection.StartsWith(zero))
                 {
@@ -152,34 +153,25 @@ internal sealed class FromUIntNumericalConverter
             }
         }
 
-        sectionIndex = characterSections.Count - 1;
-
-        this.InsertSection(resultBuilder, characterSections[sectionIndex], sectionIndex);
-
-        if (resultBuilder.Length > 1 && resultBuilder[0] == zero[0])
-        {
-            resultBuilder.Remove(0, 1);
-        }
+        this.AppendSection(resultBuilder, characterSections[0], 0);
 
         var result = resultBuilder.ToString();
+
+        if (result.Length > 1)
+        {
+            result = result.Trim(zero[0]);
+        }
 
         return result;
     }
 
-    private void InsertSection(StringBuilder resultBuilder
+    private void AppendSection(StringBuilder resultBuilder
         , string section
         , int sectionIndex)
     {
-        if (!string.IsNullOrEmpty(section))
+        if (section != this.GetZero())
         {
-            if (section != this.GetZero())
-            {
-                resultBuilder.Insert(0, $"{section}{this.GetUnit(sectionIndex)}");
-            }
-            else
-            {
-                resultBuilder.Insert(0, $"{section}");
-            }
+            resultBuilder.Append($"{section}{this.GetUnit(sectionIndex)}");
         }
     }
 
