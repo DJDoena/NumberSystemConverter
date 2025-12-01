@@ -417,10 +417,6 @@ public sealed class CommonSimplifiedChineseTests
     }
 
     [TestMethod]
-    public void MaterialNumber50860726()
-    {
-        _converter.TestFromTo(50860726UL, "五千零八十六万零七百二十六");
-
-        var stringResult = _converter.FromULong(50860726UL);
-    }
+    public void MaterialNumber50860726() 
+        => _converter.TestFromTo(50860726UL, "五千零八十六万零七百二十六");
 }
