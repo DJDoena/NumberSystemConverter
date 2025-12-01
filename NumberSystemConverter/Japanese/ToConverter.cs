@@ -18,7 +18,7 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
 
     protected override (bool containsSpecialCharacter, char foundSpecialCharacterout, ulong characterValue) ContainsSpecialCharacter(string input
         , ulong factor
-        , ref string[] split)
+        , string[] split)
     {
         var containsSpecialCharacter = false;
         var foundSpecialCharacter = '\0';
@@ -28,7 +28,7 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
         {
             case NC.D1_0000:
                 {
-                    this.ContainsSpecialCharacter(input, J10000A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue, specialCharacterIsUnit: true);
+                    this.ContainsSpecialCharacter(input, J10000A, ref containsSpecialCharacter, split, ref foundSpecialCharacter, ref characterValue, specialCharacterIsUnit: true);
 
                     break;
                 }

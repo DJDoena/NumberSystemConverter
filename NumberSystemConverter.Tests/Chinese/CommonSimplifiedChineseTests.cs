@@ -221,6 +221,10 @@ public sealed class CommonSimplifiedChineseTests
         => _converter.TestFromTo(1_0000_0000_0000_0001, "一京零一");
 
     [TestMethod]
+    public void OneMillionBillion()
+      => _converter.TestFromTo(1000000L * 1000000000L, "一千兆");
+
+    [TestMethod]
     public void D1_0001_0001_0001_0001()
         => _converter.TestFromTo(1_0001_0001_0001_0001, "一京零一兆零一亿零一万零一");
 
@@ -410,5 +414,13 @@ public sealed class CommonSimplifiedChineseTests
         var stringResult = _converter.Convert("二千零二十四", new FinancialSimplifiedNumeralConverter());
 
         Assert.AreEqual("贰仟零贰拾肆", stringResult);
+    }
+
+    [TestMethod]
+    public void MaterialNumber50860726()
+    {
+        _converter.TestFromTo(50860726UL, "五千零八十六万零七百二十六");
+
+        var stringResult = _converter.FromULong(50860726UL);
     }
 }

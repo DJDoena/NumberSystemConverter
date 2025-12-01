@@ -52,7 +52,7 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
 
     protected override (bool containsSpecialCharacter, char foundSpecialCharacterout, ulong characterValue) ContainsSpecialCharacter(string input
         , ulong factor
-        , ref string[] split)
+        , string[] split)
     {
         var containsSpecialCharacter = false;
         var foundSpecialCharacter = '\0';
@@ -62,17 +62,17 @@ internal sealed class ToConverter(I10p4NumeralCharacters numeralCharacters)
         {
             case NC.D100:
                 {
-                    this.ContainsSpecialCharacter(input, C200A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C200A, ref containsSpecialCharacter, split, ref foundSpecialCharacter, ref characterValue);
 
                     break;
                 }
             case NC.D10:
                 {
-                    this.ContainsSpecialCharacter(input, C10A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    this.ContainsSpecialCharacter(input, C20A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    this.ContainsSpecialCharacter(input, C20B, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    this.ContainsSpecialCharacter(input, C30A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
-                    this.ContainsSpecialCharacter(input, C40A, ref containsSpecialCharacter, ref split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C10A, ref containsSpecialCharacter, split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C20A, ref containsSpecialCharacter, split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C20B, ref containsSpecialCharacter, split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C30A, ref containsSpecialCharacter, split, ref foundSpecialCharacter, ref characterValue);
+                    this.ContainsSpecialCharacter(input, C40A, ref containsSpecialCharacter, split, ref foundSpecialCharacter, ref characterValue);
 
                     break;
                 }

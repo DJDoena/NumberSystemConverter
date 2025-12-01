@@ -67,7 +67,7 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
         var split = GetSplit(input, character);
 
         var (containsSpecialCharacter, foundSpecialCharacter, characterValue)
-            = this.ContainsSpecialCharacter(input, factor, ref split);
+            = this.ContainsSpecialCharacter(input, factor, split);
 
         var (nextFunction, nextCharacter, nextFactor)
             = this.GetNextFunction(factor);
@@ -111,7 +111,7 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
         var split = GetSplit(input, character);
 
         var (containsSpecialCharacter, foundSpecialCharacter, characterValue)
-            = this.ContainsSpecialCharacter(input, factor, ref split);
+            = this.ContainsSpecialCharacter(input, factor, split);
 
         var (nextFunction, nextCharacter, nextFactor)
             = this.GetNextFunction(factor);
@@ -188,7 +188,7 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
 
     protected abstract (bool containsSpecialCharacter, char foundSpecialCharacterout, ulong characterValue) ContainsSpecialCharacter(string input
         , ulong factor
-        , ref string[] split);
+        , string[] split);
 
     private (Get10pXPartCallback nextFunction, char nextCharacter, ulong nextFactor) GetNextFunction(ulong factor)
     {
@@ -248,7 +248,7 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
     protected void ContainsSpecialCharacter(string input
         , char specialCharacterToLookFor
         , ref bool alreadyContainsSpecialCharacter
-        , ref string[] split
+        , string[] split
         , ref char foundSpecialCharacter
         , ref ulong characterValue
         , bool specialCharacterIsUnit = false)
@@ -267,20 +267,18 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
                 throw new InvalidInputException("Input is not valid");
             }
 
-            var newSplit = input.Split(specialCharacterToLookFor);
+            split = input.Split(specialCharacterToLookFor);
 
-            if (newSplit.Length > 2)
+            if (split.Length > 2)
             {
                 throw new InvalidInputException("Input is not valid");
             }
-            else if (!specialCharacterIsUnit && !string.IsNullOrEmpty(newSplit[0]))
+            else if (!specialCharacterIsUnit && !string.IsNullOrEmpty(split[0]))
             {
                 throw new InvalidInputException("Input is not valid");
             }
 
             alreadyContainsSpecialCharacter = containsThisSpecialCharacter;
-
-            split = newSplit;
 
             foundSpecialCharacter = specialCharacterToLookFor;
 

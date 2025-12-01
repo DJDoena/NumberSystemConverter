@@ -70,4 +70,8 @@ public sealed class CommonTraditionalChineseTests
     [TestMethod]
     public void D1_0000_0000()
         => _converter.TestFromTo(1_0000_0000, "一億");
+
+    [TestMethod]
+    public void OneMillionBillion()
+        => _converter.TestFromTo(1000000L * 1000000000L, "一千兆");
 }
