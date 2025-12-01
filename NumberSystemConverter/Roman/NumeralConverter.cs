@@ -15,17 +15,17 @@ public sealed class NumeralConverter : INumberSystemConverter
         var number = input;
 
         var thousands = GetMultiple(ref number, NC.D1000);
-        var hasNineHundred = HasCompund(ref number, NC.D1000 - NC.D100);
-        var hasFiveHundred = HasCompund(ref number, NC.D500);
-        var hasFourHundred = HasCompund(ref number, NC.D500 - NC.D100);
+        var hasNineHundred = HasCompound(ref number, NC.D1000 - NC.D100);
+        var hasFiveHundred = HasCompound(ref number, NC.D500);
+        var hasFourHundred = HasCompound(ref number, NC.D500 - NC.D100);
         var hundreds = GetMultiple(ref number, NC.D100);
-        var hasNinety = HasCompund(ref number, NC.D100 - NC.D10);
-        var hasFifty = HasCompund(ref number, NC.D50);
-        var hasForty = HasCompund(ref number, NC.D50 - NC.D10);
+        var hasNinety = HasCompound(ref number, NC.D100 - NC.D10);
+        var hasFifty = HasCompound(ref number, NC.D50);
+        var hasForty = HasCompound(ref number, NC.D50 - NC.D10);
         var tens = GetMultiple(ref number, NC.D10);
-        var hasNine = HasCompund(ref number, NC.D10 - NC.D1);
-        var hasFive = HasCompund(ref number, NC.D5);
-        var hasFour = HasCompund(ref number, NC.D5 - NC.D1);
+        var hasNine = HasCompound(ref number, NC.D10 - NC.D1);
+        var hasFive = HasCompound(ref number, NC.D5);
+        var hasFour = HasCompound(ref number, NC.D5 - NC.D1);
         var ones = GetMultiple(ref number, NC.D1);
 
         var resultBuilder = new StringBuilder();
@@ -60,7 +60,7 @@ public sealed class NumeralConverter : INumberSystemConverter
 
         var numbers = (new NumeralInputValidator().Validate(input))!;
 
-        var result = 0U;
+        var result = 0UL;
 
         foreach (var number in numbers)
         {
@@ -71,15 +71,16 @@ public sealed class NumeralConverter : INumberSystemConverter
     }
 
     #region FromUInt
-    private static ulong GetMultiple(ref ulong number, ulong segment)
+    private static ulong GetMultiple(ref ulong number
+        , ulong segment)
     {
         if (number >= segment)
         {
-            var result = number / segment;
+            var multiple = number / segment;
 
-            number -= result * segment;
+            number -= multiple * segment;
 
-            return result;
+            return multiple;
         }
         else
         {
@@ -87,16 +88,17 @@ public sealed class NumeralConverter : INumberSystemConverter
         }
     }
 
-    private static bool HasCompund(ref ulong number, ulong segment)
+    private static bool HasCompound(ref ulong number
+        , ulong segment)
     {
-        var result = number >= segment;
+        var hasCompound = number >= segment;
 
-        if (result)
+        if (hasCompound)
         {
             number -= segment;
         }
 
-        return result;
+        return hasCompound;
     }
 
     private static void AddMultiple(StringBuilder resultBuilder

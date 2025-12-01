@@ -246,6 +246,20 @@ public sealed class RomanInputValidatorTests
 
     [TestMethod]
     [ExpectedException(typeof(InvalidInputException))]
+    public void IVIV()
+        => _validator.Validate("IVIV");
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidInputException))]
+    public void IVIX()
+        => _validator.Validate("IVIX");
+
+    [TestMethod]
+    public void XXXIX()
+        => Verify(_validator.Validate("XXXIX"), 10, 10, 10, 9);
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidInputException))]
     public void K()
         => _validator.Validate("K");
 
