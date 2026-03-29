@@ -5,7 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Roman;
 [TestClass]
 public sealed class RomanInputValidatorTests
 {
-    private readonly NumeralInputValidator _validator;
+    private readonly RomanNumeralInputValidator _validator;
 
     public RomanInputValidatorTests()
     {

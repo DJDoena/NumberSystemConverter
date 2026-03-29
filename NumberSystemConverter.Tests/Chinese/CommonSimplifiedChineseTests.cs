@@ -5,7 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Chinese;
 [TestClass]
 public sealed class CommonSimplifiedChineseTests
 {
-    private readonly CommonSimplifiedNumeralConverter _converter = new();
+    private readonly ChineseCommonSimplifiedNumeralConverter _converter = new();
 
     [TestMethod]
     public void D0()
@@ -403,7 +403,7 @@ public sealed class CommonSimplifiedChineseTests
     [TestMethod]
     public void CommonToFinancial1234()
     {
-        var stringResult = _converter.Convert("一千二百三十四", new FinancialSimplifiedNumeralConverter());
+        var stringResult = _converter.Convert("一千二百三十四", new ChineseFinancialSimplifiedNumeralConverter());
 
         Assert.AreEqual("壹仟贰佰叁拾肆", stringResult);
     }
@@ -411,7 +411,7 @@ public sealed class CommonSimplifiedChineseTests
     [TestMethod]
     public void CommonToFinancial2024()
     {
-        var stringResult = _converter.Convert("二千零二十四", new FinancialSimplifiedNumeralConverter());
+        var stringResult = _converter.Convert("二千零二十四", new ChineseFinancialSimplifiedNumeralConverter());
 
         Assert.AreEqual("贰仟零贰拾肆", stringResult);
     }

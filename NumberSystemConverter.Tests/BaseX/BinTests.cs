@@ -36,7 +36,7 @@ public sealed class BinTests
     [TestMethod]
     public void BinToRoman()
     {
-        var stringResult = _converter.Convert("11111111", new NumberSystemConverter.Roman.NumeralConverter());
+        var stringResult = _converter.Convert("11111111", new NumberSystemConverter.Roman.RomanNumeralConverter());
 
         Assert.AreEqual("CCLV", stringResult);
     }

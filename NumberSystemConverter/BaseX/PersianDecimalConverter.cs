@@ -1,9 +1,26 @@
 ﻿namespace DoenaSoft.NumberSystemConverter.BaseX;
 
+/// <summary>
+/// Converter for Persian (Farsi) decimal number system.
+/// Uses numerals ۰-۹ common in Iran and Afghanistan.
+/// </summary>
 public sealed class PersianDecimalConverter : BaseXConverterBase
 {
     private static char[]? _validCharacters;
 
+    /// <inheritdoc/>
     protected override char[] ValidCharacters
-        => _validCharacters ??= ['\u06F0', '\u06F1', '\u06F2', '\u06F3', '\u06F4', '\u06F5', '\u06F6', '\u06F7', '\u06F8', '\u06F9'];
+        => _validCharacters ??=
+        [
+            PersianNumeralCharacters.Zero,
+            PersianNumeralCharacters.One,
+            PersianNumeralCharacters.Two,
+            PersianNumeralCharacters.Three,
+            PersianNumeralCharacters.Four,
+            PersianNumeralCharacters.Five,
+            PersianNumeralCharacters.Six,
+            PersianNumeralCharacters.Seven,
+            PersianNumeralCharacters.Eight,
+            PersianNumeralCharacters.Nine
+        ];
 }

@@ -122,7 +122,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseSimplifiedCommon()
     {
-        var converter = new CommonSimplifiedNumeralConverter();
+        var converter = new ChineseCommonSimplifiedNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Chinese Simplified Common FromULong", result);
         Assert.AreEqual("二千零二十六", result);
@@ -131,7 +131,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseSimplifiedCommonRoundTrip()
     {
-        var converter = new CommonSimplifiedNumeralConverter();
+        var converter = new ChineseCommonSimplifiedNumeralConverter();
         var numberResult = converter.ToULong("二千零二十六");
         LogResult("Chinese Simplified Common ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -140,7 +140,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseSimplifiedFinancial()
     {
-        var converter = new FinancialSimplifiedNumeralConverter();
+        var converter = new ChineseFinancialSimplifiedNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Chinese Simplified Financial FromULong", result);
         Assert.AreEqual("贰仟零贰拾陆", result);
@@ -149,7 +149,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseSimplifiedFinancialRoundTrip()
     {
-        var converter = new FinancialSimplifiedNumeralConverter();
+        var converter = new ChineseFinancialSimplifiedNumeralConverter();
         var numberResult = converter.ToULong("贰仟零贰拾陆");
         LogResult("Chinese Simplified Financial ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -158,7 +158,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseTraditionalCommon()
     {
-        var converter = new CommonTraditionalNumeralConverter();
+        var converter = new ChineseCommonTraditionalNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Chinese Traditional Common FromULong", result);
         Assert.AreEqual("二千零二十六", result);
@@ -167,7 +167,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseTraditionalCommonRoundTrip()
     {
-        var converter = new CommonTraditionalNumeralConverter();
+        var converter = new ChineseCommonTraditionalNumeralConverter();
         var numberResult = converter.ToULong("二千零二十六");
         LogResult("Chinese Traditional Common ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -176,7 +176,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseTraditionalFinancial()
     {
-        var converter = new FinancialTraditionalNumeralConverter();
+        var converter = new ChineseFinancialTraditionalNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Chinese Traditional Financial FromULong", result);
         Assert.AreEqual("貳仟零貳拾陸", result);
@@ -185,7 +185,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void ChineseTraditionalFinancialRoundTrip()
     {
-        var converter = new FinancialTraditionalNumeralConverter();
+        var converter = new ChineseFinancialTraditionalNumeralConverter();
         var numberResult = converter.ToULong("貳仟零貳拾陸");
         LogResult("Chinese Traditional Financial ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -194,7 +194,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void JapaneseCommon()
     {
-        var converter = new CommonNumeralConverter();
+        var converter = new JapaneseCommonNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Japanese Common FromULong", result);
         Assert.AreEqual("二千二十六", result);
@@ -203,7 +203,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void JapaneseCommonRoundTrip()
     {
-        var converter = new CommonNumeralConverter();
+        var converter = new JapaneseCommonNumeralConverter();
         var numberResult = converter.ToULong("二千二十六");
         LogResult("Japanese Common ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -212,7 +212,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void JapaneseFinancial()
     {
-        var converter = new FinancialNumeralConverter();
+        var converter = new JapaneseFinancialNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Japanese Financial FromULong", result);
         Assert.AreEqual("弐千弐拾六", result);
@@ -221,7 +221,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void JapaneseFinancialRoundTrip()
     {
-        var converter = new FinancialNumeralConverter();
+        var converter = new JapaneseFinancialNumeralConverter();
         var numberResult = converter.ToULong("弐千弐拾六");
         LogResult("Japanese Financial ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -230,7 +230,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void KoreanHangul()
     {
-        var converter = new HangulNumeralConverter();
+        var converter = new KoreanHangulNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Korean Hangul FromULong", result);
         Assert.AreEqual("이천이십육", result);
@@ -239,7 +239,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void KoreanHangulRoundTrip()
     {
-        var converter = new HangulNumeralConverter();
+        var converter = new KoreanHangulNumeralConverter();
         var numberResult = converter.ToULong("이천이십육");
         LogResult("Korean Hangul ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -248,7 +248,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void KoreanHanja()
     {
-        var converter = new HanjaKoreanNumeralConverter();
+        var converter = new KoreanHanjaNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Korean Hanja FromULong", result);
         Assert.AreEqual("二千二十六", result);
@@ -257,7 +257,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void KoreanHanjaRoundTrip()
     {
-        var converter = new HanjaKoreanNumeralConverter();
+        var converter = new KoreanHanjaNumeralConverter();
         var numberResult = converter.ToULong("二千二十六");
         LogResult("Korean Hanja ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -266,7 +266,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void KoreanFinancial()
     {
-        var converter = new FinancialKoreanNumeralConverter();
+        var converter = new KoreanFinancialNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Korean Financial FromULong", result);
         Assert.AreEqual("貳仟貳拾陸", result);
@@ -275,7 +275,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void KoreanFinancialRoundTrip()
     {
-        var converter = new FinancialKoreanNumeralConverter();
+        var converter = new KoreanFinancialNumeralConverter();
         var numberResult = converter.ToULong("貳仟貳拾陸");
         LogResult("Korean Financial ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);
@@ -338,7 +338,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void Roman()
     {
-        var converter = new NumeralConverter();
+        var converter = new RomanNumeralConverter();
         var result = converter.FromULong(Year);
         LogResult("Roman FromULong", result);
         Assert.AreEqual("MMXXVI", result);
@@ -347,7 +347,7 @@ public sealed class Year2026Tests
     [TestMethod]
     public void RomanRoundTrip()
     {
-        var converter = new NumeralConverter();
+        var converter = new RomanNumeralConverter();
         var numberResult = converter.ToULong("MMXXVI");
         LogResult("Roman ToULong", numberResult.ToString());
         Assert.AreEqual(Year, numberResult);

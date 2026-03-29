@@ -5,7 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Japanese;
 [TestClass]
 public sealed class CommonJapaneseTests
 {
-    private readonly CommonNumeralConverter _converter = new();
+    private readonly JapaneseCommonNumeralConverter _converter = new();
 
     [TestMethod]
     public void D0()

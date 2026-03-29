@@ -5,7 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Korean;
 [TestClass]
 public sealed class HanjaKoreanTests
 {
-    private readonly HanjaKoreanNumeralConverter _converter = new();
+    private readonly KoreanHanjaNumeralConverter _converter = new();
 
     [TestMethod]
     public void D0()

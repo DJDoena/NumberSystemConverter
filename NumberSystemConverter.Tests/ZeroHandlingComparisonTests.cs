@@ -20,27 +20,27 @@ public sealed class ZeroHandlingComparisonTests
     public void D1010_ZeroInHundreds()
     {
         // Chinese includes zero
-        var chineseConverter = new CommonSimplifiedNumeralConverter();
+        var chineseConverter = new ChineseCommonSimplifiedNumeralConverter();
         var chineseResult = chineseConverter.FromULong(1010);
         Assert.AreEqual("一千零一十", chineseResult); // includes 零
 
         // Japanese omits zero
-        var japaneseConverter = new CommonNumeralConverter();
+        var japaneseConverter = new JapaneseCommonNumeralConverter();
         var japaneseResult = japaneseConverter.FromULong(1010);
         Assert.AreEqual("千十", japaneseResult); // no zero
 
         // Korean Hangul follows Japanese pattern
-        var koreanHangulConverter = new HangulNumeralConverter();
+        var koreanHangulConverter = new KoreanHangulNumeralConverter();
         var koreanHangulResult = koreanHangulConverter.FromULong(1010);
         Assert.AreEqual("천십", koreanHangulResult); // no zero
 
         // Korean Hanja follows Japanese pattern
-        var koreanHanjaConverter = new HanjaKoreanNumeralConverter();
+        var koreanHanjaConverter = new KoreanHanjaNumeralConverter();
         var koreanHanjaResult = koreanHanjaConverter.FromULong(1010);
         Assert.AreEqual("千十", koreanHanjaResult); // no zero
 
         // Korean Financial follows Japanese pattern
-        var koreanFinancialConverter = new FinancialKoreanNumeralConverter();
+        var koreanFinancialConverter = new KoreanFinancialNumeralConverter();
         var koreanFinancialResult = koreanFinancialConverter.FromULong(1010);
         Assert.AreEqual("仟拾", koreanFinancialResult); // no zero
     }
@@ -55,27 +55,27 @@ public sealed class ZeroHandlingComparisonTests
     public void D2026_ZeroInHundreds()
     {
         // Chinese includes zero
-        var chineseConverter = new CommonSimplifiedNumeralConverter();
+        var chineseConverter = new ChineseCommonSimplifiedNumeralConverter();
         var chineseResult = chineseConverter.FromULong(2026);
         Assert.AreEqual("二千零二十六", chineseResult); // includes 零
 
         // Japanese omits zero
-        var japaneseConverter = new CommonNumeralConverter();
+        var japaneseConverter = new JapaneseCommonNumeralConverter();
         var japaneseResult = japaneseConverter.FromULong(2026);
         Assert.AreEqual("二千二十六", japaneseResult); // no zero
 
         // Korean Hangul follows Japanese pattern
-        var koreanHangulConverter = new HangulNumeralConverter();
+        var koreanHangulConverter = new KoreanHangulNumeralConverter();
         var koreanHangulResult = koreanHangulConverter.FromULong(2026);
         Assert.AreEqual("이천이십육", koreanHangulResult); // no zero
 
         // Korean Hanja follows Japanese pattern
-        var koreanHanjaConverter = new HanjaKoreanNumeralConverter();
+        var koreanHanjaConverter = new KoreanHanjaNumeralConverter();
         var koreanHanjaResult = koreanHanjaConverter.FromULong(2026);
         Assert.AreEqual("二千二十六", koreanHanjaResult); // no zero
 
         // Korean Financial follows Japanese pattern
-        var koreanFinancialConverter = new FinancialKoreanNumeralConverter();
+        var koreanFinancialConverter = new KoreanFinancialNumeralConverter();
         var koreanFinancialResult = koreanFinancialConverter.FromULong(2026);
         Assert.AreEqual("貳仟貳拾陸", koreanFinancialResult); // no zero
     }
@@ -90,27 +90,27 @@ public sealed class ZeroHandlingComparisonTests
     public void D40005_MultipleZeros()
     {
         // Chinese includes zero for missing places
-        var chineseConverter = new CommonSimplifiedNumeralConverter();
+        var chineseConverter = new ChineseCommonSimplifiedNumeralConverter();
         var chineseResult = chineseConverter.FromULong(40005);
         Assert.AreEqual("四万零五", chineseResult); // includes 零
 
         // Japanese omits zeros
-        var japaneseConverter = new CommonNumeralConverter();
+        var japaneseConverter = new JapaneseCommonNumeralConverter();
         var japaneseResult = japaneseConverter.FromULong(40005);
         Assert.AreEqual("四万五", japaneseResult); // no zero
 
         // Korean Hangul follows Japanese pattern
-        var koreanHangulConverter = new HangulNumeralConverter();
+        var koreanHangulConverter = new KoreanHangulNumeralConverter();
         var koreanHangulResult = koreanHangulConverter.FromULong(40005);
         Assert.AreEqual("사만오", koreanHangulResult); // no zero
 
         // Korean Hanja follows Japanese pattern
-        var koreanHanjaConverter = new HanjaKoreanNumeralConverter();
+        var koreanHanjaConverter = new KoreanHanjaNumeralConverter();
         var koreanHanjaResult = koreanHanjaConverter.FromULong(40005);
         Assert.AreEqual("四만五", koreanHanjaResult); // no zero
 
         // Korean Financial follows Japanese pattern
-        var koreanFinancialConverter = new FinancialKoreanNumeralConverter();
+        var koreanFinancialConverter = new KoreanFinancialNumeralConverter();
         var koreanFinancialResult = koreanFinancialConverter.FromULong(40005);
         Assert.AreEqual("肆만伍", koreanFinancialResult); // no zero
     }
@@ -122,27 +122,27 @@ public sealed class ZeroHandlingComparisonTests
     public void D1001_ZeroInTensAndHundreds()
     {
         // Chinese includes zero
-        var chineseConverter = new CommonSimplifiedNumeralConverter();
+        var chineseConverter = new ChineseCommonSimplifiedNumeralConverter();
         var chineseResult = chineseConverter.FromULong(1001);
         Assert.AreEqual("一千零一", chineseResult); // includes 零
 
         // Japanese omits zero
-        var japaneseConverter = new CommonNumeralConverter();
+        var japaneseConverter = new JapaneseCommonNumeralConverter();
         var japaneseResult = japaneseConverter.FromULong(1001);
         Assert.AreEqual("千一", japaneseResult); // no zero
 
         // Korean Hangul follows Japanese pattern
-        var koreanHangulConverter = new HangulNumeralConverter();
+        var koreanHangulConverter = new KoreanHangulNumeralConverter();
         var koreanHangulResult = koreanHangulConverter.FromULong(1001);
         Assert.AreEqual("천일", koreanHangulResult); // no zero
 
         // Korean Hanja follows Japanese pattern
-        var koreanHanjaConverter = new HanjaKoreanNumeralConverter();
+        var koreanHanjaConverter = new KoreanHanjaNumeralConverter();
         var koreanHanjaResult = koreanHanjaConverter.FromULong(1001);
         Assert.AreEqual("千一", koreanHanjaResult); // no zero
 
         // Korean Financial follows Japanese pattern
-        var koreanFinancialConverter = new FinancialKoreanNumeralConverter();
+        var koreanFinancialConverter = new KoreanFinancialNumeralConverter();
         var koreanFinancialResult = koreanFinancialConverter.FromULong(1001);
         Assert.AreEqual("仟壹", koreanFinancialResult); // no zero
     }
@@ -155,17 +155,17 @@ public sealed class ZeroHandlingComparisonTests
     public void D20026_TwoManTwentySix()
     {
         // Korean Hangul
-        var koreanHangulConverter = new HangulNumeralConverter();
+        var koreanHangulConverter = new KoreanHangulNumeralConverter();
         var koreanHangulResult = koreanHangulConverter.FromULong(20026);
         Assert.AreEqual("이만이십육", koreanHangulResult);
 
         // Korean Hanja
-        var koreanHanjaConverter = new HanjaKoreanNumeralConverter();
+        var koreanHanjaConverter = new KoreanHanjaNumeralConverter();
         var koreanHanjaResult = koreanHanjaConverter.FromULong(20026);
         Assert.AreEqual("二만二十六", koreanHanjaResult);
 
         // Korean Financial
-        var koreanFinancialConverter = new FinancialKoreanNumeralConverter();
+        var koreanFinancialConverter = new KoreanFinancialNumeralConverter();
         var koreanFinancialResult = koreanFinancialConverter.FromULong(20026);
         Assert.AreEqual("貳만貳拾陸", koreanFinancialResult);
 
@@ -188,17 +188,17 @@ public sealed class ZeroHandlingComparisonTests
     public void D200026_TwentyManTwentySix()
     {
         // Korean Hangul
-        var koreanHangulConverter = new HangulNumeralConverter();
+        var koreanHangulConverter = new KoreanHangulNumeralConverter();
         var koreanHangulResult = koreanHangulConverter.FromULong(200026);
         Assert.AreEqual("이십만이십육", koreanHangulResult);
 
         // Korean Hanja
-        var koreanHanjaConverter = new HanjaKoreanNumeralConverter();
+        var koreanHanjaConverter = new KoreanHanjaNumeralConverter();
         var koreanHanjaResult = koreanHanjaConverter.FromULong(200026);
         Assert.AreEqual("二十만二十六", koreanHanjaResult);
 
         // Korean Financial
-        var koreanFinancialConverter = new FinancialKoreanNumeralConverter();
+        var koreanFinancialConverter = new KoreanFinancialNumeralConverter();
         var koreanFinancialResult = koreanFinancialConverter.FromULong(200026);
         Assert.AreEqual("貳拾만貳拾陸", koreanFinancialResult);
 
@@ -221,17 +221,17 @@ public sealed class ZeroHandlingComparisonTests
     public void D2000026_TwoHundredManTwentySix()
     {
         // Korean Hangul
-        var koreanHangulConverter = new HangulNumeralConverter();
+        var koreanHangulConverter = new KoreanHangulNumeralConverter();
         var koreanHangulResult = koreanHangulConverter.FromULong(2000026);
         Assert.AreEqual("이백만이십육", koreanHangulResult);
 
         // Korean Hanja
-        var koreanHanjaConverter = new HanjaKoreanNumeralConverter();
+        var koreanHanjaConverter = new KoreanHanjaNumeralConverter();
         var koreanHanjaResult = koreanHanjaConverter.FromULong(2000026);
         Assert.AreEqual("二百만二十六", koreanHanjaResult);
 
         // Korean Financial
-        var koreanFinancialConverter = new FinancialKoreanNumeralConverter();
+        var koreanFinancialConverter = new KoreanFinancialNumeralConverter();
         var koreanFinancialResult = koreanFinancialConverter.FromULong(2000026);
         Assert.AreEqual("貳佰만貳拾陸", koreanFinancialResult);
 

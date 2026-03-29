@@ -5,7 +5,7 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Roman;
 [TestClass]
 public sealed class RomanTests
 {
-    private readonly NumeralConverter _converter;
+    private readonly RomanNumeralConverter _converter;
 
     public RomanTests()
     {

@@ -40,7 +40,7 @@ public sealed class KoreanConverterTests
 
     [TestMethod]
     public void NumeralCharactersNull()
-        => Assert.ThrowsException<ArgumentNullException>(() => (new TestKoreanConverter((I10p4NumeralCharacters)null!)).ToULong(""));
+        => Assert.ThrowsException<ArgumentNullException>(() => (new TestKoreanConverter((IEastAsia10p4NumeralCharacters)null!)).ToULong(""));
 
     private static void ToUInt(string input, char[] validCharacters)
         => (new TestKoreanConverter(validCharacters)).ToULong(input);
@@ -48,9 +48,9 @@ public sealed class KoreanConverterTests
     private static void FromUInt(ulong input, char[] validCharacters)
         => (new TestKoreanConverter(validCharacters)).FromULong(input);
 
-    private sealed class TestKoreanConverter : NumeralConverterBase
+    private sealed class TestKoreanConverter : KoreanNumeralConverterBase
     {
-        internal TestKoreanConverter(I10p4NumeralCharacters numeralCharacters)
+        internal TestKoreanConverter(IEastAsia10p4NumeralCharacters numeralCharacters)
             : base(numeralCharacters)
         {
         }
@@ -61,7 +61,7 @@ public sealed class KoreanConverterTests
         }
     }
 
-    private sealed class TestNumeralCharacters : I10p4NumeralCharacters
+    private sealed class TestNumeralCharacters : IEastAsia10p4NumeralCharacters
     {
         public char[] SingleDigits { get; }
 

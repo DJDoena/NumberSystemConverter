@@ -1,12 +1,22 @@
 ﻿namespace DoenaSoft.NumberSystemConverter.BaseX;
 
+/// <summary>
+/// Base class for positional number system converters (binary, octal, decimal, hexadecimal, etc.).
+/// </summary>
 public abstract class BaseXConverterBase : INumberSystemConverter
 {
+    /// <summary>
+    /// Gets the valid characters for this number system in order (e.g., '0'-'9' for decimal).
+    /// </summary>
     protected abstract char[] ValidCharacters { get; }
 
+    /// <summary>
+    /// Gets the base (radix) of this number system.
+    /// </summary>
     public ulong Base
         => (ulong)this.ValidCharacters.Length;
 
+    /// <inheritdoc/>
     public virtual ulong ToULong(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
@@ -37,6 +47,7 @@ public abstract class BaseXConverterBase : INumberSystemConverter
         return result;
     }
 
+    /// <inheritdoc/>
     public string FromULong(ulong input)
     {
         if (this.ValidCharacters == null || this.ValidCharacters.Length == 0)

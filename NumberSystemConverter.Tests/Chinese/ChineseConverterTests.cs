@@ -49,7 +49,7 @@ public sealed class ChineseConverterTests
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void NumeralCharactersNull()
-        => (new TestChineseConverter((I10p4NumeralCharacters)null!)).ToULong("");
+        => (new TestChineseConverter((IEastAsia10p4NumeralCharacters)null!)).ToULong("");
 
     private static void ToUInt(string input
         , char[] validCharacters)
@@ -59,9 +59,9 @@ public sealed class ChineseConverterTests
         , char[] validCharacters)
         => (new TestChineseConverter(validCharacters)).FromULong(input);
 
-    private sealed class TestChineseConverter : NumeralConverterBase
+    private sealed class TestChineseConverter : ChineseNumeralConverterBase
     {
-        internal TestChineseConverter(I10p4NumeralCharacters numeralCharacters)
+        internal TestChineseConverter(IEastAsia10p4NumeralCharacters numeralCharacters)
             : base(numeralCharacters)
         {
         }
@@ -72,7 +72,7 @@ public sealed class ChineseConverterTests
         }
     }
 
-    private sealed class TestNumeralCharacters : I10p4NumeralCharacters
+    private sealed class TestNumeralCharacters : IEastAsia10p4NumeralCharacters
     {
         public char[] SingleDigits { get; }
 
