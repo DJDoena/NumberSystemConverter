@@ -13,9 +13,8 @@ public sealed class RomanInputValidatorTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void ToUIntEmpty()
-        => _ = _validator.Validate("");
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _ = _validator.Validate(""));
 
     [TestMethod]
     public void D1()
@@ -190,78 +189,64 @@ public sealed class RomanInputValidatorTests
         => Verify(_validator.Validate("MMXXIV"), 1000, 1000, 10, 10, 4);
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IC()
-        => _ = _validator.Validate("IC");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("IC"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IM()
-        => _ = _validator.Validate("IM");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("IM"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IXIX()
-        => _ = _validator.Validate("IXIX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("IXIX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IXX()
-        => _ = _validator.Validate("IXX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("IXX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void XXXX()
-        => _ = _validator.Validate("XXXX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("XXXX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void VX()
-        => _ = _validator.Validate("VX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("VX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void XLX()
-        => _ = _validator.Validate("XLX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("XLX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IVI()
-        => _ = _validator.Validate("IVI");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("IVI"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void DM()
-        => _ = _validator.Validate("DM");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("DM"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void DD()
-        => _ = _validator.Validate("DD");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _validator.Validate("DD"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void XIXV()
-        => _validator.Validate("XIXV");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _validator.Validate("XIXV"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IVIV()
-        => _validator.Validate("IVIV");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _validator.Validate("IVIV"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IVIX()
-        => _validator.Validate("IVIX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _validator.Validate("IVIX"));
 
     [TestMethod]
     public void XXXIX()
         => Verify(_validator.Validate("XXXIX"), 10, 10, 10, 9);
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void K()
-        => _validator.Validate("K");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _validator.Validate("K"));
 
     private static void Verify(List<ushort> actual, params ushort[] expected)
     {

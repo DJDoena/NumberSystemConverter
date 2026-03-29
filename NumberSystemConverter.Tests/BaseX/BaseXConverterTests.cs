@@ -6,44 +6,36 @@ namespace DoenaSoft.NumberSystemConverter.Tests.BaseX;
 public sealed class BaseXConverterTests
 {
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputNull()
-        => ToUInt(null!, ['0']);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(null!, ['0']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputEmpty()
-        => ToUInt(string.Empty, ['0']);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(string.Empty, ['0']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputWhitespace()
-        => ToUInt(" ", ['0']);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(" ", ['0']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntCharactersNull()
-        => ToUInt("0", null!);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt("0", null!));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntCharactersEmpty()
-          => ToUInt("0", []);
+          => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt("0", []));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void GetUIntInvalidCharacter()
-        => ToUInt("A", ['B']);
+        => Assert.ThrowsExactly<InvalidInputException>(() => ToUInt("A", ['B']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetStringCharactersNull()
-      => FromUInt(0, null!);
+      => Assert.ThrowsExactly<ArgumentNullException>(() => FromUInt(0, null!));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetStringCharactersEmpty()
-        => FromUInt(0, []);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => FromUInt(0, []));
 
     private static void ToUInt(string input
         , char[] validCharacters)

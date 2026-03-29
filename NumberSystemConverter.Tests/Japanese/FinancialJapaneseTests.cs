@@ -168,7 +168,6 @@ public sealed class FinancialJapaneseTests
          => _converter.TestFromTo(1844_6744_0737_0955_1615, "千八百四拾四京六千七百四拾四兆七百参拾七億九百五拾五万千六百拾五");
 
     [TestMethod]
-    [ExpectedException(typeof(OverflowException))]
     public void D1844_6744_0737_0955_1616()
-         => _ = _converter.ToULong("千八百四拾四京六千七百四拾四兆七百参拾七億九百五拾五万千六百拾六");
+         => Assert.ThrowsExactly<OverflowException>(() => _ = _converter.ToULong("千八百四拾四京六千七百四拾四兆七百参拾七億九百五拾五万千六百拾六"));
 }

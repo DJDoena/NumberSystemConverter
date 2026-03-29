@@ -13,14 +13,12 @@ public sealed class RomanTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void FromUIntZero()
-        => _ = _converter.FromULong(0);
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.FromULong(0));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void ToUIntEmpty()
-        => _ = _converter.ToULong("");
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _ = _converter.ToULong(""));
 
     [TestMethod]
     public void D1()
@@ -195,64 +193,52 @@ public sealed class RomanTests
         => _converter.TestFromTo(2024, "MMXXIV");
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IC()
-        => _ = _converter.ToULong("IC");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("IC"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IM()
-        => _ = _converter.ToULong("IM");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("IM"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IXIX()
-        => _ = _converter.ToULong("IXIX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("IXIX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IXX()
-        => _ = _converter.ToULong("IXX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("IXX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void XXXX()
-        => _ = _converter.ToULong("XXXX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("XXXX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void VX()
-        => _ = _converter.ToULong("VX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("VX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void XLX()
-        => _ = _converter.ToULong("XLX");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("XLX"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void IVI()
-        => _ = _converter.ToULong("IVI");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("IVI"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void DM()
-        => _ = _converter.ToULong("DM");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("DM"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void DD()
-        => _ = _converter.ToULong("DD");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("DD"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void XIXV()
-        => _ = _converter.ToULong("XIXV");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("XIXV"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void K()
-        => _ = _converter.ToULong("K");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("K"));
 
     [TestMethod]
     public void RomanToBin()

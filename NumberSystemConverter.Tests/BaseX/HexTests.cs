@@ -34,19 +34,16 @@ public sealed class HexTests
         => _converter.TestFromTo(255, "FF");
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void InputNull()
-        => _converter.ToULong(null!);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _converter.ToULong(null!));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void InputEmpty()
-        => _converter.ToULong(string.Empty);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _converter.ToULong(string.Empty));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void InputWhitespace()
-        => _converter.ToULong(" ");
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _converter.ToULong(" "));
 
     [TestMethod]
     public void HexToBin()

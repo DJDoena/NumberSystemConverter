@@ -7,49 +7,40 @@ namespace DoenaSoft.NumberSystemConverter.Tests.Japanese;
 public sealed class JapaneseConverterTests
 {
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputNull()
-        => ToUInt(null!, ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(null!, ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputEmpty()
-        => ToUInt(string.Empty, ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(string.Empty, ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntInputWhitespace()
-        => ToUInt(" ", ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(" ", ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetUIntCharactersNull()
-        => ToUInt("0", null!);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt("0", null!));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
     public void GetUIntCharactersEmpty()
-          => ToUInt("0", []);
+          => Assert.ThrowsExactly<ArgumentException>(() => ToUInt("0", []));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void GetUIntInvalidCharacter()
-        => ToUInt("A", ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']);
+        => Assert.ThrowsExactly<InvalidInputException>(() => ToUInt("A", ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void GetStringCharactersNull()
-      => FromUInt(0, null!);
+      => Assert.ThrowsExactly<ArgumentNullException>(() => FromUInt(0, null!));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
     public void GetStringCharactersEmpty()
-        => FromUInt(0, []);
+        => Assert.ThrowsExactly<ArgumentException>(() => FromUInt(0, []));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void NumeralCharactersNull()
-        => (new TestChineseConverter((IEastAsia10p4NumeralCharacters)null!)).ToULong("");
+        => Assert.ThrowsExactly<ArgumentNullException>(() => (new TestChineseConverter((IEastAsia10p4NumeralCharacters)null!)).ToULong(""));
 
     private static void ToUInt(string input
         , char[] validCharacters)

@@ -8,39 +8,39 @@ public sealed class KoreanConverterTests
 {
     [TestMethod]
     public void GetUIntInputNull()
-        => Assert.ThrowsException<ArgumentNullException>(() => ToUInt(null!, ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(null!, ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
 
     [TestMethod]
     public void GetUIntInputEmpty()
-        => Assert.ThrowsException<ArgumentNullException>(() => ToUInt(string.Empty, ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(string.Empty, ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
 
     [TestMethod]
     public void GetUIntInputWhitespace()
-        => Assert.ThrowsException<ArgumentNullException>(() => ToUInt(" ", ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt(" ", ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
 
     [TestMethod]
     public void GetUIntCharactersNull()
-        => Assert.ThrowsException<ArgumentNullException>(() => ToUInt("0", null!));
+        => Assert.ThrowsExactly<ArgumentNullException>(() => ToUInt("0", null!));
 
     [TestMethod]
     public void GetUIntCharactersEmpty()
-          => Assert.ThrowsException<ArgumentException>(() => ToUInt("0", []));
+          => Assert.ThrowsExactly<ArgumentException>(() => ToUInt("0", []));
 
     [TestMethod]
     public void GetUIntInvalidCharacter()
-        => Assert.ThrowsException<InvalidInputException>(() => ToUInt("A", ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
+        => Assert.ThrowsExactly<InvalidInputException>(() => ToUInt("A", ['영', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구']));
 
     [TestMethod]
     public void GetStringCharactersNull()
-      => Assert.ThrowsException<ArgumentNullException>(() => FromUInt(0, null!));
+      => Assert.ThrowsExactly<ArgumentNullException>(() => FromUInt(0, null!));
 
     [TestMethod]
     public void GetStringCharactersEmpty()
-        => Assert.ThrowsException<ArgumentException>(() => FromUInt(0, []));
+        => Assert.ThrowsExactly<ArgumentException>(() => FromUInt(0, []));
 
     [TestMethod]
     public void NumeralCharactersNull()
-        => Assert.ThrowsException<ArgumentNullException>(() => (new TestKoreanConverter((IEastAsia10p4NumeralCharacters)null!)).ToULong(""));
+        => Assert.ThrowsExactly<ArgumentNullException>(() => (new TestKoreanConverter((IEastAsia10p4NumeralCharacters)null!)).ToULong(""));
 
     private static void ToUInt(string input, char[] validCharacters)
         => (new TestKoreanConverter(validCharacters)).ToULong(input);

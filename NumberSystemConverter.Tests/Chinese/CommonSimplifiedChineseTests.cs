@@ -200,9 +200,8 @@ public sealed class CommonSimplifiedChineseTests
         => _converter.TestTo("两亿零八十万", 2_0080_0000);
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D1_0000_0000_1_0000_0000()
-         => _ = _converter.ToULong("一亿一亿");
+         => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一亿一亿"));
 
     [TestMethod]
     public void D1_0000_0000_0000()
@@ -237,14 +236,12 @@ public sealed class CommonSimplifiedChineseTests
          => _converter.TestFromTo(1844_6744_0737_0955_1615, "一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十五");
 
     [TestMethod]
-    [ExpectedException(typeof(OverflowException))]
     public void D1844_6744_0737_0955_1616()
-         => _ = _converter.ToULong("一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十六");
+         => Assert.ThrowsExactly<OverflowException>(() => _ = _converter.ToULong("一千八百四十四京六千七百四十四兆零七百三十七亿零九百五十五万一千六百一十六"));
 
     [TestMethod]
-    [ExpectedException(typeof(OverflowException))]
     public void D1_0000_0000_0000_0000_0000()
-        => _ = _converter.ToULong("一垓");
+        => Assert.ThrowsExactly<OverflowException>(() => _ = _converter.ToULong("一垓"));
 
     [TestMethod]
     public void D40_0000_0000()
@@ -275,92 +272,76 @@ public sealed class CommonSimplifiedChineseTests
         => _converter.TestTo("兩千兩百二十二", 2222);
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D10_invalid()
-        => _ = _converter.ToULong("呀");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("呀"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D110_invalid()
-        => _ = _converter.ToULong("一百呀");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一百呀"));
 
     [TestMethod]
     public void D111_alternate()
         => _converter.TestTo("一百呀一", 111);
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D40_invalid()
-        => _ = _converter.ToULong("卌");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("卌"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D140_invalid()
-        => _ = _converter.ToULong("一百卌");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一百卌"));
 
     [TestMethod]
     public void D141()
         => _converter.TestTo("一百卌一", 141);
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid()
-        => _ = _converter.ToULong("念廿");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("念廿"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid2()
-        => _ = _converter.ToULong("念二十");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("念二十"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid3()
-        => _ = _converter.ToULong("二十二十");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("二十二十"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D20_20_invalid4()
-        => _ = _converter.ToULong("念念");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("念念"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D100_100_invalid()
-        => _ = _converter.ToULong("一百一百");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一百一百"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D10_20_invalid()
-        => _ = _converter.ToULong("呀廿");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("呀廿"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D1000_10000_invalid()
-        => _ = _converter.ToULong("一千一千");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一千一千"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D10_000_10_0000_invalid()
-        => _ = _converter.ToULong("一万一万");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一万一万"));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void InputNull()
-        => _ = _converter.ToULong(null!);
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _ = _converter.ToULong(null!));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void InputEmpty()
-        => _ = _converter.ToULong("");
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _ = _converter.ToULong(""));
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void InputWhitespace()
-        => _ = _converter.ToULong(" ");
+        => Assert.ThrowsExactly<ArgumentNullException>(() => _ = _converter.ToULong(" "));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void InputInvalid()
-        => _ = _converter.ToULong("A");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("A"));
 
     [TestMethod]
     public void D200_special()
@@ -371,34 +352,28 @@ public sealed class CommonSimplifiedChineseTests
          => _converter.TestTo("皕念两", 222);
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid()
-        => _ = _converter.ToULong("零零");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("零零"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid2()
-        => _ = _converter.ToULong("零空");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("零空"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid3()
-        => _ = _converter.ToULong("一百零零一");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一百零零一"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D0_0_invalid4()
-        => _ = _converter.ToULong("一百零空一");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一百零空一"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D1_1_invalid4()
-        => _ = _converter.ToULong("一一");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一一"));
 
     [TestMethod]
-    [ExpectedException(typeof(InvalidInputException))]
     public void D1_200_invalid()
-        => _ = _converter.ToULong("一皕");
+        => Assert.ThrowsExactly<InvalidInputException>(() => _ = _converter.ToULong("一皕"));
 
     [TestMethod]
     public void CommonToFinancial1234()
