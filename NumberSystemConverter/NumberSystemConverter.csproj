@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<AssemblyName>DoenaSoft.NumberSystemConverter</AssemblyName>
 		<RootNamespace>DoenaSoft.NumberSystemConverter</RootNamespace>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFrameworks>netstandard2.0;net472;net10.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<DebugType>portable</DebugType>
@@ -16,15 +16,15 @@
 		<PackageProjectUrl>https://github.com/DJDoena/NumberSystemConverter</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/DJDoena/NumberSystemConverter</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>hexadecimal, duodecimal, octal, numerals, roman, latin, chinese, simplified, traditional, financial, persian, arabic, braille, japanese</PackageTags>
+		<PackageTags>hexadecimal, duodecimal, octal, numerals, roman, latin, chinese, simplified, traditional, financial, persian, arabic, braille, japanese, korean, hangul, hanja, east-asian</PackageTags>
 		<PackageIcon>djdsoft.png</PackageIcon>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Description>Library to convert multiple common number systems from and to integer/string</Description>
+		<Description>Library to convert multiple common number systems from and to integer/string, including hexadecimal, octal, Roman numerals, Chinese (simplified/traditional), Japanese, Korean (Hangul/Hanja/Financial), Arabic, Persian, and Braille</Description>
 		<Company>Doena Soft.</Company>
 		<Authors>DJ Doena</Authors>
-		<Copyright>Copyright © Doena Soft. 2024 - 2025</Copyright>
-		<Version>1.0.7</Version>
-		<FileVersion>1.0.7</FileVersion>
+		<Copyright>Copyright © Doena Soft. 2024 - 2026</Copyright>
+		<Version>1.1.0</Version>
+		<FileVersion>1.1.0</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

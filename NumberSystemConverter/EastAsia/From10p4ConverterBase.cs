@@ -5,7 +5,27 @@ namespace DoenaSoft.NumberSystemConverter.EastAsia;
 
 internal abstract class From10p4ConverterBase(I10p4NumeralCharacters numeralCharacters)
 {
-    protected readonly I10p4NumeralCharacters _numeralCharacters = numeralCharacters;
+    protected readonly I10p4NumeralCharacters _numeralCharacters = ValidateNumeralCharacters(numeralCharacters);
+
+    private static I10p4NumeralCharacters ValidateNumeralCharacters(I10p4NumeralCharacters numeralCharacters)
+    {
+        if (numeralCharacters == null)
+        {
+            throw new ArgumentNullException(nameof(numeralCharacters));
+        }
+
+        if (numeralCharacters.SingleDigits == null)
+        {
+            throw new ArgumentNullException(nameof(numeralCharacters), "SingleDigits cannot be null");
+        }
+
+        if (numeralCharacters.SingleDigits.Length == 0)
+        {
+            throw new ArgumentException("SingleDigits cannot be empty", nameof(numeralCharacters));
+        }
+
+        return numeralCharacters;
+    }
 
     public string Convert(ulong input)
     {

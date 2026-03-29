@@ -6,7 +6,27 @@ internal abstract class To10p4ConverterBase(I10p4NumeralCharacters numeralCharac
 {
     protected delegate ulong Get10pXPartCallback(string input, char character, ulong factor);
 
-    protected readonly I10p4NumeralCharacters _numeralCharacters = numeralCharacters;
+    protected readonly I10p4NumeralCharacters _numeralCharacters = ValidateNumeralCharacters(numeralCharacters);
+
+    private static I10p4NumeralCharacters ValidateNumeralCharacters(I10p4NumeralCharacters numeralCharacters)
+    {
+        if (numeralCharacters == null)
+        {
+            throw new ArgumentNullException(nameof(numeralCharacters));
+        }
+
+        if (numeralCharacters.SingleDigits == null)
+        {
+            throw new ArgumentNullException(nameof(numeralCharacters), "SingleDigits cannot be null");
+        }
+
+        if (numeralCharacters.SingleDigits.Length == 0)
+        {
+            throw new ArgumentException("SingleDigits cannot be empty", nameof(numeralCharacters));
+        }
+
+        return numeralCharacters;
+    }
 
     public ulong Convert(string input)
     {
