@@ -65,6 +65,39 @@ internal abstract class EastAsiaFrom10p4ConverterBase(IEastAsia10p4NumeralCharac
 
     protected abstract string ToCharacters(ulong input);
 
+    protected static (ulong thousands, ulong hundreds, ulong tens, ulong ones) ParseDigits(ulong input)
+    {
+        var number = input;
+
+        var thousands = number / NC.D1000;
+        number -= thousands * NC.D1000;
+
+        var hundreds = number / NC.D100;
+        number -= hundreds * NC.D100;
+
+        var tens = number / NC.D10;
+        number -= tens * NC.D10;
+
+        var ones = number;
+
+        return (thousands, hundreds, tens, ones);
+    }
+
+    protected void AppendWithOptionalDigit(StringBuilder builder
+        , ulong value
+        , char unit)
+    {
+        if (value > 1)
+        {
+            builder.Append(_numeralCharacters.SingleDigits[value]);
+            builder.Append(unit);
+        }
+        else if (value == 1)
+        {
+            builder.Append(unit);
+        }
+    }
+
     private string GetResult(List<string> characterSections)
     {
         var zero = this.GetZero();
@@ -143,6 +176,6 @@ internal abstract class EastAsiaFrom10p4ConverterBase(IEastAsia10p4NumeralCharac
         }
     }
 
-    private string GetZero()
+    protected string GetZero()
         => _numeralCharacters.SingleDigits[0].ToString();
 }

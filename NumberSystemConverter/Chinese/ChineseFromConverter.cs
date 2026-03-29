@@ -1,207 +1,143 @@
-﻿using System.Text;
-using DoenaSoft.NumberSystemConverter.EastAsia;
-using NC = DoenaSoft.NumberSystemConverter.EastAsia.EastAsiaNumeralConstants;
+﻿using DoenaSoft.NumberSystemConverter.EastAsia;
+using System.Text;
 
 namespace DoenaSoft.NumberSystemConverter.Chinese;
 
 internal sealed class ChineseFromConverter(IEastAsia10p4NumeralCharacters numeralCharacters)
+    : EastAsiaFrom10p4ConverterBase(numeralCharacters)
 {
-    private readonly IEastAsia10p4NumeralCharacters _numeralCharacters = numeralCharacters;
-
-    public string Convert(ulong input)
+    /// <summary>
+    /// Converts a number (0-9999) to Chinese characters.
+    /// Chinese numbering requires zero placeholders when skipping place values.
+    /// Example: 1001 = "一千零一" (one-thousand-zero-one).
+    /// </summary>
+    protected override string ToCharacters(ulong input)
     {
-        if (input == 0)
-        {
-            return _numeralCharacters.SingleDigits[0].ToString();
-        }
+        var (thousands, hundreds, tens, ones) = ParseDigits(input);
 
-        var numberSections = GetNumberSections(input);
-
-        var characterSections = numberSections
-            .Select(this.ToCharacters)
-            .ToList();
-
-        var result = this.GetResult(characterSections);
-
-        return result;
-    }
-
-    private static List<ulong> GetNumberSections(ulong input)
-    {
-        var number = input;
-
-        var numberSections = new List<ulong>();
-
-        while (number > 0)
-        {
-            var remainder = number % NC.D1_0000;
-
-            numberSections.Add(remainder);
-
-            number /= NC.D1_0000;
-        }
-
-        return numberSections;
-    }
-
-    private string ToCharacters(ulong input)
-    {
-        var number = input;
-
-        var thousands = number / NC.D1000;
-
-        number -= thousands * NC.D1000;
-
-        var hundreds = number / NC.D100;
-
-        number -= hundreds * NC.D100;
-
-        var tens = number / NC.D10;
-
-        number -= tens * NC.D10;
-
-        var ones = number;
+        var state = new ConversionState(thousands, hundreds, tens, ones, new StringBuilder());
 
         var zeroInserted = false;
 
-        var resultBuilder = new StringBuilder();
+        this.AppendThousands(state, ref zeroInserted);
 
-        if (thousands > 0)
+        this.AppendHundreds(state, ref zeroInserted);
+
+        this.AppendTens(state, ref zeroInserted);
+
+        this.AppendOnes(state);
+
+        return state.ResultBuilder.ToString();
+    }
+
+    /// <summary>
+    /// Appends the thousands place to the result.
+    /// If no thousands but has lower places, starts with zero for proper inter-section handling.
+    /// </summary>
+    private void AppendThousands(ConversionState state
+        , ref bool zeroInserted)
+    {
+        if (state.Thousands > 0)
         {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[thousands]}{_numeralCharacters.C1000}");
+            state.ResultBuilder.Append(_numeralCharacters.SingleDigits[state.Thousands]);
+            state.ResultBuilder.Append(_numeralCharacters.C1000);
         }
-        else if (hundreds > 0 || tens > 0 || ones > 0)
+        else if (state.Hundreds > 0 || state.Tens > 0 || state.Ones > 0)
         {
-            resultBuilder.Append(this.GetZero());
+            state.ResultBuilder.Append(this.GetZero());
 
             zeroInserted = true;
         }
+    }
 
-        if (hundreds > 0)
+    /// <summary>
+    /// Appends the hundreds place to the result.
+    /// </summary>
+    private void AppendHundreds(ConversionState state
+        , ref bool zeroInserted)
+    {
+        if (state.Hundreds > 0)
         {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[hundreds]}{_numeralCharacters.C100}");
+            state.ResultBuilder.Append(_numeralCharacters.SingleDigits[state.Hundreds]);
+            state.ResultBuilder.Append(_numeralCharacters.C100);
 
             zeroInserted = false;
         }
-        else if (!zeroInserted && (tens > 0 || ones > 0))
+        else if (!zeroInserted && (state.Tens > 0 || state.Ones > 0))
         {
-            resultBuilder.Append(this.GetZero());
-
+            state.ResultBuilder.Append(this.GetZero());
             zeroInserted = true;
         }
-
-        if (tens > 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[tens]}{_numeralCharacters.C10}");
-        }
-        else if (tens == 1)
-        {
-            if (thousands > 0 || hundreds > 0)
-            {
-                resultBuilder.Append($"{_numeralCharacters.SingleDigits[tens]}{_numeralCharacters.C10}");
-            }
-            else
-            {
-                resultBuilder.Append($"{_numeralCharacters.C10}");
-            }
-        }
-        else if (!zeroInserted && ones > 0)
-        {
-            resultBuilder.Append(this.GetZero());
-        }
-
-        if (ones > 0)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
-        }
-        else if (thousands == 0 && hundreds == 0 && tens == 0)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
-        }
-
-        var result = resultBuilder.ToString();
-
-        return result;
     }
 
-    private string GetResult(List<string> characterSections)
+    /// <summary>
+    /// Appends the tens place to the result.
+    /// Special rule: "10" alone = "十" but with higher places = "一十".
+    /// </summary>
+    private void AppendTens(ConversionState state
+        , ref bool zeroInserted)
     {
-        var zero = this.GetZero();
-
-        var resultBuilder = new StringBuilder();
-
-        for (var sectionIndex = characterSections.Count - 1; sectionIndex > 0; sectionIndex--)
+        if (state.Tens > 1)
         {
-            var currentSection = characterSections[sectionIndex];
+            state.ResultBuilder.Append(_numeralCharacters.SingleDigits[state.Tens]);
+            state.ResultBuilder.Append(_numeralCharacters.C10);
+        }
+        else if (state.Tens == 1)
+        {
+            var hasHigherPlaces = state.Thousands > 0 || state.Hundreds > 0;
 
-            if (currentSection != zero)
+            if (hasHigherPlaces)
             {
-                this.AppendSection(resultBuilder, currentSection, sectionIndex);
+                state.ResultBuilder.Append(_numeralCharacters.SingleDigits[state.Tens]);
             }
-            else
-            {
-                var nextSection = characterSections[sectionIndex - 1];
 
-                if (!nextSection.StartsWith(zero))
-                {
-                    resultBuilder.Append(zero);
-                }
-            }
+            state.ResultBuilder.Append(_numeralCharacters.C10);
         }
-
-        this.AppendSection(resultBuilder, characterSections[0], 0);
-
-        var result = resultBuilder.ToString();
-
-        if (result.Length > 1)
+        else if (!zeroInserted && state.Ones > 0)
         {
-            result = result.Trim(zero[0]);
+            state.ResultBuilder.Append(this.GetZero());
         }
-
-        return result;
     }
 
-    private void AppendSection(StringBuilder resultBuilder
-        , string section
-        , int sectionIndex)
+    /// <summary>
+    /// Appends the ones place to the result.
+    /// When input is 0 (all places are zero), outputs "零".
+    /// </summary>
+    private void AppendOnes(ConversionState state)
     {
-        if (section != this.GetZero())
+        if (state.Ones > 0)
         {
-            resultBuilder.Append($"{section}{this.GetUnit(sectionIndex)}");
+            state.ResultBuilder.Append(_numeralCharacters.SingleDigits[state.Ones]);
+        }
+        else if (state.Thousands == 0 && state.Hundreds == 0 && state.Tens == 0)
+        {
+            state.ResultBuilder.Append(_numeralCharacters.SingleDigits[state.Ones]);
         }
     }
 
-    private string GetUnit(int sectionIndex)
+    private readonly struct ConversionState
     {
-        switch (sectionIndex)
+        public ulong Thousands { get; }
+
+        public ulong Hundreds { get; }
+
+        public ulong Tens { get; }
+
+        public ulong Ones { get; }
+
+        public StringBuilder ResultBuilder { get; }
+
+        public ConversionState(ulong thousands
+            , ulong hundreds
+            , ulong tens
+            , ulong ones
+            , StringBuilder resultBuilder)
         {
-            case 0:
-                {
-                    return string.Empty;
-                }
-            case 1:
-                {
-                    return _numeralCharacters.C1_0000.ToString();
-                }
-            case 2:
-                {
-                    return _numeralCharacters.C1_0000_0000.ToString();
-                }
-            case 3:
-                {
-                    return _numeralCharacters.C1_0000_0000_0000.ToString();
-                }
-            case 4:
-                {
-                    return _numeralCharacters.C1_0000_0000_0000_0000.ToString();
-                }
-            default:
-                {
-                    throw new NotSupportedException();
-                }
+            this.Thousands = thousands;
+            this.Hundreds = hundreds;
+            this.Tens = tens;
+            this.Ones = ones;
+            this.ResultBuilder = resultBuilder;
         }
     }
-
-    private string GetZero()
-        => _numeralCharacters.SingleDigits[0].ToString();
 }

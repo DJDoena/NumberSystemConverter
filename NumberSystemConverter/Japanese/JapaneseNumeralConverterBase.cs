@@ -6,7 +6,7 @@ namespace DoenaSoft.NumberSystemConverter.Japanese;
 /// Base class for Japanese number system converters.
 /// </summary>
 /// <param name="numeralCharacters">The character set to use for conversion.</param>
-public abstract class JapaneseNumeralConverterBase(IEastAsia10p4NumeralCharacters numeralCharacters) 
+public abstract class JapaneseNumeralConverterBase(IEastAsia10p4NumeralCharacters numeralCharacters)
     : INumberSystemConverter
 {
     private readonly IEastAsia10p4NumeralCharacters _numeralCharacters = numeralCharacters;

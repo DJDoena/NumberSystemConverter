@@ -1,6 +1,5 @@
-﻿using System.Text;
-using DoenaSoft.NumberSystemConverter.EastAsia;
-using NC = DoenaSoft.NumberSystemConverter.EastAsia.EastAsiaNumeralConstants;
+﻿using DoenaSoft.NumberSystemConverter.EastAsia;
+using System.Text;
 
 namespace DoenaSoft.NumberSystemConverter.Japanese;
 
@@ -9,54 +8,17 @@ internal sealed class JapaneseFromConverter(IEastAsia10p4NumeralCharacters numer
 {
     protected override string ToCharacters(ulong input)
     {
-        var number = input;
-
-        var thousands = number / NC.D1000;
-
-        number -= thousands * NC.D1000;
-
-        var hundreds = number / NC.D100;
-
-        number -= hundreds * NC.D100;
-
-        var tens = number / NC.D10;
-
-        number -= tens * NC.D10;
-
-        var ones = number;
+        var (thousands, hundreds, tens, ones) = ParseDigits(input);
 
         var resultBuilder = new StringBuilder();
 
-        if (thousands > 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[thousands]}{_numeralCharacters.C1000}");
-        }
-        else if (thousands == 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.C1000}");
-        }
-
-        if (hundreds > 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[hundreds]}{_numeralCharacters.C100}");
-        }
-        else if (hundreds == 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.C100}");
-        }
-
-        if (tens > 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[tens]}{_numeralCharacters.C10}");
-        }
-        else if (tens == 1)
-        {
-            resultBuilder.Append($"{_numeralCharacters.C10}");
-        }
+        this.AppendWithOptionalDigit(resultBuilder, thousands, _numeralCharacters.C1000);
+        this.AppendWithOptionalDigit(resultBuilder, hundreds, _numeralCharacters.C100);
+        this.AppendWithOptionalDigit(resultBuilder, tens, _numeralCharacters.C10);
 
         if (ones > 0)
         {
-            resultBuilder.Append($"{_numeralCharacters.SingleDigits[ones]}");
+            resultBuilder.Append(_numeralCharacters.SingleDigits[ones]);
         }
 
         var result = resultBuilder.ToString();

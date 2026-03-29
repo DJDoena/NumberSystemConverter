@@ -6,7 +6,7 @@ namespace DoenaSoft.NumberSystemConverter.Korean;
 /// Base class for Korean number system converters.
 /// </summary>
 /// <param name="numeralCharacters">The character set to use for conversion.</param>
-public abstract class KoreanNumeralConverterBase(IEastAsia10p4NumeralCharacters numeralCharacters) 
+public abstract class KoreanNumeralConverterBase(IEastAsia10p4NumeralCharacters numeralCharacters)
     : INumberSystemConverter
 {
     private readonly IEastAsia10p4NumeralCharacters _numeralCharacters = numeralCharacters ?? throw new ArgumentNullException(nameof(numeralCharacters));
